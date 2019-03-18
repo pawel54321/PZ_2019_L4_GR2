@@ -1,5 +1,6 @@
 package com.gr2lab4.projekt;
 
+import com.gr2lab4.projekt.cfgs.AppCfg;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +11,16 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    
+    public static MainApp instance = null;
+    
+    public AppCfg appCfg; //to klasa ktora bedzie zmienne przechowywala
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/GuestView.fxml")); // /fxml/Scene.fxml
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); // /fxml/Scene.fxml
+        
+        //instance = this;
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
