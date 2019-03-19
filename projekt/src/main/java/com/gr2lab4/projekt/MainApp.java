@@ -20,12 +20,12 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); // /fxml/Scene.fxml
         
-        //instance = this;
+        instance = this;
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Luigi e pomodoro");
         stage.setScene(scene);
         stage.show();
     }

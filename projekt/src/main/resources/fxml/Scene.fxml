@@ -9,8 +9,8 @@
 <AnchorPane id="AnchorPane" prefHeight="205.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.LoginController">
    <children>
       <Button fx:id="LoginButton" layoutX="75.0" layoutY="141.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="27.0" prefWidth="69.0" text="login" />
-      <PasswordField fx:id="PasswordField" layoutX="75.0" layoutY="89.0" prefHeight="27.0" prefWidth="167.0" promptText="password" />
-      <TextField fx:id="LoginField" layoutX="72.0" layoutY="43.0" promptText="login" />
-      <Button fx:id="RegisterButton" layoutX="173.0" layoutY="141.0" mnemonicParsing="false" text="Register" />
+      <PasswordField fx:id="PasswordField" layoutX="75.0" layoutY="89.0" prefHeight="27.0" prefWidth="155.0" promptText="password" />
+      <TextField fx:id="LoginField" layoutX="72.0" layoutY="43.0" prefHeight="25.0" prefWidth="155.0" promptText="login" />
+      <Button fx:id="RegisterButton" layoutX="173.0" layoutY="141.0" mnemonicParsing="false" onAction="#RegisterAction" text="Register" />
    </children>
 </AnchorPane>
