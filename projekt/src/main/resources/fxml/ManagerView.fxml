@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
-</AnchorPane>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="796.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <tabs>
+    <Tab text="Zadania">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="521.0" prefWidth="816.0">
+               <children>
+                  <ListView layoutX="14.0" layoutY="14.0" prefHeight="488.0" prefWidth="200.0" />
+                  <ChoiceBox layoutX="309.0" layoutY="57.0" prefHeight="25.0" prefWidth="235.0" />
+                  <Button layoutX="337.0" layoutY="126.0" mnemonicParsing="false" text="Przypisz zadanie pracownikowi" />
+                  <Text layoutX="381.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz pracownika" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Wykonane zadania">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ListView layoutX="76.0" layoutY="27.0" prefHeight="462.0" prefWidth="663.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="Raporty">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <DatePicker layoutX="292.0" layoutY="139.0" promptText="data od" />
+                  <DatePicker layoutX="293.0" layoutY="211.0" promptText="data do" />
+                  <Button layoutX="333.0" layoutY="320.0" mnemonicParsing="false" text="Generuj raport" />
+                  <TextField layoutX="306.0" layoutY="261.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
