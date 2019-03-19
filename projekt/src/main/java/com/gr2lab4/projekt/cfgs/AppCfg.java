@@ -16,12 +16,15 @@ import java.util.HashMap;
  */
 public class AppCfg {
     
-    private AccountType typKonta;
+    //stanowisko
+    private AccountType typKonta; // potrzebne do ustalenia jaki ktos ma typ konta i potem odpalenie odpowiedniego widoku i do zabezpieczenia w razie w
     
     private String imie;
     private String nazwisko;
     
-    private HashMap<String,Boolean> listaZadan; // nazwa , true/false (czy ukonczone czy nie)
+    
+    
+    private HashMap<String,Boolean> listaZadan; // to chyba zmienie potem nwm jeszcze
     
     public void setAccountType(AccountType type){
         typKonta = type;
@@ -31,6 +34,9 @@ public class AppCfg {
         return typKonta;
     }
     
+    public HashMap getListaZadan(){
+        return listaZadan;
+    }
     
     
     
