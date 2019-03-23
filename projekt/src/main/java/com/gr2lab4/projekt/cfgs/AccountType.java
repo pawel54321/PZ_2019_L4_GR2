@@ -10,5 +10,5 @@ package com.gr2lab4.projekt.cfgs;
  * @author marcinrosol
  */
 public enum AccountType {
-    ADMIN,MANAGER,PRACOWNIK,GUEST;
+    ADMIN,MANAGER,PRACOWNIK;
 }

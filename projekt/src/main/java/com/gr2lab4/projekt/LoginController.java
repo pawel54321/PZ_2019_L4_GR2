@@ -5,6 +5,8 @@
  */
 package com.gr2lab4.projekt;
 
+import com.gr2lab4.projekt.cfgs.AccountType;
+import com.gr2lab4.projekt.cfgs.DBLogger;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -42,14 +44,67 @@ public class LoginController{
     
     @FXML
     void LoginAction(ActionEvent e) throws IOException{
+        
+        
+        
         if((LoginField.getText().equals(aL)) && PasswordField.getText().equals(aP)){
+            
             System.out.println("ADMIN");
+            
+            
+            MainApp.instance.appCfg.imie = "admin";
+            System.out.println("imie set");
+            MainApp.instance.appCfg.nazwisko ="admin";
+            System.out.println("nazwisko set");
+            MainApp.instance.appCfg.setAccountType(AccountType.ADMIN);
+            System.out.println("type set");
+            
+            MainApp.instance.dbLogger.setData();
+            
+            
             Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/AdminView.fxml")); 
             Scene scene2 = new Scene(view2);
             Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
             window.setScene(scene2);  
             window.show();
-        } // to jest na sztywniutko logowanie do admina potem sie tam zmnieni
+
+            MainApp.instance.dbLogger.saveLog("logowanie do systemu");
+            
+        }else if((LoginField.getText().equals("manager")) && PasswordField.getText().equals("manager")){
+            
+            System.out.println("MANAGER");
+            
+            MainApp.instance.appCfg.imie = "manager";
+            MainApp.instance.appCfg.nazwisko ="manager";
+            MainApp.instance.appCfg.setAccountType(AccountType.MANAGER);
+            
+            Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/ManagerView.fxml")); 
+            Scene scene2 = new Scene(view2);
+            Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
+            window.setScene(scene2);  
+            window.show();
+            
+           
+    
+            
+        }else{ //obecnie to nie jest bezpieczne wiec tutaj potem trzeba bedzie dodac warunek ze ma prawa do pracownika a nie na pale logowac
+            
+            System.out.println("PRACOWNIK");
+            
+            MainApp.instance.appCfg.imie = "pracownik";
+            MainApp.instance.appCfg.nazwisko ="pracownik";
+            MainApp.instance.appCfg.setAccountType(AccountType.PRACOWNIK);
+            
+            Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/PracownikView.fxml")); 
+            Scene scene2 = new Scene(view2);
+            Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
+            window.setScene(scene2);  
+            window.show();
+            
+           
+            
+        }
+// to jest na sztywniutko logowanie do admina potem sie tam zmnieni
         //cały czas sztywniutko mordo
     //TODO
     

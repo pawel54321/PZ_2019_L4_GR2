@@ -19,8 +19,8 @@ public class AppCfg {
     //stanowisko
     private AccountType typKonta; // potrzebne do ustalenia jaki ktos ma typ konta i potem odpalenie odpowiedniego widoku i do zabezpieczenia w razie w
     
-    private String imie;
-    private String nazwisko;
+    public String imie;
+    public String nazwisko;
     
     
     

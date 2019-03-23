@@ -1,6 +1,7 @@
 package com.gr2lab4.projekt;
 
 import com.gr2lab4.projekt.cfgs.AppCfg;
+import com.gr2lab4.projekt.cfgs.DBLogger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +15,17 @@ public class MainApp extends Application {
     
     public static MainApp instance = null;
     
+    
     public AppCfg appCfg; //to klasa ktora bedzie zmienne przechowywala
+    public DBLogger dbLogger;
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); // /fxml/Scene.fxml
-        
         instance = this;
+        appCfg = new AppCfg();
+        dbLogger = new DBLogger();
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); // /fxml/Scene.fxml
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
