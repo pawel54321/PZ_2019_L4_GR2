@@ -6,6 +6,9 @@
 package com.gr2lab4.projekt.cfgs;
 
 import com.gr2lab4.projekt.MainApp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -27,7 +30,12 @@ public class DBLogger {
     }
     
     public void saveLog(String tresc){ //zapis logów do bazy danych
-        System.out.println(imie +" "+nazwisko+ " "+stanowisko+" | "+tresc);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        //malo wydajne bo robimy obiekt w funkcji caly czas ale nei znam innego sposobu na aktualny czas
+        String czas = dateFormat.format(cal.getTime()).toString();
+        
+        System.out.println(imie +" "+nazwisko+ " "+stanowisko+" | "+tresc+" | "+ czas);
     }
     
     public void registerAccToDb(){
