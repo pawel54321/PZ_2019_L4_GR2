@@ -129,3 +129,5 @@ public class LoginController{
         System.out.println("register");
     }
 }
+
+    //przerobic klase jak bedzie podpieta baza danych
