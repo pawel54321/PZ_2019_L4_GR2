@@ -6,6 +6,8 @@
 package com.gr2lab4.projekt.cfgs;
 
 import com.gr2lab4.projekt.MainApp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -26,9 +28,16 @@ public class DBLogger {
         this.nazwisko = MainApp.instance.appCfg.nazwisko;
     }
     
+    
     public void saveLog(String tresc){ //zapis logów do bazy danych
-        System.out.println(imie +" "+nazwisko+ " "+stanowisko+" | "+tresc);
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+	Date date = new Date();
+	
+        System.out.println(imie +" "+nazwisko+ " "+stanowisko+" "+dateFormat.format(date)+" | "+tresc);
+    
     }
+    
     
     public void registerAccToDb(){
         //albo to tutaj albo wywalic 
