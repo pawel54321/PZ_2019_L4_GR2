@@ -21,49 +21,53 @@ import javafx.scene.control.TextField;
 public class adminViewController {
     @FXML
     private Button generujRaportButton;
+    
+    @FXML
+    private TextField tytulZadaniaAktualizuj;
+ 
+    @FXML
+    private TextArea TrescZadaniaAktualizuj;
 
     @FXML
-    private DatePicker activateDate;
-
-    @FXML
-    private TextArea trescZadania;
-
-    @FXML
-    private DatePicker dataDo;
-
-    @FXML
-    private ListView<?> panelZadan;
-
+    private Button updateZadanie;
+    
     @FXML
     private Button usunButton;
 
     @FXML
-    private TextField tytulZadania;
-
-    @FXML
-    private TextField labelZadanie;
+    private DatePicker dataOdRaport;
 
     @FXML
     private Button dodajZadanie;
 
     @FXML
-    private TextArea TrescArea;
+    private ListView<?> panelZadan;
 
     @FXML
-    private DatePicker dataOd;
+    private DatePicker dataAktywacjiAktualizuj;
 
     @FXML
-    private Button updateZadanie;
+    private DatePicker activateDateDodaj;
 
+    @FXML
+    private TextField tytulZadaniaDodaj;
+
+    @FXML
+    private TextArea trescZadaniaDodaj;
+
+    @FXML
+    private DatePicker dataDoRaport;
+    
     @FXML
     private void deleteZadanie(ActionEvent event) {
-
+        
         MainApp.instance.dbLogger.saveLog("usuniecie zadania");
     }
 
     @FXML
     private void updateZadanie(ActionEvent event) {
-
+        
+        
         MainApp.instance.dbLogger.saveLog("aktalizacja zadania");
     }
 
