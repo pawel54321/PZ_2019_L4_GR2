@@ -2,6 +2,8 @@ package com.gr2lab4.projekt;
 
 import com.gr2lab4.projekt.cfgs.AppCfg;
 import com.gr2lab4.projekt.cfgs.DBLogger;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,23 @@ public class MainApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
+        
+        String jdbcUrl = "jdbc:mysql://localhost:3306/pomidory?useSSL=false&serverTimezone=UTC";
+        String user = "pomidory";
+        String pass = "pomidory";
+        try {
+            System.out.println("connecting to database " + jdbcUrl);
+            Connection myCon = DriverManager.getConnection(jdbcUrl, user, pass);
+            System.out.println("connection sucessfull");
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        
+        
+        
+        
+        //-------
         instance = this;
         appCfg = new AppCfg();
         dbLogger = new DBLogger();
@@ -30,9 +49,10 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("Luigi e pomodoro");
+        stage.setTitle("pomidoro branie");
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**

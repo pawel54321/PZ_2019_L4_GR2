@@ -59,6 +59,20 @@ public class adminViewController {
     private DatePicker dataDoRaport;
     
     @FXML
+    private Button wylogujAdmin;
+    
+    @FXML
+    void logoutAdmin(ActionEvent event) {
+        
+        //trzeba bedzie zapisac wszystko do bazy danych
+        
+        //przelaczyc go do panelu logowania
+        
+        //ustawic defaulotwe dane w configu aplikacji 
+        
+    }
+    
+    @FXML
     private void deleteZadanie(ActionEvent event) {
         
         MainApp.instance.dbLogger.saveLog("usuniecie zadania");

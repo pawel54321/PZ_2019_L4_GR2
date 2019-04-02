@@ -5,7 +5,8 @@
  */
 package com.gr2lab4.projekt.cfgs;
 
-import java.util.HashMap;
+import com.gr2lab4.projekt.Entities.Zadanie;
+import java.util.List;
 
 /**
  *
@@ -22,9 +23,8 @@ public class AppCfg {
     public String imie;
     public String nazwisko;
     
+    private List<Zadanie> listaZadan; // lista zadan przypisania do konta
     
-    
-    private HashMap<String,Boolean> listaZadan; // to chyba zmienie potem nwm jeszcze
     
     public void setAccountType(AccountType type){
         typKonta = type;
@@ -34,7 +34,7 @@ public class AppCfg {
         return typKonta;
     }
     
-    public HashMap getListaZadan(){
+    public List getListaZadan(){
         return listaZadan;
     }
     

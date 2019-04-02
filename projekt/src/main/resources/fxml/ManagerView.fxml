@@ -17,6 +17,7 @@
                   <ChoiceBox layoutX="309.0" layoutY="57.0" prefHeight="25.0" prefWidth="235.0" />
                   <Button layoutX="337.0" layoutY="126.0" mnemonicParsing="false" text="Przypisz zadanie pracownikowi" />
                   <Text layoutX="381.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz pracownika" />
+                  <Button fx:id="wylogujManager" layoutX="414.0" layoutY="453.0" mnemonicParsing="false" onAction="#logoutManager" text="wyloguj" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -32,10 +33,10 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <DatePicker layoutX="292.0" layoutY="139.0" promptText="data od" />
-                  <DatePicker layoutX="293.0" layoutY="211.0" promptText="data do" />
                   <Button layoutX="333.0" layoutY="320.0" mnemonicParsing="false" text="Generuj raport" />
-                  <TextField layoutX="306.0" layoutY="261.0" />
+                  <CheckBox layoutX="333.0" layoutY="118.0" mnemonicParsing="false" text="pracownik miesiaca" />
+                  <CheckBox layoutX="333.0" layoutY="157.0" mnemonicParsing="false" text="wykonane zadania" />
+                  <CheckBox layoutX="333.0" layoutY="192.0" mnemonicParsing="false" text="wszystkie zadania w danym miesiacu" />
                </children>
             </AnchorPane>
          </content>
