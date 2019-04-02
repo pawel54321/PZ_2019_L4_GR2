@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gr2lab4.projekt;
+package com.gr2lab4.projekt.viewContrrollers;
 
+import com.gr2lab4.projekt.MainApp;
 import com.gr2lab4.projekt.cfgs.AccountType;
 import com.gr2lab4.projekt.cfgs.DBLogger;
 import java.io.IOException;
