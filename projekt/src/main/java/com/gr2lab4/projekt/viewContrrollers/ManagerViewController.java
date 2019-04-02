@@ -5,10 +5,20 @@
  */
 package com.gr2lab4.projekt.viewContrrollers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 /**
  *
  * @author marcin
  */
 public class ManagerViewController {
-    
+        @FXML
+    private Button wylogujManager;
+
+    @FXML
+    void logoutManager(ActionEvent event) {
+        
+    }
 }
