@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gr2lab4.projekt.viewContrrollers;
+package com.gr2lab4.projekt;
 
 import com.gr2lab4.projekt.MainApp;
 import com.gr2lab4.projekt.cfgs.AccountType;
-import com.gr2lab4.projekt.cfgs.DBLogger;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -48,7 +44,8 @@ public class LoginController{
         
         
         
-        if((LoginField.getText().equals(aL)) && PasswordField.getText().equals(aP)){
+        if((LoginField.getText().equals(aL)) 
+                && PasswordField.getText().equals(aP)){
             
             System.out.println("ADMIN");
             
@@ -63,7 +60,8 @@ public class LoginController{
             MainApp.instance.dbLogger.setData();
             
             
-            Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/AdminView.fxml")); 
+            Parent view2 = FXMLLoader.load(getClass()
+                    .getResource("/fxml/AdminView.fxml")); 
             Scene scene2 = new Scene(view2);
             Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
             window.setScene(scene2);  
@@ -71,7 +69,8 @@ public class LoginController{
 
             MainApp.instance.dbLogger.saveLog("logowanie do systemu");
             
-        }else if((LoginField.getText().equals("manager")) && PasswordField.getText().equals("manager")){
+        }else if((LoginField.getText().equals("manager")) 
+                && PasswordField.getText().equals("manager")){
             
             System.out.println("MANAGER");
             
@@ -96,7 +95,8 @@ public class LoginController{
             MainApp.instance.appCfg.nazwisko ="pracownik";
             MainApp.instance.appCfg.setAccountType(AccountType.PRACOWNIK);
             
-            Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/PracownikView.fxml")); 
+            Parent view2 = FXMLLoader.load(getClass()
+                    .getResource("/fxml/PracownikView.fxml")); 
             Scene scene2 = new Scene(view2);
             Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
             window.setScene(scene2);  
@@ -121,7 +121,8 @@ public class LoginController{
     @FXML
     private void RegisterAction(ActionEvent e) throws IOException{
         
-        Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/register.fxml")); 
+        Parent view2 = FXMLLoader.load(getClass()
+                .getResource("/fxml/register.fxml")); 
         Scene scene2 = new Scene(view2);
         Stage window = (Stage)((Node)e.getSource()).getScene().getWindow(); 
         window.setScene(scene2);  

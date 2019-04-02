@@ -6,12 +6,19 @@
 package com.gr2lab4.projekt.Entities;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
  * @author marcinrosol
  */
+@Entity
+
 public class Zadanie {
+    
+    @Id
+    private int id;
     
     private String tytul;
     
@@ -21,14 +28,14 @@ public class Zadanie {
     
     private Date dataZakonczenia;
     
-    private boolean aktywne;
+    private int aktywne;
     
     
     public Zadanie(){
         
     }
 
-    public Zadanie(String tytul, String nazwa, Date dataRozpoczeia,Date dataZakonczenia, boolean aktywne) {
+    public Zadanie(String tytul, String nazwa, Date dataRozpoczeia,Date dataZakonczenia, int aktywne) {
         this.tytul = tytul;
         this.nazwa = nazwa;
         this.dataRozpoczeia = dataRozpoczeia;
@@ -52,7 +59,7 @@ public class Zadanie {
         return dataZakonczenia;
     }
 
-    public boolean isAktywne() {
+    public int isAktywne() {
         return aktywne;
     }
 
@@ -72,7 +79,7 @@ public class Zadanie {
         this.dataZakonczenia = dataZakonczenia;
     }
 
-    public void setAktywne(boolean aktywne) {
+    public void setAktywne(int aktywne) {
         this.aktywne = aktywne;
     }
     
