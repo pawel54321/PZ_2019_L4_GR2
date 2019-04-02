@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
  *
  * @author marcin
  */
-public class adminViewController {
+public class AdminViewController {
     @FXML
     private Button generujRaportButton;
     

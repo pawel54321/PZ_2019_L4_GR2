@@ -9,6 +9,6 @@ package com.gr2lab4.projekt.viewContrrollers;
  *
  * @author marcin
  */
-public class pracownikViewController {
+public class PracownikViewController {
     
 }
