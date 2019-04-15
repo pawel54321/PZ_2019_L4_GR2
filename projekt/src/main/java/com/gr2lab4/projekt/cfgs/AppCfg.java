@@ -5,40 +5,44 @@
  */
 package com.gr2lab4.projekt.cfgs;
 
+import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author marcinrosol
- * 
- * wszystkie zmienne jakie chcemy przetrzymywac globalnie to tutaj beda 
- * 
+ *
+ * wszystkie zmienne jakie chcemy przetrzymywac globalnie to tutaj beda
+ *
  */
 public class AppCfg {
-    
+
+    public List<Pracownik> pracownicy;
+
     //stanowisko
-    private AccountType typKonta; // potrzebne do ustalenia jaki ktos ma typ konta i potem odpalenie odpowiedniego widoku i do zabezpieczenia w razie w
-    
-    public String imie;
-    public String nazwisko;
-    
+  
+    public Pracownik user;
+
     private List<Zadanie> listaZadan; // lista zadan przypisania do konta
-    
-    
-    public void setAccountType(AccountType type){
-        typKonta = type;
+
+    public AppCfg() {
+        this.pracownicy = new ArrayList<>();
+        this.user = new Pracownik();
     }
-    
-    public AccountType getAccountType(){
-        return typKonta;
+
+    public void setUser(Pracownik user) {
+        this.user = user;
     }
-    
-    public List getListaZadan(){
+
+    public Pracownik getUser() {
+        return user;
+    }
+
+
+    public List getListaZadan() {
         return listaZadan;
     }
-    
-    
-    
-    
+
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="746.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.viewContrrollers.adminViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="746.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.viewContrrollers.AdminViewController">
   <tabs>
     <Tab text="Manager zadań">
       <content>
@@ -52,7 +52,14 @@
       </Tab>
       <Tab text="przypisz zadanie ">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="przypiszList" layoutX="31.0" layoutY="41.0" prefHeight="338.0" prefWidth="226.0" />
+                  <Button fx:id="przypiszButton" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" text="Przypisz zadanie" />
+                  <ChoiceBox fx:id="przypiszChoiceBox" layoutX="355.0" layoutY="61.0" prefWidth="150.0" />
+                  <Label layoutX="368.0" layoutY="24.0" text="Wybierz pracownika" />
+               </children>
+            </AnchorPane>
          </content>
       </Tab>
   </tabs>

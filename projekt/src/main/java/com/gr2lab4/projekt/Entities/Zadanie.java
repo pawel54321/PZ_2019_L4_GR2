@@ -6,57 +6,92 @@
 package com.gr2lab4.projekt.Entities;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author marcinrosol
  */
 @Entity
-
+@Table(name = "zadania")
 public class Zadanie {
-    
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    
+
+    @Column(name="tytul")
     private String tytul;
-    
-    private String nazwa;
-    
-    private Date dataRozpoczeia;
-    
-    private Date dataZakonczenia;
-    
+
+    @Column(name="tresc")
+    private String tresc;
+
+    @Column(name="data_rozp")
+    private Date data_rozp;
+
+    @Column(name="data_ukon")
+    private Date data_ukon;
+
+    @Column(name="aktywne")
     private int aktywne;
-    
-    
-    public Zadanie(){
-        
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+        CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "id_pracownika")
+    private Pracownik pracownicy;
+
+    public Zadanie() {
+
     }
 
-    public Zadanie(String tytul, String nazwa, Date dataRozpoczeia,Date dataZakonczenia, int aktywne) {
+    public Zadanie( String tytul, String tresc, Date data_rozp, Date data_ukon, int aktywne, Pracownik pracownicy) {
         this.tytul = tytul;
-        this.nazwa = nazwa;
-        this.dataRozpoczeia = dataRozpoczeia;
+        this.tresc = tresc;
+        this.data_rozp = data_rozp;
+        this.data_ukon = data_ukon;
         this.aktywne = aktywne;
-        this.dataZakonczenia = dataZakonczenia;
+        this.pracownicy = pracownicy;
     }
+
+
 
     public String getTytul() {
         return tytul;
     }
 
-    public String getNazwa() {
-        return nazwa;
+
+
+    public void setPracownicy(Pracownik pracownicy) {
+        this.pracownicy = pracownicy;
     }
 
-    public Date getDataRozpoczeia() {
-        return dataRozpoczeia;
+    public int getId() {
+        return id;
     }
 
-    public Date getDataZakonczenia() {
-        return dataZakonczenia;
+    public int getAktywne() {
+        return aktywne;
+    }
+
+    public Pracownik getPracownicy() {
+        return pracownicy;
+    }
+
+    public Date getData_rozp() {
+        return data_rozp;
+    }
+
+    public Date getData_ukon() {
+        return data_ukon;
     }
 
     public int isAktywne() {
@@ -67,24 +102,27 @@ public class Zadanie {
         this.tytul = tytul;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public String getTresc() {
+        return tresc;
     }
 
-    public void setDataRozpoczeia(Date dataRozpoczeia) {
-        this.dataRozpoczeia = dataRozpoczeia;
+
+    public void setTresc(String tresc) {
+        this.tresc = tresc;
     }
 
-    public void setDataZakonczenia(Date dataZakonczenia) {
-        this.dataZakonczenia = dataZakonczenia;
+    public void setData_rozp(Date data_rozp) {
+        this.data_rozp = data_rozp;
     }
+
+    public void setData_ukon(Date data_ukon) {
+        this.data_ukon = data_ukon;
+    }
+
+
 
     public void setAktywne(int aktywne) {
         this.aktywne = aktywne;
     }
-    
-    
-    
-    
-    
+
 }

@@ -1,58 +1,64 @@
 package com.gr2lab4.projekt;
 
+import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.cfgs.AppCfg;
-import com.gr2lab4.projekt.cfgs.DBLogger;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
 
-
+/*
+ pobieramy sobie cala list epracownikow z bazy danych (malo bezpieczne ale trudno),
+ nastepnie podczas logowania bedziemy przeszukiwali sobie liste pracowników czy
+ istnieja taki obiekt ktory tam login i haslo bedzie sie zgadzalo,
+ jak jest to loguje i sio. commitujemy zmiany w bazie na bierzaco
+ */
 public class MainApp extends Application {
 
-    
     public static MainApp instance = null;
-    
-    
+
     public AppCfg appCfg; //to klasa ktora bedzie zmienne przechowywala
-    public DBLogger dbLogger;
     
     @Override
     public void start(Stage stage) throws Exception {
-        
-        
-        String jdbcUrl = "jdbc:mysql://localhost:3306/pomidory?useSSL=false&serverTimezone=UTC";
-        String user = "pomidory";
-        String pass = "pomidory";
-        try {
-            System.out.println("connecting to database " + jdbcUrl);
-            Connection myCon = DriverManager.getConnection(jdbcUrl, user, pass);
-            System.out.println("connection sucessfull");
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-        
-        
-        
-        
-        //-------
         instance = this;
         appCfg = new AppCfg();
-        dbLogger = new DBLogger();
         
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml")); // /fxml/Scene.fxml
+        appCfg.pracownicy.add(new Pracownik("marcin", "nowal", "ADMIN", "marczin", "haslo"));
         
+        // -- POBIERANIE Z BAZY DANYCH UZYTKOWNIKOW I ZAPIS DO LISTY
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        
+        
+        
+        entityManager.close();
+        entityManagerFactory.close();
+        // --
+        
+        
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+
         stage.setTitle("pomidoro branie");
         stage.setScene(scene);
         stage.show();
-        
+
     }
 
     /**

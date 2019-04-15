@@ -5,10 +5,18 @@
  */
 package com.gr2lab4.projekt.viewContrrollers;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 /**
  *
  * @author marcin
  */
 public class PracownikViewController {
-    
+     @FXML
+    private Button botowebuttonPracownik;
+
+    @FXML
+    private Button pracownikWybierzbutton;
+
 }
