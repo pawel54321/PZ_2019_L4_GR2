@@ -55,11 +55,11 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testDodawanie() {
         System.out.println("dodawanie");
-        double a = 0.0;
-        double b = 0.0;
-        double expResult = 0.0;
+        double a = 2.5;
+        double b = 1.5;
+        double expResult = 4.0;
         double result = KalkulejtorMajn.dodawanie(a, b);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 4.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -70,11 +70,11 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testOdejmowanie() {
         System.out.println("odejmowanie");
-        double a = 0.0;
-        double b = 0.0;
-        double expResult = 0.0;
+        double a = 5.5;
+        double b = 1.5;
+        double expResult = 4.0;
         double result = KalkulejtorMajn.odejmowanie(a, b);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 4.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -85,11 +85,11 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testMnozenie() {
         System.out.println("mnozenie");
-        double a = 0.0;
-        double b = 0.0;
-        double expResult = 0.0;
+        double a = 2.0;
+        double b = 4.0;
+        double expResult = 8.0;
         double result = KalkulejtorMajn.mnozenie(a, b);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 8.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -100,11 +100,11 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testDzielenie() {
         System.out.println("dzielenie");
-        double a = 0.0;
-        double b = 0.0;
-        double expResult = 0.0;
+        double a = 4.0;
+        double b = 2.0;
+        double expResult = 2.0;
         double result = KalkulejtorMajn.dzielenie(a, b);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 2.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -115,10 +115,10 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testPotega() {
         System.out.println("potega");
-        double a = 0.0;
-        double expResult = 0.0;
+        double a = 2.0;
+        double expResult = 4.0;
         double result = KalkulejtorMajn.potega(a);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 4.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -129,10 +129,10 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testPierwiastek() {
         System.out.println("pierwiastek");
-        double a = 0.0;
-        double expResult = 0.0;
+        double a = 4.0;
+        double expResult = 2.0;
         double result = KalkulejtorMajn.pierwiastek(a);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 2.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -143,10 +143,10 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testOdwrotnosc() {
         System.out.println("odwrotnosc");
-        double a = 0.0;
-        double expResult = 0.0;
+        double a = 2.0;
+        double expResult = 0.5;
         double result = KalkulejtorMajn.odwrotnosc(a);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 0.5);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -157,10 +157,10 @@ public class KalkulejtorMajnTest {
     @org.junit.Test
     public void testZnak() {
         System.out.println("znak");
-        double a = 0.0;
-        double expResult = 0.0;
+        double a = 2.0;
+        double expResult = -2.0;
         double result = KalkulejtorMajn.znak(a);
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, -2.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
