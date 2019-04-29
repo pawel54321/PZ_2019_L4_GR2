@@ -17,9 +17,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -77,7 +79,7 @@ public class LoginController {
            
             
 			case "admin":
-				 System.out.println("ZALOGOWANO admin");
+				 //System.out.println("ZALOGOWANO admin");
 		          view2 = FXMLLoader.load(getClass()
 		                 .getResource("/fxml/AdminView.fxml")); 
 		                  scene2 = new Scene(view2);
@@ -87,7 +89,7 @@ public class LoginController {
 				break;
 			case "manager":
 				
-				 System.out.println("ZALOGOWANO manager");
+				 //System.out.println("ZALOGOWANO manager");
 				 
 		          view2 = FXMLLoader.load(getClass()
 			                 .getResource("/fxml/ManagerView.fxml")); 
@@ -97,7 +99,7 @@ public class LoginController {
 			                 window.show();
 				break;
 			case "pracownik":
-				 System.out.println("ZALOGOWANO pracownik");
+				 //System.out.println("ZALOGOWANO pracownik");
 				 
 		          view2 = FXMLLoader.load(getClass()
 			                 .getResource("/fxml/PracownikView.fxml")); 
@@ -128,6 +130,17 @@ public class LoginController {
         window.show();
 
         System.out.println("register");
+    }
+    
+    private void showAlertWithoutHeaderText(String text) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Alert");
+ 
+        // Header Text: null
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+ 
+        alert.showAndWait();
     }
 }
 
