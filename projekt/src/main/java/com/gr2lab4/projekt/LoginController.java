@@ -55,10 +55,11 @@ public class LoginController {
         if (MainApp.instance.appCfg.pracownicy.size() == 0) {
             System.out.println("brak listy");
         } else {
-            for (Pracownik tempPracownik : MainApp.instance.appCfg.pracownicy) { // to mozna napisac lepiej na razie ma zadzialac
-                if ((tempPracownik.getLogin().equals(login)) && (tempPracownik.getHaslo().equals(passwd))) {
+            for (Pracownik tempPracownik : MainApp.instance.appCfg.pracownicy) { // przeszukujemy liste w poszukiwaniu odpowiednich danych do logowania
+                if ((tempPracownik.getLogin().equals(login)) &&
+                		(tempPracownik.getHaslo().equals(passwd))) {
 
-                    MainApp.instance.appCfg.setUser(tempPracownik);
+                    MainApp.instance.appCfg.setUser(tempPracownik); // ustawiamy w cfg obiekt usera
                     
                     typ = tempPracownik.getStanowisko().toString().toLowerCase();
                     
@@ -72,7 +73,7 @@ public class LoginController {
             Scene scene2;
             Stage window;
             
-            switch (typ) {
+            switch (typ) {  // wybieramy odpowiednie okno dla danego pracownika
            
             
 			case "admin":
@@ -130,4 +131,3 @@ public class LoginController {
     }
 }
 
-    //przerobic klase jak bedzie podpieta baza danych

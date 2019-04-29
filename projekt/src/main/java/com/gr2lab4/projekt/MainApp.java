@@ -26,51 +26,59 @@ import org.hibernate.cfg.Configuration;
  */
 public class MainApp extends Application {
 
-    public static MainApp instance = null;
+	public static MainApp instance = null;
 
-    public AppCfg appCfg; //to klasa ktora bedzie zmienne przechowywala
-    
-    @Override
-    public void start(Stage stage) throws Exception {
-        instance = this;
-        appCfg = new AppCfg();
-        
-        appCfg.pracownicy.add(new Pracownik("marcin", "nowal", "ADMIN", "marczin", "haslo"));
-        
-        // -- POBIERANIE Z BAZY DANYCH UZYTKOWNIKOW I ZAPIS DO LISTY
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        
-        
-        
-        entityManager.close();
-        entityManagerFactory.close();
-        // --
-        
-        
-        
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+	public AppCfg appCfg; // to klasa ktora bedzie zmienne przechowywala
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+	@Override
+	public void start(Stage stage) throws Exception {
+		instance = this;
+		appCfg = new AppCfg();
 
-        stage.setTitle("pomidoro branie");
-        stage.setScene(scene);
-        stage.show();
+		// appCfg.pracownicy.add(new Pracownik("marcin", "nowal", "ADMIN", "marczin",
+		// "haslo"));
 
-    }
+		// -- POBIERANIE Z BAZY DANYCH UZYTKOWNIKOW I ZAPIS DO LISTY
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+		List<Pracownik> resultList = entityManager.createQuery("select p from Pracownik p", Pracownik.class)
+				.getResultList();
+		
+		//TODO: DODAC JAKIS EXCEPTION BO JAK brakuje osob w bazie to wywala apkiacje xD
+		
+		if (resultList.isEmpty() || resultList.size() == 0) {
+			System.out.println("lista pracowników jest pusta ");
+		} else {
+			appCfg.pracownicy = resultList;
+			//System.out.println(resultList.size());
+		}
+
+		entityManager.close();
+		entityManagerFactory.close();
+		// --
+
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/styles/Styles.css");
+
+		stage.setTitle("pomidoro branie");
+		stage.setScene(scene);
+		stage.show();
+
+	}
+
+	/**
+	 * The main() method is ignored in correctly deployed JavaFX application. main()
+	 * serves only as fallback in case the application can not be launched through
+	 * deployment artifacts, e.g., in IDEs with limited FX support. NetBeans ignores
+	 * main().
+	 *
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 }

@@ -22,7 +22,7 @@ import javax.persistence.Table;
  * @author marcinrosol
  */
 @Entity
-@Table(name="pracownicy")
+@Table(name="Pracownik")
 public class Pracownik{
     
     @Id
