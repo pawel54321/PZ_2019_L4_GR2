@@ -7,7 +7,6 @@ package com.gr2lab4.projekt;
 
 import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.MainApp;
-import com.gr2lab4.projekt.cfgs.AccountType;
 import com.mysql.cj.xdevapi.SessionFactory;
 import java.io.IOException;
 import java.util.List;
