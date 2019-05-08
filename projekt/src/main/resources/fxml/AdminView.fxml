@@ -13,7 +13,6 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="panelZadan" layoutX="14.0" layoutY="30.0" prefHeight="362.0" prefWidth="205.0" />
                   <Text layoutX="63.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
                   <Button fx:id="usunButton" layoutX="274.0" layoutY="171.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
                   <Button fx:id="updateZadanie" layoutX="532.0" layoutY="367.0" mnemonicParsing="false" onAction="#updateZadanie" text="Aktualizuj zadanie" />
@@ -24,6 +23,13 @@
                   <Text layoutX="552.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Treść zadania" />
                   <TextArea fx:id="TrescZadaniaAktualizuj" layoutX="489.0" layoutY="120.0" prefHeight="181.0" prefWidth="200.0" />
                   <Button fx:id="wylogujAdmin" layoutX="322.0" layoutY="354.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
+                  <TableView layoutX="18.0" layoutY="34.0" prefHeight="364.0" prefWidth="227.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="ID" />
+                      <TableColumn prefWidth="75.0" text="Tytul" />
+                        <TableColumn prefWidth="75.0" text="tresc" />
+                    </columns>
+                  </TableView>
                </children></AnchorPane>
       </content>
     </Tab>
@@ -54,10 +60,16 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="przypiszList" layoutX="31.0" layoutY="41.0" prefHeight="338.0" prefWidth="226.0" />
                   <Button fx:id="przypiszButton" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" text="Przypisz zadanie" />
                   <ChoiceBox fx:id="przypiszChoiceBox" layoutX="355.0" layoutY="61.0" prefWidth="150.0" />
                   <Label layoutX="368.0" layoutY="24.0" text="Wybierz pracownika" />
+                  <TableView layoutX="29.0" layoutY="24.0" prefHeight="342.0" prefWidth="227.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="ID" />
+                      <TableColumn prefWidth="75.0" text="Tytul" />
+                        <TableColumn prefWidth="75.0" text="Tresc" />
+                    </columns>
+                  </TableView>
                </children>
             </AnchorPane>
          </content>

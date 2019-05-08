@@ -36,120 +36,140 @@ import javafx.stage.Stage;
  */
 public class AdminViewController {
 
-    @FXML
-    private Button generujRaportButton;
+	@FXML
+	private Button generujRaportButton;
 
-    @FXML
-    private TextField tytulZadaniaAktualizuj;
+	@FXML
+	private TextField tytulZadaniaAktualizuj;
 
-    @FXML
-    private TextArea TrescZadaniaAktualizuj;
+	@FXML
+	private TextArea TrescZadaniaAktualizuj;
 
-    @FXML
-    private Button updateZadanie;
+	@FXML
+	private Button updateZadanie;
 
-    @FXML
-    private Button usunButton;
+	@FXML
+	private Button usunButton;
 
-    @FXML
-    private DatePicker dataOdRaport;
+	@FXML
+	private DatePicker dataOdRaport;
 
-    @FXML
-    private Button dodajZadanie;
+	@FXML
+	private Button dodajZadanie;
 
-    @FXML
-    private ListView<?> panelZadan;
+	@FXML
+	private ListView<?> panelZadan;
 
-    @FXML
-    private DatePicker dataAktywacjiAktualizuj;
+	@FXML
+	private DatePicker dataAktywacjiAktualizuj;
 
-    @FXML
-    private DatePicker activateDateDodaj;
+	@FXML
+	private DatePicker activateDateDodaj;
 
-    @FXML
-    private TextField tytulZadaniaDodaj;
+	@FXML
+	private TextField tytulZadaniaDodaj;
 
-    @FXML
-    private TextArea trescZadaniaDodaj;
+	@FXML
+	private TextArea trescZadaniaDodaj;
 
-    @FXML
-    private DatePicker dataDoRaport;
+	@FXML
+	private DatePicker dataDoRaport;
 
-    @FXML
-    private Button wylogujAdmin;
+	@FXML
+	private Button wylogujAdmin;
 
-    @FXML
-    void logoutAdmin(ActionEvent e) throws IOException {
-
-        //trzeba bedzie zapisac wszystko do bazy danych
-        //przelaczyc go do panelu logowania
-        
-
-        Parent view2 = FXMLLoader.load(getClass()
-                .getResource("/fxml/Scene.fxml"));
-        Scene scene2 = new Scene(view2);
-        Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        window.setScene(scene2);
-        window.show();
-        //ustawic defaulotwe dane w configu aplikacji 
-        
-        MainApp.instance.appCfg.setUser(null); // null 
-        
-    }
-
-    @FXML
-    private void deleteZadanie(ActionEvent event) {
-
-        
-    }
-
-    @FXML
-    private void updateZadanie(ActionEvent event) {
-
-        
-    }
-
-    @FXML
-    private void addZadanie(ActionEvent event) {
-    	String tytul = tytulZadaniaDodaj.getText().toString();
-    	String tresc = trescZadaniaDodaj.getText().toString();
-    	//Date data = activateDateDodaj;
-    	
-    	if(tytul.isEmpty()) showAlertWithoutHeaderText("Wpisz tytuł zadania");
-    	if(tresc.isEmpty()) showAlertWithoutHeaderText("Wpisz tresc zadania");
-    	
-    	/*
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-		Zadanie zadanie = new Zadanie();
-
+	public void initialize() {
+		//TODO: metoda inicjalizujaca
+		/**
+		 * zaladowac obiekty do tabelek
+		 *  itp
+		 */
 		
-		entityManager.getTransaction().begin();;
-		
-		entityManager.persist(zadanie);
-		
-		entityManager.getTransaction().commit();
-		
-		entityManager.close();
-		entityManagerFactory.close(); 
-		*/
-    }
+	}
+	
+	@FXML
+	void logoutAdmin(ActionEvent e) throws IOException {
 
-    @FXML
-    private void generateRaport(ActionEvent event) {
+		// trzeba bedzie zapisac wszystko do bazy danych
+		// przelaczyc go do panelu logowania
 
-       
-    }
-    
-    private void showAlertWithoutHeaderText(String text) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Alert");
- 
-        // Header Text: null
-        alert.setHeaderText(null);
-        alert.setContentText(text);
- 
-        alert.showAndWait();
-    }
+		Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+		Scene scene2 = new Scene(view2);
+		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		window.setScene(scene2);
+		window.show();
+		// ustawic defaulotwe dane w configu aplikacji
+
+		MainApp.instance.appCfg.setUser(null); // null
+
+	}
+
+	@FXML
+	private void deleteZadanie(ActionEvent event) {
+
+	}
+
+	@FXML
+	private void updateZadanie(ActionEvent event) {
+
+	}
+
+	@FXML
+	private void addZadanie(ActionEvent event) {
+		String tytul = tytulZadaniaDodaj.getText().toString();
+		String tresc = trescZadaniaDodaj.getText().toString();
+		// Date data = activateDateDodaj;
+
+		if (tytul.isEmpty()) {
+			showAlertWithoutHeaderText("Wpisz tytuł zadania");
+		} else {
+			if (tresc.isEmpty()) {
+				showAlertWithoutHeaderText("Wpisz tresc zadania");
+			} else {
+				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+				EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+				Zadanie zadanie = new Zadanie();
+
+				zadanie.setAktywne(1);
+				zadanie.setData_rozp(new Date());
+				zadanie.setData_ukon(new Date());
+				zadanie.setTresc(tresc);
+				zadanie.setTytul(tytul);
+				
+				entityManager.getTransaction().begin();
+
+				entityManager.persist(zadanie);
+
+				entityManager.getTransaction().commit();
+
+				entityManager.close();
+				entityManagerFactory.close();
+				
+				tytulZadaniaDodaj.setText(null);
+				trescZadaniaDodaj.setText(null);
+				activateDateDodaj.setDayCellFactory(null);
+				
+				showAlertWithoutHeaderText("Zadanie zostało dodane poprawnie!");
+			}
+		}
+
+	}
+
+	@FXML
+	private void generateRaport(ActionEvent event) {
+		// TODO: jakis raport bedzie generowal sie do pdfa
+
+	}
+
+	private void showAlertWithoutHeaderText(String text) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Alert");
+
+		// Header Text: null
+		alert.setHeaderText(null);
+		alert.setContentText(text);
+
+		alert.showAndWait();
+	}
 }
