@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -54,8 +55,8 @@ public class Zadanie {
     }
 
     public Zadanie( String tytul, String tresc, Date data_rozp, Date data_ukon, int aktywne, Pracownik pracownicy) {
-        this.tytul = tytul;
-        this.tresc = tresc;
+        this.tytul = tytul;//new SimpleStringProperty(tytul);
+        this.tresc = tresc;//new SimpleStringProperty(tresc);
         this.data_rozp = data_rozp;
         this.data_ukon = data_ukon;
         this.aktywne = aktywne;
@@ -65,7 +66,7 @@ public class Zadanie {
 
 
     public String getTytul() {
-        return tytul;
+        return tytul;//.get();
     }
 
 
@@ -99,16 +100,16 @@ public class Zadanie {
     }
 
     public void setTytul(String tytul) {
-        this.tytul = tytul;
+        this.tytul = tytul;//new SimpleStringProperty(tytul);
     }
 
     public String getTresc() {
-        return tresc;
+        return tresc;//.get();
     }
 
 
     public void setTresc(String tresc) {
-        this.tresc = tresc;
+        this.tresc = tresc;//new SimpleStringProperty(tresc);
     }
 
     public void setData_rozp(Date data_rozp) {

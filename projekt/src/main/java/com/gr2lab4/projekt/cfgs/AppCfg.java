@@ -10,6 +10,8 @@ import com.gr2lab4.projekt.Entities.Zadanie;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.ObservableList;
+import javafx.collections.*;
 /**
  *
  * @author marcinrosol
@@ -25,10 +27,13 @@ public class AppCfg {
   
     public Pracownik user;
 
-    private List<Zadanie> listaZadan; // lista zadan przypisania do konta
-
+    public ObservableList<Zadanie> listaZadan;
+    //private List<>
+    
     public AppCfg() {
         this.pracownicy = new ArrayList<>();
+        this.listaZadan = FXCollections.observableArrayList();
+        
         this.user = new Pracownik();
     }
 

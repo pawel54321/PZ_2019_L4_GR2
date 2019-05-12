@@ -10,11 +10,14 @@ import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -77,16 +81,60 @@ public class AdminViewController {
 
 	@FXML
 	private Button wylogujAdmin;
-
-	public void initialize() {
-		//TODO: metoda inicjalizujaca
-		/**
-		 * zaladowac obiekty do tabelek
-		 *  itp
-		 */
-		
-	}
 	
+   
+    
+    @FXML
+    private TableColumn<Zadanie, String> TableColumnTresc;
+    
+    @FXML
+    private TableColumn<Zadanie, String> tableColumnTytul;
+    
+    @FXML
+    private TableColumn<Zadanie, Integer> tableColumnID;
+    @FXML
+    private TableView<Zadanie> tableView;
+
+    /**
+     * 
+     *  zrobic liste dla aktywnych i nie przypisanych zadan
+     *  i dodac do tabeli aktywne nie przypisane
+     *  
+     */
+    
+	public void initialize() {
+		// TODO: metoda inicjalizujaca
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+		entityManager.getTransaction().begin();
+
+		List<Zadanie> resultList = entityManager.createQuery("select z from Zadanie z", Zadanie.class).getResultList();
+
+		if (resultList.isEmpty() || resultList.size() == 0) {
+			System.out.println("lista zadan jest pusta ");
+			MainApp.instance.appCfg.listaZadan = null;
+		} else {
+			
+			for(Zadanie zad : resultList) { // dodawanie do observableList
+				MainApp.instance.appCfg.listaZadan.add(zad);
+			}
+
+		}
+
+		entityManager.close();
+		entityManagerFactory.close();
+		
+		System.out.println("pobrano z bazy");
+		// wrzucic wartosci do tabeli w oknie
+		
+		
+		refreshTable();
+		
+		System.out.println("Dodanie zadan do tabelki"); 
+	}
+
 	@FXML
 	void logoutAdmin(ActionEvent e) throws IOException {
 
@@ -101,6 +149,7 @@ public class AdminViewController {
 		// ustawic defaulotwe dane w configu aplikacji
 
 		MainApp.instance.appCfg.setUser(null); // null
+		MainApp.instance.appCfg.listaZadan = null;
 
 	}
 
@@ -136,7 +185,7 @@ public class AdminViewController {
 				zadanie.setData_ukon(new Date());
 				zadanie.setTresc(tresc);
 				zadanie.setTytul(tytul);
-				
+
 				entityManager.getTransaction().begin();
 
 				entityManager.persist(zadanie);
@@ -146,11 +195,16 @@ public class AdminViewController {
 				entityManager.close();
 				entityManagerFactory.close();
 				
+				MainApp.instance.appCfg.listaZadan.add(zadanie);
+				
+				refreshTable();
+				
 				tytulZadaniaDodaj.setText(null);
 				trescZadaniaDodaj.setText(null);
 				activateDateDodaj.setDayCellFactory(null);
-				
+
 				showAlertWithoutHeaderText("Zadanie zostało dodane poprawnie!");
+				
 			}
 		}
 
@@ -171,5 +225,12 @@ public class AdminViewController {
 		alert.setContentText(text);
 
 		alert.showAndWait();
+	}
+	
+	private void refreshTable() {
+		tableColumnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+		TableColumnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
+		tableColumnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+		tableView.setItems(MainApp.instance.appCfg.listaZadan);
 	}
 }

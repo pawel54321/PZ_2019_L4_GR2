@@ -23,11 +23,11 @@
                   <Text layoutX="552.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Treść zadania" />
                   <TextArea fx:id="TrescZadaniaAktualizuj" layoutX="489.0" layoutY="120.0" prefHeight="181.0" prefWidth="200.0" />
                   <Button fx:id="wylogujAdmin" layoutX="322.0" layoutY="354.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
-                  <TableView layoutX="18.0" layoutY="34.0" prefHeight="364.0" prefWidth="227.0">
+                  <TableView fx:id="tableView" layoutX="18.0" layoutY="34.0" prefHeight="364.0" prefWidth="227.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="75.0" text="Tytul" />
-                        <TableColumn prefWidth="75.0" text="tresc" />
+                      <TableColumn fx:id="tableColumnID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tableColumnTytul" prefWidth="75.0" text="Tytul" />
+                        <TableColumn fx:id="TableColumnTresc" prefWidth="75.0" text="tresc" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
