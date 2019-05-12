@@ -31,7 +31,6 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <DatePicker fx:id="activateDateDodaj" layoutX="469.0" layoutY="70.0" promptText="Data aktywacji zadania" />
                   <TextField fx:id="tytulZadaniaDodaj" layoutX="56.0" layoutY="70.0" prefHeight="25.0" prefWidth="344.0" promptText="Tytuł zadania" />
                   <TextArea fx:id="trescZadaniaDodaj" layoutX="56.0" layoutY="108.0" prefHeight="232.0" prefWidth="346.0" promptText="Treść zadania" />
                   <Button fx:id="dodajZadanie" layoutX="535.0" layoutY="208.0" mnemonicParsing="false" onAction="#addZadanie" text="Dodaj zadnie" />
@@ -54,14 +53,14 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="przypiszButton" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" text="Przypisz zadanie" />
+                  <Button fx:id="przypiszButton" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" onAction="#przypiszAction" text="Przypisz zadanie" />
                   <ChoiceBox fx:id="przypiszChoiceBox" layoutX="355.0" layoutY="61.0" prefWidth="150.0" />
                   <Label layoutX="368.0" layoutY="24.0" text="Wybierz pracownika" />
-                  <TableView layoutX="29.0" layoutY="24.0" prefHeight="342.0" prefWidth="227.0">
+                  <TableView fx:id="przypiszTableView" layoutX="29.0" layoutY="24.0" prefHeight="342.0" prefWidth="227.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="75.0" text="Tytul" />
-                        <TableColumn prefWidth="75.0" text="Tresc" />
+                      <TableColumn fx:id="przypiszId" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="przypiszTableTytul" prefWidth="75.0" text="Tytul" />
+                        <TableColumn fx:id="PrzypiszTableTresc" prefWidth="75.0" text="Tresc" />
                     </columns>
                   </TableView>
                </children>

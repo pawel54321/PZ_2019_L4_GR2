@@ -75,6 +75,7 @@ public class Pracownik{
       return zadania;  
     }
     
+    
     public void setZadania(List<Zadanie> zadania){
         this.zadania = zadania;
     }
@@ -126,6 +127,11 @@ public class Pracownik{
     public void setHaslo(String haslo) {
         this.haslo = haslo;
     }
+
+	@Override
+	public String toString() {
+		return  id_pracownika+", "+imie+" "+nazwisko;
+	}
     
     
        

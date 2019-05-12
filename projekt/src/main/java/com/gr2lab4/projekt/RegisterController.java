@@ -91,6 +91,7 @@ public class RegisterController {
 				entityManager.getTransaction().begin();;
 				
 				entityManager.persist(pracownik);
+				MainApp.instance.appCfg.pracownicy.add(pracownik);
 				
 				entityManager.getTransaction().commit();
 				
