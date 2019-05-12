@@ -49,5 +49,7 @@ public class AppCfg {
     public List getListaZadan() {
         return listaZadan;
     }
+    
+    
 
 }

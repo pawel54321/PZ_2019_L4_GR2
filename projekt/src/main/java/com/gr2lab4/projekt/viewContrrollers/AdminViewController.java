@@ -8,9 +8,13 @@ package com.gr2lab4.projekt.viewContrrollers;
 import com.gr2lab4.projekt.MainApp;
 import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
+
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +22,10 @@ import javax.persistence.Persistence;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,7 +40,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.event.ActionEvent;
 /**
  *
  * @author marcin
@@ -81,34 +88,32 @@ public class AdminViewController {
 
 	@FXML
 	private Button wylogujAdmin;
-	
-   
-    
-    @FXML
-    private TableColumn<Zadanie, String> TableColumnTresc;
-    
-    @FXML
-    private TableColumn<Zadanie, String> tableColumnTytul;
-    
-    @FXML
-    private TableColumn<Zadanie, Integer> tableColumnID;
-    @FXML
-    private TableView<Zadanie> tableView;
 
-    /**
-     * 
-     *  zrobic liste dla aktywnych i nie przypisanych zadan
-     *  i dodac do tabeli aktywne nie przypisane
-     *  
-     */
-    
+	@FXML
+	private TableColumn<Zadanie, String> TableColumnTresc;
+
+	@FXML
+	private TableColumn<Zadanie, String> tableColumnTytul;
+
+	@FXML
+	private TableColumn<Zadanie, Integer> tableColumnID;
+	@FXML
+	private TableView<Zadanie> tableView;
+
+	/**
+	 * 
+	 * zrobic liste dla aktywnych i nie przypisanych zadan i dodac do tabeli aktywne
+	 * nie przypisane
+	 * 
+	 */
+
 	public void initialize() {
 		// TODO: metoda inicjalizujaca
-		
+
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		entityManager.getTransaction().begin();
+		//entityManager.getTransaction().begin();
 
 		List<Zadanie> resultList = entityManager.createQuery("select z from Zadanie z", Zadanie.class).getResultList();
 
@@ -116,8 +121,8 @@ public class AdminViewController {
 			System.out.println("lista zadan jest pusta ");
 			MainApp.instance.appCfg.listaZadan = null;
 		} else {
-			
-			for(Zadanie zad : resultList) { // dodawanie do observableList
+
+			for (Zadanie zad : resultList) { // dodawanie do observableList
 				MainApp.instance.appCfg.listaZadan.add(zad);
 			}
 
@@ -125,14 +130,13 @@ public class AdminViewController {
 
 		entityManager.close();
 		entityManagerFactory.close();
-		
+
 		System.out.println("pobrano z bazy");
 		// wrzucic wartosci do tabeli w oknie
-		
-		
+
 		refreshTable();
-		
-		System.out.println("Dodanie zadan do tabelki"); 
+
+		System.out.println("Dodanie zadan do tabelki");
 	}
 
 	@FXML
@@ -149,18 +153,55 @@ public class AdminViewController {
 		// ustawic defaulotwe dane w configu aplikacji
 
 		MainApp.instance.appCfg.setUser(null); // null
-		MainApp.instance.appCfg.listaZadan = null;
+		//MainApp.instance.appCfg.listaZadan = null;
 
 	}
 
+
 	@FXML
 	private void deleteZadanie(ActionEvent event) {
+		if (tableView.getSelectionModel().getSelectedIndex() >= 0) {
+			// tableView.getSelectionModel().getSelectedItem().setAktywne(0);;
+			for(int id=0; id<MainApp.instance.appCfg.listaZadan.size();id++) {
+				if(MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel().getSelectedItem().getId()) {
+					MainApp.instance.appCfg.listaZadan.get(id).setAktywne(0);
+					break;
+				}
+			}
+			
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
 
+			Zadanie zad = entityManager.find(Zadanie.class, tableView.getSelectionModel().getSelectedItem().getId());
+			zad.setAktywne(0);
+
+			entityManager.getTransaction().commit();
+			entityManager.close();
+			entityManagerFactory.close();
+
+			// System.out.println(tempZad.toString());
+
+			refreshTable();
+		}
 	}
 
 	@FXML
 	private void updateZadanie(ActionEvent event) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
 
+		Zadanie zad = entityManager.find(Zadanie.class, tableView.getSelectionModel().getSelectedItem().getId());
+		// tutaj pozmieniac tresci
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
+
+		// System.out.println(tempZad.toString());
+
+		refreshTable();
 	}
 
 	@FXML
@@ -194,17 +235,17 @@ public class AdminViewController {
 
 				entityManager.close();
 				entityManagerFactory.close();
-				
+
 				MainApp.instance.appCfg.listaZadan.add(zadanie);
-				
+
 				refreshTable();
-				
+
 				tytulZadaniaDodaj.setText(null);
 				trescZadaniaDodaj.setText(null);
 				activateDateDodaj.setDayCellFactory(null);
 
 				showAlertWithoutHeaderText("Zadanie zostało dodane poprawnie!");
-				
+
 			}
 		}
 
@@ -215,6 +256,13 @@ public class AdminViewController {
 		// TODO: jakis raport bedzie generowal sie do pdfa
 
 	}
+	
+
+    @FXML
+    void odswiezAction(ActionEvent event) {
+    	refreshTable();
+    	System.out.println("refresh");
+    }
 
 	private void showAlertWithoutHeaderText(String text) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -227,10 +275,19 @@ public class AdminViewController {
 		alert.showAndWait();
 	}
 	
+
 	private void refreshTable() {
 		tableColumnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		TableColumnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		tableColumnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
-		tableView.setItems(MainApp.instance.appCfg.listaZadan);
+		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
+		
+		for(Zadanie z : MainApp.instance.appCfg.listaZadan) {
+			if(z.getAktywne() == 1) {
+				tempList.add(z);
+			}
+		}
+		
+		tableView.setItems((ObservableList<Zadanie>) tempList);
 	}
 }

@@ -14,15 +14,8 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Text layoutX="63.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
-                  <Button fx:id="usunButton" layoutX="274.0" layoutY="171.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
-                  <Button fx:id="updateZadanie" layoutX="532.0" layoutY="367.0" mnemonicParsing="false" onAction="#updateZadanie" text="Aktualizuj zadanie" />
-                  <DatePicker fx:id="dataAktywacjiAktualizuj" layoutX="498.0" layoutY="333.0" />
-                  <TextField fx:id="tytulZadaniaAktualizuj" layoutX="514.0" layoutY="47.0" />
-                  <Text layoutX="553.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tytuł zadania" />
-                  <Text layoutX="559.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="data aktywacji" />
-                  <Text layoutX="552.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Treść zadania" />
-                  <TextArea fx:id="TrescZadaniaAktualizuj" layoutX="489.0" layoutY="120.0" prefHeight="181.0" prefWidth="200.0" />
-                  <Button fx:id="wylogujAdmin" layoutX="322.0" layoutY="354.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
+                  <Button fx:id="usunButton" layoutX="453.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
+                  <Button fx:id="wylogujAdmin" layoutX="509.0" layoutY="275.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
                   <TableView fx:id="tableView" layoutX="18.0" layoutY="34.0" prefHeight="364.0" prefWidth="227.0">
                     <columns>
                       <TableColumn fx:id="tableColumnID" prefWidth="75.0" text="ID" />
@@ -30,6 +23,7 @@
                         <TableColumn fx:id="TableColumnTresc" prefWidth="75.0" text="tresc" />
                     </columns>
                   </TableView>
+                  <Button fx:id="odswiezButton" layoutX="500.0" layoutY="143.0" mnemonicParsing="false" onAction="#odswiezAction" text="Odswiez" />
                </children></AnchorPane>
       </content>
     </Tab>

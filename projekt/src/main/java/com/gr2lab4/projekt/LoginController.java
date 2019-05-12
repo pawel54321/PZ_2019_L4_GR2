@@ -55,6 +55,7 @@ public class LoginController {
 
         if (MainApp.instance.appCfg.pracownicy.size() == 0) {
             System.out.println("brak listy");
+            showAlertWithoutHeaderText("Brak dnaych logowania w bazie.");
         } else {
             for (Pracownik tempPracownik : MainApp.instance.appCfg.pracownicy) { // przeszukujemy liste w poszukiwaniu odpowiednich danych do logowania
                 if ((tempPracownik.getLogin().equals(login)) &&

@@ -45,6 +45,9 @@ public class MainApp extends Application {
 		List<Pracownik> resultList = entityManager.createQuery("select p from Pracownik p", Pracownik.class)
 				.getResultList();
 		
+		entityManager.close();
+		entityManagerFactory.close();
+		
 		//TODO: DODAC JAKIS EXCEPTION BO JAK brakuje osob w bazie to wywala apkiacje xD
 		
 		if (resultList.isEmpty() || resultList.size() == 0) {
@@ -54,8 +57,7 @@ public class MainApp extends Application {
 			//System.out.println(resultList.size());
 		}
 
-		entityManager.close();
-		entityManagerFactory.close();
+
 		// --
 
 		Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
