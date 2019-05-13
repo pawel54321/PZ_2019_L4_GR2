@@ -1,3 +1,4 @@
 /taskmanager/build/
 /taskmanager/dist/
 /projekt/target/
+projekt/src/main/resources/META-INF/persistence.xml
