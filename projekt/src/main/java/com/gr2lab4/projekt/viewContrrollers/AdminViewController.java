@@ -122,7 +122,7 @@ public class AdminViewController {
 			System.out.println("lista zadan jest pusta ");
 			//MainApp.instance.appCfg.listaZadan = null;
 		} else {
-
+                        MainApp.instance.appCfg.listaZadan.clear();
 			for (Zadanie zad : resultList) { // dodawanie do observableList
 				MainApp.instance.appCfg.listaZadan.add(zad);
 			}
