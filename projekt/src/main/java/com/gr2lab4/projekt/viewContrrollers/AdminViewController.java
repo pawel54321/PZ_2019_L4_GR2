@@ -51,7 +51,7 @@ import javafx.scene.control.ChoiceBox;
 public class AdminViewController {
 
 	@FXML
-	private Button generujRaportButton;
+	private Button generujRaportButton, usunButton, dodajZadanie;
 
 	@FXML
 	private TextField tytulZadaniaAktualizuj;
@@ -59,26 +59,9 @@ public class AdminViewController {
 	@FXML
 	private TextArea TrescZadaniaAktualizuj;
 
-	@FXML
-	private Button updateZadanie;
-
-	@FXML
-	private Button usunButton;
-
-	@FXML
-	private DatePicker dataOdRaport;
-
-	@FXML
-	private Button dodajZadanie;
 
 	@FXML
 	private ListView<?> panelZadan;
-
-	@FXML
-	private DatePicker dataAktywacjiAktualizuj;
-
-	@FXML
-	private DatePicker activateDateDodaj;
 
 	@FXML
 	private TextField tytulZadaniaDodaj;
@@ -137,7 +120,7 @@ public class AdminViewController {
 
 		if (resultList.isEmpty() || resultList.size() == 0) {
 			System.out.println("lista zadan jest pusta ");
-			MainApp.instance.appCfg.listaZadan = null;
+			//MainApp.instance.appCfg.listaZadan = null;
 		} else {
 
 			for (Zadanie zad : resultList) { // dodawanie do observableList
@@ -267,7 +250,7 @@ public class AdminViewController {
 
 				tytulZadaniaDodaj.setText(null);
 				trescZadaniaDodaj.setText(null);
-				activateDateDodaj.setDayCellFactory(null);
+				//activateDateDodaj.setDayCellFactory(null);
 
 				showAlertWithoutHeaderText("Zadanie zostało dodane poprawnie!");
 
@@ -305,21 +288,26 @@ public class AdminViewController {
     	Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
     	Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
     	
-    	tempPrac.add(tempZad);
+    	try {
+    		
     	
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		entityManager.getTransaction().begin();
-
-		for(Zadanie zad : tempPrac.getZadania()) {
-			entityManager.persist(zad);	
-		}
-	
-		entityManager.getTransaction().commit();
+		//entityManager.getTransaction().begin();
+		
+		Pracownik prac = entityManager.find(Pracownik.class, tempPrac.getId_pracownika());
+		
+		prac.addZadania(tempZad);
+		entityManager.persist(tempZad);
+		
+		//entityManager.getTransaction().commit();
 
 		entityManager.close();
 		entityManagerFactory.close();
+    	}catch (Exception e) {
+		System.out.println(e.getMessage());
+    	}
     	
     	
     }

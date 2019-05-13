@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,8 +46,13 @@ public class Pracownik{
     @Column(name="haslo")
     private String haslo;
     
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH}) // nie usuwamy zadan jesli usuniemy pracownka
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+//            CascadeType.DETACH, CascadeType.REFRESH}) // nie usuwamy zadan jesli usuniemy pracownka
+//    @JoinColumn(name="zadanie_id") 
+    
+    @OneToMany(mappedBy = "pracownik",
+    		cascade = CascadeType.ALL,
+    		orphanRemoval = true)
     private List<Zadanie> zadania;
     
     public Pracownik(){
@@ -62,13 +68,14 @@ public class Pracownik{
         this.haslo = haslo;
     }
 
-    public void add(Zadanie tempZadanie){
-        if(zadania == null){
-            zadania = new ArrayList<>();
-        }
-        
+    public void addZadania(Zadanie tempZadanie){
+    	if(zadania == null ) {
+    		zadania = new ArrayList<>();
+    	}
+    	
         zadania.add(tempZadanie);
-        tempZadanie.setPracownicy(this);
+        tempZadanie.setPracownik(this);
+        
     }
     
     public List<Zadanie> getZadania(){

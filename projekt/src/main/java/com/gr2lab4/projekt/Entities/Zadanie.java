@@ -45,10 +45,9 @@ public class Zadanie {
     @Column(name="aktywne")
     private int aktywne;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-        CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "id_pracownika")
-    private Pracownik pracownicy;
+    private Pracownik pracownik;
 
     public Zadanie() {
 
@@ -60,7 +59,7 @@ public class Zadanie {
         this.data_rozp = data_rozp;
         this.data_ukon = data_ukon;
         this.aktywne = aktywne;
-        this.pracownicy = pracownicy;
+        //this.pracownicy = pracownicy;
     }
 
 
@@ -70,10 +69,10 @@ public class Zadanie {
     }
 
 
-
-    public void setPracownicy(Pracownik pracownicy) {
-        this.pracownicy = pracownicy;
-    }
+//
+//    public void setPracownicy(Pracownik pracownicy) {
+//        this.pracownicy = pracownicy;
+//    }
 
     public int getId() {
         return id;
@@ -83,8 +82,12 @@ public class Zadanie {
         return aktywne;
     }
 
-    public Pracownik getPracownicy() {
-        return pracownicy;
+    public Pracownik getPracownik() {
+       return pracownik;
+    }
+    
+    public void setPracownik(Pracownik pracownik) {
+    	this.pracownik = pracownik;
     }
 
     public Date getData_rozp() {
@@ -129,7 +132,7 @@ public class Zadanie {
 	@Override
 	public String toString() {
 		return "Zadanie [id=" + id + ", tytul=" + tytul + ", tresc=" + tresc + ", data_rozp=" + data_rozp
-				+ ", data_ukon=" + data_ukon + ", aktywne=" + aktywne + ", pracownicy=" + pracownicy + "]";
+				+ ", data_ukon=" + data_ukon + ", aktywne=" + aktywne + ", pracownicy=" /* + pracownicy*/ + "]";
 	}
 
 }

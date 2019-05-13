@@ -35,8 +35,6 @@ public class MainApp extends Application {
 		instance = this;
 		appCfg = new AppCfg();
 
-		// appCfg.pracownicy.add(new Pracownik("marcin", "nowal", "ADMIN", "marczin",
-		// "haslo"));
 
 		// -- POBIERANIE Z BAZY DANYCH UZYTKOWNIKOW I ZAPIS DO LISTY
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
@@ -48,13 +46,11 @@ public class MainApp extends Application {
 		entityManager.close();
 		entityManagerFactory.close();
 		
-		//TODO: DODAC JAKIS EXCEPTION BO JAK brakuje osob w bazie to wywala apkiacje xD
 		
 		if (resultList.isEmpty() || resultList.size() == 0) {
 			System.out.println("lista pracowników jest pusta ");
 		} else {
 			appCfg.pracownicy = resultList;
-			//System.out.println(resultList.size());
 		}
 
 
