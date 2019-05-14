@@ -287,7 +287,7 @@ public class AdminViewController {
     void przypiszAction(ActionEvent event) {
     	Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
     	Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
-    	
+    	/*
     	try {
     		
     	
@@ -308,7 +308,7 @@ public class AdminViewController {
     	}catch (Exception e) {
 		System.out.println(e.getMessage());
     	}
-    	
+    	*/
     	
     }
     
