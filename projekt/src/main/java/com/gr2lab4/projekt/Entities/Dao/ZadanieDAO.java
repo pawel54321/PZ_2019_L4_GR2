@@ -36,7 +36,8 @@ public class ZadanieDAO extends DAO<Zadanie, Integer>{
 		
 	}
 	
-	public void updateZadanie(String tytul, String tresc, Date data_rozp, Date data_ukon, int aktywne, Pracownik pracownicy) {
+	
+	public void updateZadanie(Zadanie zadanie) {
 		EntityManager entityManager = JPAUtility.getEntityManager();
 		entityManager.getTransaction().begin();
 		
