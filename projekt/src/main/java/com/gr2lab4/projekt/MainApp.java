@@ -1,6 +1,8 @@
 package com.gr2lab4.projekt;
 
 import com.gr2lab4.projekt.Entities.Pracownik;
+import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
+import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
 import com.gr2lab4.projekt.cfgs.AppCfg;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class MainApp extends Application {
 
 	public static MainApp instance = null;
 
+	public PracownikDAO pracownikDAO = new PracownikDAO();
+	public ZadanieDAO zadanieDAO = new ZadanieDAO();
+	
 	public AppCfg appCfg; // to klasa ktora bedzie zmienne przechowywala
 
 	@Override
@@ -35,17 +40,8 @@ public class MainApp extends Application {
 		instance = this;
 		appCfg = new AppCfg();
 
-
-		// -- POBIERANIE Z BAZY DANYCH UZYTKOWNIKOW I ZAPIS DO LISTY
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-		List<Pracownik> resultList = entityManager.createQuery("select p from Pracownik p", Pracownik.class)
-				.getResultList();
 		
-		entityManager.close();
-		entityManagerFactory.close();
-		
+		List<Pracownik> resultList = pracownikDAO.findAll();
 		
 		if (resultList.isEmpty() || resultList.size() == 0) {
 			System.out.println("lista pracowników jest pusta ");

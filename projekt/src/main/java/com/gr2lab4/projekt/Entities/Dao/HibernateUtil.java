@@ -42,12 +42,13 @@ public class HibernateUtil {
 
     private static SessionFactory getSessionFactory(String pathConfiguration) {
         Configuration configuration = new Configuration()
-                .configure("cfg/hibernate.cfg.xml");
+                .configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml");
 
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        SessionFactory sessionFactory = new Configuration().configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").buildSessionFactory();
+        		//configuration.buildSessionFactory(serviceRegistry);
         return sessionFactory;
     }
 

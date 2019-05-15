@@ -59,7 +59,6 @@ public class AdminViewController {
 	@FXML
 	private TextArea TrescZadaniaAktualizuj;
 
-
 	@FXML
 	private ListView<?> panelZadan;
 
@@ -90,17 +89,18 @@ public class AdminViewController {
 	private ChoiceBox<Pracownik> przypiszChoiceBox;
 
 	// --- przypisz section
-    @FXML
-    private TableView<Zadanie> przypiszTableView;
-    
-    @FXML
-    private TableColumn<Zadanie, String> PrzypiszTableTresc;
+	@FXML
+	private TableView<Zadanie> przypiszTableView;
 
-    @FXML
-    private TableColumn<Zadanie, Integer> przypiszId;
-    
-    @FXML
-    private TableColumn<Zadanie, String> przypiszTableTytul;
+	@FXML
+	private TableColumn<Zadanie, String> PrzypiszTableTresc;
+
+	@FXML
+	private TableColumn<Zadanie, Integer> przypiszId;
+
+	@FXML
+	private TableColumn<Zadanie, String> przypiszTableTytul;
+
 	/**
 	 * 
 	 * zrobic liste dla aktywnych i nie przypisanych zadan i dodac do tabeli aktywne
@@ -111,28 +111,19 @@ public class AdminViewController {
 	public void initialize() {
 		// TODO: metoda inicjalizujaca
 
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-		// entityManager.getTransaction().begin();
-
-		List<Zadanie> resultList = entityManager.createQuery("select z from Zadanie z", Zadanie.class).getResultList();
+		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
 
 		if (resultList.isEmpty() || resultList.size() == 0) {
 			System.out.println("lista zadan jest pusta ");
-			//MainApp.instance.appCfg.listaZadan = null;
+			// MainApp.instance.appCfg.listaZadan = null;
 		} else {
-                        MainApp.instance.appCfg.listaZadan.clear();
+			MainApp.instance.appCfg.listaZadan.clear();
 			for (Zadanie zad : resultList) { // dodawanie do observableList
 				MainApp.instance.appCfg.listaZadan.add(zad);
 			}
 
 		}
 
-		entityManager.close();
-		entityManagerFactory.close();
-
-		System.out.println("pobrano z bazy");
 		// wrzucic wartosci do tabeli w oknie
 
 		refreshTable();
@@ -167,28 +158,18 @@ public class AdminViewController {
 
 	@FXML
 	private void deleteZadanie(ActionEvent event) {
+
 		if (tableView.getSelectionModel().getSelectedIndex() >= 0) {
-			// tableView.getSelectionModel().getSelectedItem().setAktywne(0);;
 			for (int id = 0; id < MainApp.instance.appCfg.listaZadan.size(); id++) {
 				if (MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel()
 						.getSelectedItem().getId()) {
+					
 					MainApp.instance.appCfg.listaZadan.get(id).setAktywne(0);
+					MainApp.instance.zadanieDAO.deleteZadanieById(id);
 					break;
+					
 				}
 			}
-
-			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			entityManager.getTransaction().begin();
-
-			Zadanie zad = entityManager.find(Zadanie.class, tableView.getSelectionModel().getSelectedItem().getId());
-			zad.setAktywne(0);
-
-			entityManager.getTransaction().commit();
-			entityManager.close();
-			entityManagerFactory.close();
-
-			// System.out.println(tempZad.toString());
 
 			refreshTable();
 		}
@@ -196,18 +177,13 @@ public class AdminViewController {
 
 	@FXML
 	private void updateZadanie(ActionEvent event) {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 
-		Zadanie zad = entityManager.find(Zadanie.class, tableView.getSelectionModel().getSelectedItem().getId());
-		// tutaj pozmieniac tresci
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		entityManagerFactory.close();
-
-		// System.out.println(tempZad.toString());
+		Zadanie zad = tableView.getSelectionModel().getSelectedItem();
+		// ustawic do obiektu zad nowe wartosci
+		
+		// wrzucmay do bazy 
+		MainApp.instance.zadanieDAO.updateZadanie(zad);
 
 		refreshTable();
 	}
@@ -224,8 +200,6 @@ public class AdminViewController {
 			if (tresc.isEmpty()) {
 				showAlertWithoutHeaderText("Wpisz tresc zadania");
 			} else {
-				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-				EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 				Zadanie zadanie = new Zadanie();
 
@@ -234,15 +208,8 @@ public class AdminViewController {
 				zadanie.setData_ukon(new Date());
 				zadanie.setTresc(tresc);
 				zadanie.setTytul(tytul);
-
-				entityManager.getTransaction().begin();
-
-				entityManager.persist(zadanie);
-
-				entityManager.getTransaction().commit();
-
-				entityManager.close();
-				entityManagerFactory.close();
+				
+				MainApp.instance.zadanieDAO.save(zadanie);
 
 				MainApp.instance.appCfg.listaZadan.add(zadanie);
 
@@ -250,7 +217,7 @@ public class AdminViewController {
 
 				tytulZadaniaDodaj.setText(null);
 				trescZadaniaDodaj.setText(null);
-				//activateDateDodaj.setDayCellFactory(null);
+				// activateDateDodaj.setDayCellFactory(null);
 
 				showAlertWithoutHeaderText("Zadanie zostało dodane poprawnie!");
 
@@ -282,45 +249,24 @@ public class AdminViewController {
 		alert.showAndWait();
 	}
 
+	@FXML
+	void przypiszAction(ActionEvent event) {
+		Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
+		Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
 
-    @FXML
-    void przypiszAction(ActionEvent event) {
-    	Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
-    	Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
-    	/*
-    	try {
-    		
-    	
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		tempPrac.addZadania(tempZad);
+		MainApp.instance.pracownikDAO.update(tempPrac);
+	}
 
-		//entityManager.getTransaction().begin();
-		
-		Pracownik prac = entityManager.find(Pracownik.class, tempPrac.getId_pracownika());
-		
-		prac.addZadania(tempZad);
-		entityManager.persist(tempZad);
-		
-		//entityManager.getTransaction().commit();
-
-		entityManager.close();
-		entityManagerFactory.close();
-    	}catch (Exception e) {
-		System.out.println(e.getMessage());
-    	}
-    	*/
-    	
-    }
-    
 	private void refreshTable() {
 		tableColumnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		TableColumnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		tableColumnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
-		
+
 		przypiszId.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		PrzypiszTableTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		przypiszTableTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
-		
+
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
