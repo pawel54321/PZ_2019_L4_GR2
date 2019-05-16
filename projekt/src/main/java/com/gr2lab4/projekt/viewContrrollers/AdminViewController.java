@@ -298,7 +298,7 @@ public class AdminViewController {
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-			if (z.getAktywne() == 1 && z.getPracownik() == null) {
+			if (z.getAktywne() == 1) {
 				tempList.add(z);
 			}
 		}

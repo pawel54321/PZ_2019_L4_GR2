@@ -9,14 +9,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="491.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.viewContrrollers.PracownikViewController">
    <children>
-      <ListView layoutX="14.0" layoutY="38.0" prefHeight="408.0" prefWidth="222.0" />
       <Text layoutX="78.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
-      <Text layoutX="374.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bieżące zadanie" />
-      <Text layoutX="404.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brak" />
-      <Button fx:id="botowebuttonPracownik" layoutX="387.0" layoutY="305.0" mnemonicParsing="false" text="Gotowe" />
-      <Button fx:id="pracownikWybierzbutton" layoutX="100.0" layoutY="452.0" mnemonicParsing="false" text="Wybierz" />
-      <Button fx:id="wylogujPracownik" layoutX="684.0" layoutY="453.0" mnemonicParsing="false" onAction="#logoutPracownik" text="wyloguj" />
+      <Button fx:id="botowebuttonPracownik" layoutX="417.0" layoutY="219.0" mnemonicParsing="false" onAction="#gotoweZadanie" text="Gotowe" />
+      <Button fx:id="wylogujPracownik" layoutX="417.0" layoutY="364.0" mnemonicParsing="false" onAction="#logoutPracownik" text="wyloguj" />
       <ListView layoutX="606.0" layoutY="42.0" prefHeight="408.0" prefWidth="222.0" />
       <Text layoutX="666.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ukończone zadania" />
+      <TableView fx:id="tableVew" layoutX="14.0" layoutY="42.0" prefHeight="433.0" prefWidth="333.0">
+        <columns>
+          <TableColumn fx:id="columnID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="columnTytul" prefWidth="75.0" text="Tytul" />
+            <TableColumn fx:id="columnTresc" prefWidth="131.0" text="Tresc" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
