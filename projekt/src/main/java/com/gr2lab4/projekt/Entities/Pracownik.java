@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,6 +52,7 @@ public class Pracownik{
 //    @JoinColumn(name="zadanie_id") 
     
     @OneToMany(mappedBy = "pracownik",
+    		fetch = FetchType.EAGER,
     		cascade = CascadeType.ALL,
     		orphanRemoval = true)
     private List<Zadanie> zadania;

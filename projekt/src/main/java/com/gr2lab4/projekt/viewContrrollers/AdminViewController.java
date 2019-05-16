@@ -8,6 +8,8 @@ package com.gr2lab4.projekt.viewContrrollers;
 import com.gr2lab4.projekt.MainApp;
 import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
+import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
+import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
 
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -107,11 +109,14 @@ public class AdminViewController {
 	 * nie przypisane
 	 * 
 	 */
+	private PracownikDAO pracownikDAO = new PracownikDAO();
+	private ZadanieDAO zadanieDAO = new ZadanieDAO();
+	
 
 	public void initialize() {
 		// TODO: metoda inicjalizujaca
 
-		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
+		List<Zadanie> resultList = zadanieDAO.findAll();
 
 		if (resultList.isEmpty() || resultList.size() == 0) {
 			System.out.println("lista zadan jest pusta ");
@@ -159,30 +164,35 @@ public class AdminViewController {
 	@FXML
 	private void deleteZadanie(ActionEvent event) {
 
-		if (tableView.getSelectionModel().getSelectedIndex() >= 0) {
-			for (int id = 0; id < MainApp.instance.appCfg.listaZadan.size(); id++) {
-				if (MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel()
-						.getSelectedItem().getId()) {
-					
-					MainApp.instance.appCfg.listaZadan.get(id).setAktywne(0);
-					MainApp.instance.zadanieDAO.deleteZadanieById(id);
-					break;
-					
-				}
-			}
+		try {
 
-			refreshTable();
+			if (tableView.getSelectionModel().getSelectedIndex() >= 0) {
+				for (int id = 0; id < MainApp.instance.appCfg.listaZadan.size(); id++) {
+					if (MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel()
+							.getSelectedItem().getId()) {
+
+						MainApp.instance.appCfg.listaZadan.get(id).setAktywne(0);
+						MainApp.instance.zadanieDAO.update(MainApp.instance.appCfg.listaZadan.get(id));
+
+						break;
+
+					}
+				}
+
+				refreshTable();
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
 	@FXML
 	private void updateZadanie(ActionEvent event) {
 
-
 		Zadanie zad = tableView.getSelectionModel().getSelectedItem();
 		// ustawic do obiektu zad nowe wartosci
-		
-		// wrzucmay do bazy 
+
+		// wrzucmay do bazy
 		MainApp.instance.zadanieDAO.updateZadanie(zad);
 
 		refreshTable();
@@ -208,7 +218,7 @@ public class AdminViewController {
 				zadanie.setData_ukon(new Date());
 				zadanie.setTresc(tresc);
 				zadanie.setTytul(tytul);
-				
+
 				MainApp.instance.zadanieDAO.save(zadanie);
 
 				MainApp.instance.appCfg.listaZadan.add(zadanie);
@@ -251,11 +261,29 @@ public class AdminViewController {
 
 	@FXML
 	void przypiszAction(ActionEvent event) {
-		Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
-		Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
+		try {
+			Pracownik tempPrac = przypiszChoiceBox.getSelectionModel().getSelectedItem();
+			Zadanie tempZad = przypiszTableView.getSelectionModel().getSelectedItem();
 
-		tempPrac.addZadania(tempZad);
-		MainApp.instance.pracownikDAO.update(tempPrac);
+			tempPrac.addZadania(tempZad);
+			pracownikDAO.update(tempPrac);
+			
+			
+			// Przypisujemy do obiektu w liscie pracownika
+			for(int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
+				if(MainApp.instance.appCfg.listaZadan.get(i).getId() == tempZad.getId()) {
+					MainApp.instance.appCfg.listaZadan.get(i).setPracownik(tempPrac);
+				}
+			}
+			
+			
+			showAlertWithoutHeaderText("Zadanie przypisane poprawnie.");
+			refreshTable();
+			
+		} catch (Exception e) {
+			showAlertWithoutHeaderText("Błąd podczas przypisania zadania.");
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void refreshTable() {
