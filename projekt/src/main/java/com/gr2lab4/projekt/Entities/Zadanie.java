@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gr2lab4.projekt.Entities;
 
 import java.util.Date;
@@ -21,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author marcinrosol
  */
+
 @Entity
 @Table(name = "Zadanie")
 public class Zadanie {
@@ -54,25 +50,20 @@ public class Zadanie {
     }
 
     public Zadanie( String tytul, String tresc, Date data_rozp, Date data_ukon, int aktywne, Pracownik pracownicy) {
-        this.tytul = tytul;//new SimpleStringProperty(tytul);
-        this.tresc = tresc;//new SimpleStringProperty(tresc);
+        this.tytul = tytul;
+        this.tresc = tresc;
         this.data_rozp = data_rozp;
         this.data_ukon = data_ukon;
         this.aktywne = aktywne;
-        //this.pracownicy = pracownicy;
+       
     }
 
 
 
     public String getTytul() {
-        return tytul;//.get();
+        return tytul;
     }
 
-
-//
-//    public void setPracownicy(Pracownik pracownicy) {
-//        this.pracownicy = pracownicy;
-//    }
 
     public int getId() {
         return id;
