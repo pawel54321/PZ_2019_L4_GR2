@@ -3,15 +3,17 @@
 <hibernate-configuration>
   <session-factory>
     <!-- Database connection settings -->
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pomidory?useSSL=false</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pomidory?useSSL=false&amp;serverTimezone=UTC</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.username">pomidory</property>
     <property name="hibernate.connection.password">pomidory</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-    <mapping class="com.gr2lab4.projekt.Pracownik"/>
+        
+        <!--  <mapping class="com.gr2lab4.projekt.Pracownik"/>
     <mapping class="com.gr2lab4.projekt.Zadanie"/>
     <mapping class="com.gr2lab4.projekt.Entities.Dao.PracownikDAO"/>
-    <mapping class="com.gr2lab4.projekt.Entities.Dao.ZadanieDAO"/>
+    <mapping class="com.gr2lab4.projekt.Entities.Dao.ZadanieDAO"/> -->
+    
   </session-factory>
 </hibernate-configuration>

@@ -7,6 +7,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.gr2lab4.projekt.Entities.Pracownik;
+import com.gr2lab4.projekt.Entities.Zadanie;
+
 
 public class HibernateUtil {
 
@@ -44,11 +47,16 @@ public class HibernateUtil {
         Configuration configuration = new Configuration()
                 .configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml");
 
+        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(Pracownik.class);
+        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(Zadanie.class);
+        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(PracownikDAO.class);
+        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(ZadanieDAO.class);
+        
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
 
-        SessionFactory sessionFactory = new Configuration().configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").buildSessionFactory();
-        		//configuration.buildSessionFactory(serviceRegistry);
+        SessionFactory sessionFactory = //new Configuration().configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").buildSessionFactory();
+        	configuration.buildSessionFactory(serviceRegistry);
         return sessionFactory;
     }
 

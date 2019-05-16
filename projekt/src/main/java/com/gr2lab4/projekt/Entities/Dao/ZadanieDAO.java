@@ -59,7 +59,7 @@ public class ZadanieDAO extends DAO<Zadanie, Integer>{
 	@Override
 	public List<Zadanie> findAll() {
 		openCurrentSession();
-		List<Zadanie> lista = (List<Zadanie>) getCurrentSession().createQuery("from zadanie").getResultList();
+		List<Zadanie> lista = (List<Zadanie>) getCurrentSession().createQuery("from Zadanie").getResultList();
 		closeCurrentSession();
 		return lista;
 		

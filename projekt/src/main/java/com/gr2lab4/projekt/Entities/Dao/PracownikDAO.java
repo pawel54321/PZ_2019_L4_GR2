@@ -51,7 +51,7 @@ public class PracownikDAO extends DAO<Pracownik, Integer>{
 	@Override
 	public List<Pracownik> findAll() {
 		openCurrentSession();
-		List<Pracownik> lista = (List<Pracownik>) getCurrentSession().createQuery("from pracownik").getResultList();
+		List<Pracownik> lista = (List<Pracownik>) getCurrentSession().createQuery("from Pracownik").getResultList();
 		closeCurrentSession();
 		return lista;
 		
