@@ -32,7 +32,7 @@ public class MainApp extends Application {
 
 	public PracownikDAO pracownikDAO = new PracownikDAO();
 	public ZadanieDAO zadanieDAO = new ZadanieDAO();
-	
+
 	public AppCfg appCfg; // to klasa ktora bedzie zmienne przechowywala
 
 	@Override
@@ -40,15 +40,17 @@ public class MainApp extends Application {
 		instance = this;
 		appCfg = new AppCfg();
 
-		
-		List<Pracownik> resultList = pracownikDAO.findAll();
-		
-		if (resultList.isEmpty() || resultList.size() == 0) {
-			System.out.println("lista pracowników jest pusta ");
-		} else {
-			appCfg.pracownicy = resultList;
-		}
+		try {
+			List<Pracownik> resultList = pracownikDAO.findAll();
 
+			if (resultList.isEmpty() || resultList.size() == 0) {
+				System.out.println("lista pracowników jest pusta ");
+			} else {
+				appCfg.pracownicy = resultList;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		// --
 

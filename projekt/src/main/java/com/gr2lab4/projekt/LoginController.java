@@ -5,11 +5,10 @@
  */
 package com.gr2lab4.projekt;
 
-import com.gr2lab4.projekt.Entities.Pracownik;
-import com.gr2lab4.projekt.MainApp;
-import com.mysql.cj.xdevapi.SessionFactory;
 import java.io.IOException;
-import java.util.List;
+
+import com.gr2lab4.projekt.Entities.Pracownik;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +16,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 /**
  *
