@@ -45,12 +45,12 @@ public class HibernateUtil {
 
     private static SessionFactory getSessionFactory(String pathConfiguration) {
         Configuration configuration = new Configuration()
-                .configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml");
+                .configure();
 
-        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(Pracownik.class);
-        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(Zadanie.class);
-        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(PracownikDAO.class);
-        configuration.configure("com/gr2lab4/projekt/cfgs/hibernate.cfg.xml").addAnnotatedClass(ZadanieDAO.class);
+        configuration.configure().addAnnotatedClass(Pracownik.class);
+        configuration.configure().addAnnotatedClass(Zadanie.class);
+        configuration.configure().addAnnotatedClass(PracownikDAO.class);
+        configuration.configure().addAnnotatedClass(ZadanieDAO.class);
         
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
