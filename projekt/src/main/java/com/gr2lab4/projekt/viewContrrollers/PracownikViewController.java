@@ -68,7 +68,7 @@ public class PracownikViewController {
 		}
 
 		// -------
-		System.out.println(MainApp.instance.appCfg.user.getId_pracownika());
+		System.out.println(MainApp.instance.appCfg.user.toString());
 		refreshTable();
 
 	}
@@ -94,7 +94,8 @@ public class PracownikViewController {
 			ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 			for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-				if (z.getAktywne() == 1) {
+				if (z.getAktywne() == 1 
+						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
 					System.out.println(z.toString());
 					tempList.add(z);
 				}

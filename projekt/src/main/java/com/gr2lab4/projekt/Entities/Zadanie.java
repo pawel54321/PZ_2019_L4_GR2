@@ -123,7 +123,7 @@ public class Zadanie {
 	@Override
 	public String toString() {
 		return "Zadanie [id=" + id + ", tytul=" + tytul + ", tresc=" + tresc + ", data_rozp=" + data_rozp
-				+ ", data_ukon=" + data_ukon + ", aktywne=" + aktywne + ", pracownicy=" /* + pracownicy*/ + "]";
-	}
+				+ ", data_ukon=" + data_ukon + ", aktywne=" + aktywne + ", pracownicy=" + pracownik + "]";
+	} 
 
 }
