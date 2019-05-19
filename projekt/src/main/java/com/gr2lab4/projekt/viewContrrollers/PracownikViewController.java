@@ -94,6 +94,7 @@ public class PracownikViewController {
 		zaznaczone.setData_ukon(new Date());
 		int id = zaznaczone.getId();
 		
+		zadanieDAO.update(zaznaczone);
 		for(int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
 			if(MainApp.instance.appCfg.listaZadan.get(i).getId() == id) {
 				MainApp.instance.appCfg.listaZadan.get(i).setAktywne(0);
