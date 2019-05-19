@@ -215,7 +215,7 @@ public class AdminViewController {
 
 				zadanie.setAktywne(1);
 				zadanie.setData_rozp(new Date());
-				zadanie.setData_ukon(new Date());
+				zadanie.setData_ukon(null);
 				zadanie.setTresc(tresc);
 				zadanie.setTytul(tytul);
 

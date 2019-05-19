@@ -12,13 +12,19 @@
       <Text layoutX="78.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
       <Button fx:id="botowebuttonPracownik" layoutX="417.0" layoutY="219.0" mnemonicParsing="false" onAction="#gotoweZadanie" text="Gotowe" />
       <Button fx:id="wylogujPracownik" layoutX="417.0" layoutY="364.0" mnemonicParsing="false" onAction="#logoutPracownik" text="wyloguj" />
-      <ListView layoutX="606.0" layoutY="42.0" prefHeight="408.0" prefWidth="222.0" />
       <Text layoutX="666.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ukończone zadania" />
       <TableView fx:id="tableVew" layoutX="14.0" layoutY="42.0" prefHeight="433.0" prefWidth="333.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="columnTytul" prefWidth="75.0" text="Tytul" />
             <TableColumn fx:id="columnTresc" prefWidth="131.0" text="Tresc" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tableUkonczoneView" layoutX="515.0" layoutY="36.0" prefHeight="442.0" prefWidth="323.0">
+        <columns>
+          <TableColumn fx:id="IDUkonczone" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="TytulUkonczone" prefWidth="75.0" text="Tytul" />
+            <TableColumn fx:id="TrescUkonczone" prefWidth="75.0" text="Tresc" />
         </columns>
       </TableView>
    </children>

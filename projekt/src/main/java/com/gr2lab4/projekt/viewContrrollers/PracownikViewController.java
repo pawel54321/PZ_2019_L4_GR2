@@ -11,6 +11,7 @@ import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
 import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -49,6 +50,19 @@ public class PracownikViewController {
 
 	// tabela ukonczonych
 
+    @FXML
+    private TableView<Zadanie> tableUkonczoneView;
+    
+	@FXML
+    private TableColumn<Zadanie, String> TrescUkonczone;
+	
+
+    @FXML
+    private TableColumn<Zadanie, String> TytulUkonczone;
+    
+    @FXML
+    private TableColumn<Zadanie, Integer> IDUkonczone;
+    
 	// -------
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
@@ -68,14 +82,26 @@ public class PracownikViewController {
 		}
 
 		// -------
-		System.out.println(MainApp.instance.appCfg.user.toString());
+		//System.out.println(MainApp.instance.appCfg.user.toString());
 		refreshTable();
 
 	}
 
 	@FXML
 	void gotoweZadanie(ActionEvent event) {
-
+		Zadanie zaznaczone = tableVew.getSelectionModel().getSelectedItem();
+		zaznaczone.setAktywne(0);
+		zaznaczone.setData_ukon(new Date());
+		int id = zaznaczone.getId();
+		
+		for(int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
+			if(MainApp.instance.appCfg.listaZadan.get(i).getId() == id) {
+				MainApp.instance.appCfg.listaZadan.get(i).setAktywne(0);
+				MainApp.instance.appCfg.listaZadan.get(i).setData_ukon(new Date());
+			}
+		}
+		
+		refreshTable();
 	}
 
 	private void refreshTable() {
@@ -84,24 +110,30 @@ public class PracownikViewController {
 			columnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 			columnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 
-			// przypiszId.setCellValueFactory(new PropertyValueFactory<Zadanie,
-			// Integer>("id"));
-			// PrzypiszTableTresc.setCellValueFactory(new PropertyValueFactory<Zadanie,
-			// String>("tresc"));
-			// przypiszTableTytul.setCellValueFactory(new PropertyValueFactory<Zadanie,
-			// String>("tytul"));
+			IDUkonczone.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+			TrescUkonczone.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
+			TytulUkonczone.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+
 
 			ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
+			ObservableList<Zadanie> tempList2 = FXCollections.observableArrayList();
 
 			for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
 				if (z.getAktywne() == 1 
 						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
-					System.out.println(z.toString());
+					//System.out.println(z.toString());
 					tempList.add(z);
+				}
+				
+				if(z.getAktywne() == 0 
+						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
+					
+					tempList2.add(z);
 				}
 			}
 
 			tableVew.setItems((ObservableList<Zadanie>) tempList);
+			tableUkonczoneView.setItems((ObservableList<Zadanie>) tempList2);
 			// przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
