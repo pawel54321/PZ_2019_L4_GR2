@@ -16,11 +16,11 @@
                   <Text layoutX="63.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
                   <Button fx:id="usunButton" layoutX="453.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
                   <Button fx:id="wylogujAdmin" layoutX="509.0" layoutY="275.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
-                  <TableView fx:id="tableView" layoutX="18.0" layoutY="34.0" prefHeight="364.0" prefWidth="227.0">
+                  <TableView fx:id="tableView" layoutX="18.0" layoutY="34.0" prefHeight="362.0" prefWidth="411.0">
                     <columns>
-                      <TableColumn fx:id="tableColumnID" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="tableColumnTytul" prefWidth="75.0" text="Tytul" />
-                        <TableColumn fx:id="TableColumnTresc" prefWidth="75.0" text="tresc" />
+                      <TableColumn fx:id="tableColumnID" prefWidth="102.0" text="ID" />
+                      <TableColumn fx:id="tableColumnTytul" prefWidth="134.0" text="Tytul" />
+                        <TableColumn fx:id="TableColumnTresc" prefWidth="174.0" text="tresc" />
                     </columns>
                   </TableView>
                   <Button fx:id="odswiezButton" layoutX="500.0" layoutY="143.0" mnemonicParsing="false" onAction="#odswiezAction" text="Odswiez" />
@@ -53,19 +53,37 @@
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="przypiszButton" layoutX="369.0" layoutY="199.0" mnemonicParsing="false" onAction="#przypiszAction" text="Przypisz zadanie" />
-                  <ChoiceBox fx:id="przypiszChoiceBox" layoutX="355.0" layoutY="61.0" prefWidth="150.0" />
-                  <Label layoutX="368.0" layoutY="24.0" text="Wybierz pracownika" />
-                  <TableView fx:id="przypiszTableView" layoutX="29.0" layoutY="24.0" prefHeight="342.0" prefWidth="227.0">
+                  <Button fx:id="przypiszButton" layoutX="515.0" layoutY="111.0" mnemonicParsing="false" onAction="#przypiszAction" text="Przypisz zadanie" />
+                  <ChoiceBox fx:id="przypiszChoiceBox" layoutX="501.0" layoutY="61.0" prefWidth="150.0" />
+                  <Label layoutX="514.0" layoutY="24.0" text="Wybierz pracownika" />
+                  <TableView fx:id="przypiszTableView" layoutX="29.0" layoutY="24.0" prefHeight="364.0" prefWidth="442.0">
                     <columns>
                       <TableColumn fx:id="przypiszId" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="przypiszTableTytul" prefWidth="75.0" text="Tytul" />
-                        <TableColumn fx:id="PrzypiszTableTresc" prefWidth="75.0" text="Tresc" />
+                      <TableColumn fx:id="przypiszTableTytul" prefWidth="134.0" text="Tytul" />
+                        <TableColumn fx:id="PrzypiszTableTresc" prefWidth="232.0" text="Tresc" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
          </content>
+      </Tab>
+      <Tab text="wykonane zadania">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableWykonane" layoutX="14.0" layoutY="21.0" prefHeight="382.0" prefWidth="724.0">
+                    <columns>
+                      <TableColumn fx:id="IDWykonane" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tytulWykonane" prefWidth="85.0" text="Tytul" />
+                        <TableColumn fx:id="trescWykonane" prefWidth="155.0" text="Tresc" />
+                        <TableColumn fx:id="dodWykonane" prefWidth="127.0" text="Data dodania" />
+                        <TableColumn fx:id="ukoWyknane" prefWidth="135.0" text="Data ukonczenia" />
+                        <TableColumn fx:id="pracownikWykonane" prefWidth="146.0" text="Pracownik" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
       </Tab>
   </tabs>
 </TabPane>

@@ -45,8 +45,8 @@ public class MainApp extends Application {
 
 			if (resultList.isEmpty() || resultList.size() == 0) {
 				System.out.println("lista pracowników jest pusta ");
-				Pracownik admin = new Pracownik("Admin","Admin","administrator","admin","admin");
-				pracownikDAO.save(admin);
+				//Pracownik admin = new Pracownik("Admin","Admin","administrator","admin","admin");
+				//pracownikDAO.save(admin);
 			} else {
 				appCfg.pracownicy = resultList;
 			}

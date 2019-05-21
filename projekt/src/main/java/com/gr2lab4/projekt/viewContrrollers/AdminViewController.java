@@ -53,34 +53,15 @@ import javafx.scene.control.ChoiceBox;
 public class AdminViewController {
 
 	@FXML
-	private Button generujRaportButton, usunButton, dodajZadanie;
-
-	@FXML
-	private TextField tytulZadaniaAktualizuj;
-
-	@FXML
-	private TextArea TrescZadaniaAktualizuj;
-
-	@FXML
-	private ListView<?> panelZadan;
-
-	@FXML
 	private TextField tytulZadaniaDodaj;
 
 	@FXML
 	private TextArea trescZadaniaDodaj;
 
-	@FXML
-	private DatePicker dataDoRaport;
 
+//--------
 	@FXML
-	private Button wylogujAdmin;
-
-	@FXML
-	private TableColumn<Zadanie, String> TableColumnTresc;
-
-	@FXML
-	private TableColumn<Zadanie, String> tableColumnTytul;
+	private TableColumn<Zadanie, String> TableColumnTresc, tableColumnTytul;
 
 	@FXML
 	private TableColumn<Zadanie, Integer> tableColumnID;
@@ -95,14 +76,27 @@ public class AdminViewController {
 	private TableView<Zadanie> przypiszTableView;
 
 	@FXML
-	private TableColumn<Zadanie, String> PrzypiszTableTresc;
+	private TableColumn<Zadanie, String> PrzypiszTableTresc, przypiszTableTytul;
 
 	@FXML
 	private TableColumn<Zadanie, Integer> przypiszId;
 
-	@FXML
-	private TableColumn<Zadanie, String> przypiszTableTytul;
 
+	// ---------
+    @FXML
+    private TableView<Zadanie> tableWykonane;
+    
+    @FXML
+    private TableColumn<Zadanie, Integer> IDWykonane;
+    
+    @FXML
+    private TableColumn<Zadanie, Date> dodWykonane, ukoWyknane; // date
+    
+    @FXML
+    private TableColumn<Zadanie, String> tytulWykonane, trescWykonane, pracownikWykonane;
+    
+    
+	//---
 	/**
 	 * 
 	 * zrobic liste dla aktywnych i nie przypisanych zadan i dodac do tabeli aktywne
@@ -171,9 +165,9 @@ public class AdminViewController {
 					if (MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel()
 							.getSelectedItem().getId()) {
 
-						MainApp.instance.appCfg.listaZadan.get(id).setAktywne(0);
-						MainApp.instance.zadanieDAO.update(MainApp.instance.appCfg.listaZadan.get(id));
-
+						
+						MainApp.instance.zadanieDAO.delete(MainApp.instance.appCfg.listaZadan.get(id));
+						MainApp.instance.appCfg.listaZadan.remove(id);
 						break;
 
 					}
@@ -295,15 +289,31 @@ public class AdminViewController {
 		PrzypiszTableTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		przypiszTableTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 
+		IDWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+		tytulWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+		trescWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
+		dodWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_rozp"));
+		ukoWyknane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_ukon"));
+		pracownikWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("pracownik"));
+		
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-			if (z.getAktywne() == 1 && z.getPracownik().equals(null)) {
+			if (z.getAktywne() == 1 && z.getPracownik() == null) {
 				tempList.add(z);
 			}
 		}
+		
 
 		tableView.setItems((ObservableList<Zadanie>) tempList);
 		przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
+		
+		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
+			if (z.getPracownik() != null && z.getAktywne() == 0) {
+				tempList.add(z);
+			}
+		}
+		tableWykonane.setItems((ObservableList<Zadanie>) tempList);
+		
 	}
 }
