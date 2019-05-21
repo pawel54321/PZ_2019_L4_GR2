@@ -21,8 +21,11 @@ import java.util.Observable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.sound.midi.Soundbank;
 import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
@@ -58,7 +61,6 @@ public class AdminViewController {
 	@FXML
 	private TextArea trescZadaniaDodaj;
 
-
 //--------
 	@FXML
 	private TableColumn<Zadanie, String> TableColumnTresc, tableColumnTytul;
@@ -81,32 +83,35 @@ public class AdminViewController {
 	@FXML
 	private TableColumn<Zadanie, Integer> przypiszId;
 
-
 	// ---------
+	@FXML
+	private TableView<Zadanie> tableWykonane;
+
+	@FXML
+	private TableColumn<Zadanie, Integer> IDWykonane;
+
+	@FXML
+	private TableColumn<Zadanie, Date> dodWykonane, ukoWyknane; // date
+
+	@FXML
+	private TableColumn<Zadanie, String> tytulWykonane, trescWykonane, pracownikWykonane;
+
+	// --- radio box
+
+	@FXML
+	private ChoiceBox<Pracownik> pracChoice;
+	
     @FXML
-    private TableView<Zadanie> tableWykonane;
-    
-    @FXML
-    private TableColumn<Zadanie, Integer> IDWykonane;
-    
-    @FXML
-    private TableColumn<Zadanie, Date> dodWykonane, ukoWyknane; // date
-    
-    @FXML
-    private TableColumn<Zadanie, String> tytulWykonane, trescWykonane, pracownikWykonane;
-    
-    
-	//---
-	/**
-	 * 
-	 * zrobic liste dla aktywnych i nie przypisanych zadan i dodac do tabeli aktywne
-	 * nie przypisane
-	 * 
-	 */
+    private ToggleGroup permission;
+
+	@FXML
+	private RadioButton radioManager, radioAdmin, radioPracownik;
+	// ---
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
-	
 
+	private String perm = "";
+	
 	public void initialize() {
 		// TODO: metoda inicjalizujaca
 
@@ -133,8 +138,9 @@ public class AdminViewController {
 				przypiszChoiceBox.getItems().add(p);
 			}
 		}
-		System.out.println("przypisane do choiceboxa");
+		//System.out.println("przypisane do choiceboxa");
 
+		refreshPermission();
 	}
 
 	@FXML
@@ -165,7 +171,6 @@ public class AdminViewController {
 					if (MainApp.instance.appCfg.listaZadan.get(id).getId() == tableView.getSelectionModel()
 							.getSelectedItem().getId()) {
 
-						
 						MainApp.instance.zadanieDAO.delete(MainApp.instance.appCfg.listaZadan.get(id));
 						MainApp.instance.appCfg.listaZadan.remove(id);
 						break;
@@ -261,19 +266,17 @@ public class AdminViewController {
 
 			tempPrac.addZadania(tempZad);
 			pracownikDAO.update(tempPrac);
-			
-			
+
 			// Przypisujemy do obiektu w liscie pracownika
-			for(int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
-				if(MainApp.instance.appCfg.listaZadan.get(i).getId() == tempZad.getId()) {
+			for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
+				if (MainApp.instance.appCfg.listaZadan.get(i).getId() == tempZad.getId()) {
 					MainApp.instance.appCfg.listaZadan.get(i).setPracownik(tempPrac);
 				}
 			}
-			
-			
+
 			showAlertWithoutHeaderText("Zadanie przypisane poprawnie.");
 			refreshTable();
-			
+
 		} catch (Exception e) {
 			showAlertWithoutHeaderText("Błąd podczas przypisania zadania.");
 			System.out.println(e.getMessage());
@@ -295,7 +298,7 @@ public class AdminViewController {
 		dodWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_rozp"));
 		ukoWyknane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_ukon"));
 		pracownikWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("pracownik"));
-		
+
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
@@ -303,17 +306,32 @@ public class AdminViewController {
 				tempList.add(z);
 			}
 		}
-		
 
 		tableView.setItems((ObservableList<Zadanie>) tempList);
 		przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
-		
+
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
 			if (z.getPracownik() != null && z.getAktywne() == 0) {
 				tempList.add(z);
 			}
 		}
 		tableWykonane.setItems((ObservableList<Zadanie>) tempList);
-		
+
+	}
+
+
+    @FXML
+    void changePermission(ActionEvent event) {
+    	//radioManager, radioAdmin, radioPracownik
+    	System.out.println("permission button");
+    	
+    }
+
+    
+	private void refreshPermission() {
+
+		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
+			pracChoice.getItems().add(p);
+		}
 	}
 }

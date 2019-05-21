@@ -5,6 +5,7 @@
  */
 package com.gr2lab4.projekt;
 
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import com.gr2lab4.projekt.Entities.Pracownik;
