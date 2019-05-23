@@ -100,18 +100,42 @@ public class AdminViewController {
 
 	@FXML
 	private ChoiceBox<Pracownik> pracChoice;
-	
-    @FXML
-    private ToggleGroup permission;
+
+	@FXML
+	private ToggleGroup permission;
 
 	@FXML
 	private RadioButton radioManager, radioAdmin, radioPracownik;
 	// ---
+
+	@FXML
+	private TableView<Zadanie> editTableView;
+
+	@FXML
+	private TableColumn<Zadanie, Integer> editColumnID;
+
+	@FXML
+	private TableColumn<Zadanie, String> editColumnTytul;
+
+	@FXML
+	private TableColumn<Zadanie, String> editColumnTresc;
+
+	@FXML
+	private TextField editTextField;
+
+	@FXML
+	private TextArea editTextArea;
+
+    @FXML
+    private Button zapiszEditButton;
+// zapiszEditButton
+	// --
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
+	private Zadanie tempEditZad = new Zadanie();
 
 	private String perm = "";
-	
+
 	public void initialize() {
 		// TODO: metoda inicjalizujaca
 
@@ -138,7 +162,7 @@ public class AdminViewController {
 				przypiszChoiceBox.getItems().add(p);
 			}
 		}
-		//System.out.println("przypisane do choiceboxa");
+		// System.out.println("przypisane do choiceboxa");
 
 		refreshPermission();
 	}
@@ -160,6 +184,58 @@ public class AdminViewController {
 		// MainApp.instance.appCfg.listaZadan = null;
 
 	}
+
+	// --------------
+	@FXML
+	void edycjaZaznacz(ActionEvent event) {
+		if(!editTableView.getSelectionModel().isEmpty()) {
+			tempEditZad = editTableView.getSelectionModel().getSelectedItem();
+			editTextField.setText(tempEditZad.getTytul()); // tytul
+			editTextArea.setText(tempEditZad.getTresc()); // tresc
+			editTextArea.setEditable(true);
+			editTextArea.setDisable(false);
+			editTextField.setEditable(true);
+			editTextField.setDisable(false);
+			zapiszEditButton.setDisable(false);			
+		}else {
+			showAlertWithoutHeaderText("Zaznacz obiekt z tabelki!");
+		}
+
+	}
+
+	@FXML
+	void zapiszEditedZadanie(ActionEvent event) {
+		if (editTextField.getText().isEmpty()) {
+			showAlertWithoutHeaderText("Pole z tytullem jest puste!");
+		} else {
+			if (editTextArea.getText().isEmpty()) {
+				showAlertWithoutHeaderText("Pole z trescia jest puste!");
+			} else {
+				tempEditZad.setTytul(editTextField.getText());
+				tempEditZad.setTresc(editTextArea.getText());
+				zadanieDAO.update(tempEditZad);
+				
+				for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
+					if (MainApp.instance.appCfg.listaZadan.get(i).getId() == tempEditZad.getId()) {
+						MainApp.instance.appCfg.listaZadan.get(i).setTresc(editTextArea.getText());
+						MainApp.instance.appCfg.listaZadan.get(i).setTytul(editTextField.getText());
+					}
+				}
+				editTextArea.setText("");
+				editTextField.setText("");
+				tempEditZad = new Zadanie();
+				
+				editTextArea.setEditable(false);
+				editTextArea.setDisable(true);
+				editTextField.setEditable(false);
+				editTextField.setDisable(true);
+				zapiszEditButton.setDisable(true);	
+				
+				refreshTable();
+			}
+		}
+	}
+	// -------
 
 	@FXML
 	private void deleteZadanie(ActionEvent event) {
@@ -292,6 +368,10 @@ public class AdminViewController {
 		PrzypiszTableTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		przypiszTableTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 
+		editColumnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+		editColumnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
+		editColumnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+
 		IDWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		tytulWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 		trescWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
@@ -309,6 +389,7 @@ public class AdminViewController {
 
 		tableView.setItems((ObservableList<Zadanie>) tempList);
 		przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
+		editTableView.setItems((ObservableList<Zadanie>) tempList);
 
 		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
 			if (z.getPracownik() != null && z.getAktywne() == 0) {
@@ -319,15 +400,13 @@ public class AdminViewController {
 
 	}
 
+	@FXML
+	void changePermission(ActionEvent event) {
+		// radioManager, radioAdmin, radioPracownik
+		System.out.println("permission button");
 
-    @FXML
-    void changePermission(ActionEvent event) {
-    	//radioManager, radioAdmin, radioPracownik
-    	System.out.println("permission button");
-    	
-    }
+	}
 
-    
 	private void refreshPermission() {
 
 		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
