@@ -105,30 +105,5 @@
             </AnchorPane>
         </content>
       </Tab>
-      <Tab text="Uprawnienia">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ChoiceBox fx:id="pracChoice" layoutX="86.0" layoutY="171.0" prefWidth="150.0" />
-                  <VBox layoutX="299.0" layoutY="158.0" prefHeight="40.0" prefWidth="125.0">
-                     <children>
-                        <RadioButton fx:id="radioAdmin" mnemonicParsing="false" text="Admin">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="permission" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="radioManager" mnemonicParsing="false" text="Manager" toggleGroup="$permission" />
-                        <RadioButton fx:id="radioPracownik" mnemonicParsing="false" text="Pracownik" toggleGroup="$permission" />
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </VBox>
-                  <Button layoutX="463.0" layoutY="171.0" mnemonicParsing="false" onAction="#changePermission" text="Zmien uprawnienie" />
-                  <ChoiceBox layoutX="109.0" layoutY="52.0" prefWidth="150.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
   </tabs>
 </TabPane>
