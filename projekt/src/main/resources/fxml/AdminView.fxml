@@ -62,9 +62,9 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="generujRaportButton" layoutX="306.0" layoutY="225.0" mnemonicParsing="false" onAction="#generateRaport" text="Generuj raport" />
-                  <CheckBox layoutX="287.0" layoutY="84.0" mnemonicParsing="false" text="Pracownik miesiaca" />
-                  <CheckBox layoutX="287.0" layoutY="115.0" mnemonicParsing="false" text="ilosc wykonanych zadan" />
-                  <CheckBox layoutX="287.0" layoutY="151.0" mnemonicParsing="false" text="ilosc zadan w miesiacu" />
+                  <CheckBox layoutX="287.0" layoutY="84.0" mnemonicParsing="false" text="Pracownik miesiąca" />
+                  <CheckBox layoutX="287.0" layoutY="115.0" mnemonicParsing="false" text="Ilość wykonanych zadań" />
+                  <CheckBox layoutX="287.0" layoutY="151.0" mnemonicParsing="false" text="Ilość zadań w miesiącu" />
                </children>
             </AnchorPane>
          </content>
