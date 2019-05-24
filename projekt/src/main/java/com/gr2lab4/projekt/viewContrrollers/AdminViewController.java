@@ -304,9 +304,10 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport1(ActionEvent event) {
+	private void generateRaport1(ActionEvent event) { // raport za miesiac
 //TODO:
 		System.out.println("raport1");
+		
 
 	}
 
@@ -322,7 +323,7 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport3(ActionEvent event) {
+	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu
 //TODO:
 		System.out.println("raport3");
 
