@@ -11,7 +11,6 @@ import com.gr2lab4.projekt.Entities.Zadanie;
 import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
 import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +21,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.sound.midi.Soundbank;
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -39,7 +38,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -96,7 +94,7 @@ public class AdminViewController {
 	@FXML
 	private TableColumn<Zadanie, String> tytulWykonane, trescWykonane, pracownikWykonane;
 
-	// --- 
+	// ---
 
 	@FXML
 	private TableView<Zadanie> editTableView;
@@ -116,10 +114,15 @@ public class AdminViewController {
 	@FXML
 	private TextArea editTextArea;
 
-    @FXML
-    private Button zapiszEditButton;
-// zapiszEditButton
-	// --
+	@FXML
+	private Button zapiszEditButton;
+//----- raport
+
+	@FXML
+	private ChoiceBox<Pracownik> choiceBoxRaport;
+
+	// ------
+
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
 	private Zadanie tempEditZad = new Zadanie();
@@ -127,7 +130,6 @@ public class AdminViewController {
 	private String perm = "";
 
 	public void initialize() {
-		// TODO: metoda inicjalizujaca
 
 		List<Zadanie> resultList = zadanieDAO.findAll();
 
@@ -146,15 +148,14 @@ public class AdminViewController {
 
 		refreshTable();
 
-		System.out.println("Dodanie zadan do tabelki");
+		// prypisanie pracownikow do boxow
 		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
 			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
 				przypiszChoiceBox.getItems().add(p);
+				choiceBoxRaport.getItems().add(p);
 			}
 		}
-		// System.out.println("przypisane do choiceboxa");
 
-		refreshPermission();
 	}
 
 	@FXML
@@ -178,7 +179,7 @@ public class AdminViewController {
 	// --------------
 	@FXML
 	void edycjaZaznacz(ActionEvent event) {
-		if(!editTableView.getSelectionModel().isEmpty()) {
+		if (!editTableView.getSelectionModel().isEmpty()) {
 			tempEditZad = editTableView.getSelectionModel().getSelectedItem();
 			editTextField.setText(tempEditZad.getTytul()); // tytul
 			editTextArea.setText(tempEditZad.getTresc()); // tresc
@@ -186,8 +187,8 @@ public class AdminViewController {
 			editTextArea.setDisable(false);
 			editTextField.setEditable(true);
 			editTextField.setDisable(false);
-			zapiszEditButton.setDisable(false);			
-		}else {
+			zapiszEditButton.setDisable(false);
+		} else {
 			showAlertWithoutHeaderText("Zaznacz obiekt z tabelki!");
 		}
 
@@ -196,15 +197,16 @@ public class AdminViewController {
 	@FXML
 	void zapiszEditedZadanie(ActionEvent event) {
 		if (editTextField.getText().isEmpty()) {
-			showAlertWithoutHeaderText("Pole z tytullem jest puste!");
+			showAlertWithoutHeaderText("Pole z tytulem jest puste!");
 		} else {
 			if (editTextArea.getText().isEmpty()) {
 				showAlertWithoutHeaderText("Pole z trescia jest puste!");
 			} else {
+
 				tempEditZad.setTytul(editTextField.getText());
 				tempEditZad.setTresc(editTextArea.getText());
 				zadanieDAO.update(tempEditZad);
-				
+
 				for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
 					if (MainApp.instance.appCfg.listaZadan.get(i).getId() == tempEditZad.getId()) {
 						MainApp.instance.appCfg.listaZadan.get(i).setTresc(editTextArea.getText());
@@ -214,13 +216,13 @@ public class AdminViewController {
 				editTextArea.setText("");
 				editTextField.setText("");
 				tempEditZad = new Zadanie();
-				
+
 				editTextArea.setEditable(false);
 				editTextArea.setDisable(true);
 				editTextField.setEditable(false);
 				editTextField.setDisable(true);
-				zapiszEditButton.setDisable(true);	
-				
+				zapiszEditButton.setDisable(true);
+
 				refreshTable();
 			}
 		}
@@ -302,8 +304,27 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport(ActionEvent event) {
-		// TODO: jakis raport bedzie generowal sie do pdfa
+	private void generateRaport1(ActionEvent event) {
+//TODO:
+		System.out.println("raport1");
+
+	}
+
+	@FXML
+	private void generateRaport2(ActionEvent event) { // raport na pacownika
+//TODO:
+		System.out.println("raport2");
+		if(!choiceBoxRaport.getSelectionModel().isEmpty()) {
+			
+		}else {
+			showAlertWithoutHeaderText("Zaznacz pracownika");
+		}
+	}
+
+	@FXML
+	private void generateRaport3(ActionEvent event) {
+//TODO:
+		System.out.println("raport3");
 
 	}
 
@@ -387,13 +408,6 @@ public class AdminViewController {
 			}
 		}
 		tableWykonane.setItems((ObservableList<Zadanie>) tempList);
-
-	}
-
-	@FXML
-	void changePermission(ActionEvent event) {
-		// radioManager, radioAdmin, radioPracownik
-		System.out.println("permission button");
 
 	}
 

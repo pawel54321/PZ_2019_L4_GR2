@@ -61,10 +61,10 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="generujRaportButton" layoutX="306.0" layoutY="225.0" mnemonicParsing="false" onAction="#generateRaport" text="Generuj raport" />
-                  <CheckBox layoutX="287.0" layoutY="84.0" mnemonicParsing="false" text="Pracownik miesiąca" />
-                  <CheckBox layoutX="287.0" layoutY="115.0" mnemonicParsing="false" text="Ilość wykonanych zadań" />
-                  <CheckBox layoutX="287.0" layoutY="151.0" mnemonicParsing="false" text="Ilość zadań w miesiącu" />
+                  <Button fx:id="generujRaportButton" layoutX="76.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport1" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
+                  <ChoiceBox fx:id="choiceBoxRaport" layoutX="260.0" layoutY="160.0" prefWidth="150.0" />
+                  <Button layoutX="263.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport2" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
+                  <Button layoutX="455.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport3" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
                </children>
             </AnchorPane>
          </content>
