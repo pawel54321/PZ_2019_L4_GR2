@@ -10,6 +10,7 @@ import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
 import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
 import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
+import com.gr2lab4.projekt.cfgs.AppCfg;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,10 +48,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 
-/**
- *
- * @author marcin
- */
+
 public class AdminViewController {
 
 	@FXML
@@ -304,10 +302,11 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport1(ActionEvent event) { // raport za miesiac
+	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac
 //TODO:
 		System.out.println("raport1");
-		
+	
+		com.gr2lab4.projekt.viewContrrollers.Raport.generatePDF("results/Raport.pdf");
 
 	}
 
@@ -328,6 +327,8 @@ public class AdminViewController {
 		System.out.println("raport3");
 
 	}
+	
+	
 
 	@FXML
 	void odswiezAction(ActionEvent event) {

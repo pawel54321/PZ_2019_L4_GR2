@@ -28,5 +28,16 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/itext7-io-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/itext7-kernel-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/itext7-layout-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/itext7-pdfa-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/itext7-pdftest-7.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/log4j-1.2-api-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/log4j-api-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/log4j-core-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/PZ/PZ_2019_L4_GR2/PDF/GeneratePdf/lib/slf4j-log4j12-1.7.25.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
