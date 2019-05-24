@@ -96,17 +96,7 @@ public class AdminViewController {
 	@FXML
 	private TableColumn<Zadanie, String> tytulWykonane, trescWykonane, pracownikWykonane;
 
-	// --- radio box
-
-	@FXML
-	private ChoiceBox<Pracownik> pracChoice;
-
-	@FXML
-	private ToggleGroup permission;
-
-	@FXML
-	private RadioButton radioManager, radioAdmin, radioPracownik;
-	// ---
+	// --- 
 
 	@FXML
 	private TableView<Zadanie> editTableView;
@@ -408,9 +398,5 @@ public class AdminViewController {
 	}
 
 	private void refreshPermission() {
-
-		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
-			pracChoice.getItems().add(p);
-		}
 	}
 }
