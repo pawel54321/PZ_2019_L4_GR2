@@ -1,5 +1,7 @@
 package com.gr2lab4.projekt.Entities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -106,12 +108,20 @@ public class Zadanie {
         this.tresc = tresc;//new SimpleStringProperty(tresc);
     }
 
-    public void setData_rozp(Date data_rozp) {
-        this.data_rozp = data_rozp;
+    public void setData_rozp(Date data_rozp) { //throws ParseException {
+    	
+    	
+    	//SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+    	//Date data_r = dt.parse(data_rozp+"");
+        this.data_rozp = data_rozp; //data_r;
     }
 
-    public void setData_ukon(Date data_ukon) {
-        this.data_ukon = data_ukon;
+    public void setData_ukon(Date data_ukon) { //throws ParseException {
+    	
+    //	SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+    //	Date data_u = (Date)dt.parse(data_ukon+"");
+    	
+        this.data_ukon = data_ukon; //data_u;
     }
 
 

@@ -305,7 +305,7 @@ public class AdminViewController {
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy wszystkich zadan w danym miesiacu)
 //TODO:
 		System.out.println("raport1");
-		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport.pdf");	
+		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");	
 		
 	}
 
@@ -314,6 +314,8 @@ public class AdminViewController {
 //TODO:
 		System.out.println("raport2");
 		if(!choiceBoxRaport.getSelectionModel().isEmpty()) {
+			
+			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf");
 			
 		}else {
 			showAlertWithoutHeaderText("Zaznacz pracownika");
@@ -324,7 +326,7 @@ public class AdminViewController {
 	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu (Raport dotyczacy zadan jakie zostaly ukonczone w danym miesiacu)
 //TODO:
 		System.out.println("raport3");
-		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport.pdf");
+		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
 
 
 	}

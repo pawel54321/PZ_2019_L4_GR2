@@ -3,10 +3,6 @@ package com.gr2lab4.projekt.viewContrrollers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import com.gr2lab4.projekt.MainApp;
 import com.itextpdf.kernel.color.Color;
@@ -27,7 +23,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 
-public class Raport1 {
+public class Raport2 {
 	 public static final PdfNumber LANDSCAPE = new PdfNumber(90);
 
 	    //private static final Logger LOG = LoggerFactory.getLogger(PdfGenerateTest.class);
@@ -78,7 +74,8 @@ public class Raport1 {
 	        table.addCell(getCell2(table3, TextAlignment.CENTER));
 	        document.add(table);
 
-	        Text boldX = new Text("Raport dotyczacy wszystkich zadan w danym miesiacu")
+	        Text boldX = new Text("Raport dotyczacy wszystkich zadan dla pracownika:\n Imie:"+MainApp.instance.appCfg.listaZadan.get(0).getPracownik().getImie() +
+	        		"\n Nazwisko: "+MainApp.instance.appCfg.listaZadan.get(0).getPracownik().getNazwisko())
 	                .setFontSize(44.0f).setTextAlignment(TextAlignment.CENTER);
 	        Paragraph p = new Paragraph(boldX);
 	        document.add(p);
@@ -250,5 +247,4 @@ public class Raport1 {
 	            docEvent.getPage().put(PdfName.Rotate, rotation);
 	        }
 	    }
-	
 }
