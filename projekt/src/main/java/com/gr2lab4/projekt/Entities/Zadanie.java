@@ -15,10 +15,9 @@ import javax.persistence.Table;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- *
+ * Obiekt reprezentujący zadanie w firmie.
  * @author marcinrosol
  */
-
 @Entity
 @Table(name = "Zadanie")
 public class Zadanie {

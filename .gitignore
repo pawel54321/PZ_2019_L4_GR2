@@ -5,3 +5,5 @@ projekt/src/main/resources/META-INF/persistence.xml
 projekt/src/main/resources/META-INF/persistence.xml
 projekt/.classpath
 projekt/src/main/resources/hibernate.cfg.xml
+projekt/.classpath
+projekt/src/main/resources/hibernate.cfg.xml

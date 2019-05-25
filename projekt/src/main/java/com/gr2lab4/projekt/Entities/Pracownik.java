@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- *
+ * Obiekt reprezentujący pracownika w firmie. 
  * @author marcinrosol
  */
 @Entity

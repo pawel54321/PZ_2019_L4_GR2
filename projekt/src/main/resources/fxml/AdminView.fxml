@@ -61,10 +61,10 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="generujRaportButton" layoutX="76.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport1" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
+                  <Button fx:id="generujRaportButton" layoutX="20.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport1" prefHeight="27.0" prefWidth="219.0" text="Generuj raport dlla danego miesiaca" />
                   <ChoiceBox fx:id="choiceBoxRaport" layoutX="260.0" layoutY="160.0" prefWidth="150.0" />
-                  <Button layoutX="263.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport2" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
-                  <Button layoutX="455.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport3" prefHeight="27.0" prefWidth="140.0" text="Generuj raport" />
+                  <Button layoutX="248.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport2" prefHeight="27.0" prefWidth="227.0" text="Generuj raport dla danego pracownika" />
+                  <Button layoutX="489.0" layoutY="228.0" mnemonicParsing="false" onAction="#generateRaport3" prefHeight="27.0" prefWidth="237.0" text="Generuj raport dla ukonczonych zadan" />
                </children>
             </AnchorPane>
          </content>

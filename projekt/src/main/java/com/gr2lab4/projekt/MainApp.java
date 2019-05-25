@@ -20,17 +20,24 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
 
-/*
- pobieramy sobie cala list epracownikow z bazy danych (malo bezpieczne ale trudno),
- nastepnie podczas logowania bedziemy przeszukiwali sobie liste pracowników czy
- istnieja taki obiekt ktory tam login i haslo bedzie sie zgadzalo,
- jak jest to loguje i sio. commitujemy zmiany w bazie na bierzaco
+/**
+ * Date: 25.05.2019
+ * Prosta aplikacja umożliwiajaca rozdawanie zadań pracownikom.
+ * @author marcin
+ * @version 1.0
+ * 
  */
+
 public class MainApp extends Application {
 
 	public static MainApp instance = null;
-
+	/**
+	 * Klasa łącząca obiekt Pracownik z bazą danych.
+	 */
 	public PracownikDAO pracownikDAO = new PracownikDAO();
+	/**
+	 * Klasa łącząca obiekt Zadanie z bazą danych/
+	 */
 	public ZadanieDAO zadanieDAO = new ZadanieDAO();
 
 	public AppCfg appCfg; 
@@ -46,6 +53,9 @@ public class MainApp extends Application {
 			if (resultList.isEmpty() || resultList.size() == 0) {
 				System.out.println("lista pracowników jest pusta ");
 				Pracownik admin = new Pracownik("Admin","Admin","admin","admin","admin");
+				Pracownik manager = new Pracownik("Manager","manager","manager","manager","manager");
+				
+				//manager
 				pracownikDAO.save(admin);
 			} else {
 				appCfg.pracownicy = resultList;

@@ -48,7 +48,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 
-
+/**
+ *  Klasa odpowiedziallna za kontroller dla administratora.
+ * @author marcin
+ *
+ */
 public class AdminViewController {
 
 	@FXML
@@ -156,6 +160,11 @@ public class AdminViewController {
 
 	}
 
+	/**
+	 * Metoda wylogowywuje użytkownika.
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void logoutAdmin(ActionEvent e) throws IOException {
 
@@ -175,6 +184,10 @@ public class AdminViewController {
 	}
 
 	// --------------
+	/**
+	 * Metoda pobierająca dane do edycji obiektu.
+	 * @param event
+	 */
 	@FXML
 	void edycjaZaznacz(ActionEvent event) {
 		if (!editTableView.getSelectionModel().isEmpty()) {
@@ -192,6 +205,10 @@ public class AdminViewController {
 
 	}
 
+	/**
+	 * Metoda zapisująca zedytowany obiekt do bazy danych.
+	 * @param event
+	 */
 	@FXML
 	void zapiszEditedZadanie(ActionEvent event) {
 		if (editTextField.getText().isEmpty()) {
@@ -227,6 +244,10 @@ public class AdminViewController {
 	}
 	// -------
 
+	/**
+	 * Metoda usuwająca obiekt Zadanie z bazy danych.
+	 * @param event
+	 */
 	@FXML
 	private void deleteZadanie(ActionEvent event) {
 
@@ -263,6 +284,10 @@ public class AdminViewController {
 		refreshTable();
 	}
 
+	/**
+	 * Metoda dodajaca obiekt Zadanie do bazy danych.
+	 * @param event
+	 */
 	@FXML
 	private void addZadanie(ActionEvent event) {
 		String tytul = tytulZadaniaDodaj.getText().toString();
@@ -301,18 +326,27 @@ public class AdminViewController {
 
 	}
 
+	/**
+	 * Metoda generujaca raport dla wszystkich zadan w danym miesiacu
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy wszystkich zadan w danym miesiacu)
 //TODO:
-		System.out.println("raport1");
+		//System.out.println("raport1");
 		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");	
 		
 	}
 
+	/**
+	 * Metoda generujaca raport dla danego pracownika.
+	 * @param event
+	 */
 	@FXML
 	private void generateRaport2(ActionEvent event) { // raport na pracownika
 //TODO:
-		System.out.println("raport2");
+		//System.out.println("raport2");
 		if(!choiceBoxRaport.getSelectionModel().isEmpty()) {
 			
 			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf");
@@ -322,6 +356,10 @@ public class AdminViewController {
 		}
 	}
 
+	/**
+	 * Metoda generujaca raport ukonczonych zadan w danym miesiacu.
+	 * @param event
+	 */
 	@FXML
 	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu (Raport dotyczacy zadan jakie zostaly ukonczone w danym miesiacu)
 //TODO:
@@ -336,9 +374,13 @@ public class AdminViewController {
 	@FXML
 	void odswiezAction(ActionEvent event) {
 		refreshTable();
-		System.out.println("refresh");
+		//System.out.println("refresh");
 	}
 
+    /**
+     * Metoda wyświetlająca nam komunikat.
+     * @param text wartość wyświetlana w komunikacie.
+     */
 	private void showAlertWithoutHeaderText(String text) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Alert");
@@ -350,6 +392,10 @@ public class AdminViewController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Metoda przypisuje obiektowi Pracownik obiekt Zadaanie i zapisuje do bazy danych.
+	 * @param event
+	 */
 	@FXML
 	void przypiszAction(ActionEvent event) {
 		try {
@@ -375,6 +421,9 @@ public class AdminViewController {
 		}
 	}
 
+	/**
+	 * Metoda odświeża tabele z danymi.
+	 */
 	private void refreshTable() {
 		tableColumnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		TableColumnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));

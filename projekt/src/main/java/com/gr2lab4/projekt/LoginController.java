@@ -29,7 +29,6 @@ import javafx.stage.Stage;
  */
 public class LoginController {
 
-    private String aL = "admin", aP = "admin";
 
     @FXML
     private TextField LoginField;
@@ -40,9 +39,10 @@ public class LoginController {
     @FXML
     private PasswordField PasswordField;
 
-    @FXML
-    private Button LoginButton;
-
+    /**
+     * Metoda sprawdza czy wprowadzone dane istnieją w bazie danych i loguje uzytkownika do aplikacji.
+     * @throws IOException
+     */
     @FXML
     void LoginAction(ActionEvent e) throws IOException {
         String login = LoginField.getText().toString();
@@ -117,6 +117,11 @@ public class LoginController {
         
     }
 
+    /**
+     * Metoda przenosi użytkownika do formularza rejestracji.
+     * @param e
+     * @throws IOException
+     */
     @FXML
     private void RegisterAction(ActionEvent e) throws IOException {
 
@@ -130,6 +135,10 @@ public class LoginController {
         System.out.println("register");
     }
     
+    /**
+     * Metoda wyświetlająca nam komunikat.
+     * @param text wartość wyświetlana w komunikacie.
+     */
     private void showAlertWithoutHeaderText(String text) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Alert");

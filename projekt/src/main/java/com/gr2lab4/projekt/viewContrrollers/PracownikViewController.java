@@ -87,6 +87,10 @@ public class PracownikViewController {
 
 	}
 
+	/**
+	 * Metoda zmieniajaca status obiektu Zadanie na ukonczone.
+	 * @param event
+	 */
 	@FXML
 	void gotoweZadanie(ActionEvent event) {
 		Zadanie zaznaczone = tableVew.getSelectionModel().getSelectedItem();
@@ -106,6 +110,9 @@ public class PracownikViewController {
 		refreshTable();
 	}
 
+	/**
+	 * Metoda odswieza dane w tabelkach.
+	 */
 	private void refreshTable() {
 		try {
 			columnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
@@ -142,6 +149,11 @@ public class PracownikViewController {
 		}
 	}
 
+	/**
+	 * Metoda wylogowywuje użytkownika.
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void logoutPracownik(ActionEvent e) throws IOException {
 

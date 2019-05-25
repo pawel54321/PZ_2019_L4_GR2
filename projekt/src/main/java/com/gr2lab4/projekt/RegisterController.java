@@ -49,6 +49,11 @@ public class RegisterController {
 	@FXML
 	private Button RegisterButtonRG; // pole rejestracji przycisk zarejestruj
 
+	/**
+	 * Metoda pobiera dane i dodaje uzytkownika do bazy danych.
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	void registerClick(ActionEvent e) throws IOException {
 
@@ -114,7 +119,11 @@ public class RegisterController {
 			
 		}
 	}
-
+	
+    /**
+     * Metoda wyświetlająca nam komunikat.
+     * @param text wartość wyświetlana w komunikacie.
+     */
     private void showAlertWithoutHeaderText(String text) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Alert");

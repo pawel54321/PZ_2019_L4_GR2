@@ -13,18 +13,19 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.collections.*;
 /**
- *
+ * Klasa odpowiedzialna jest za przechowywanie danych w aplikacji.
  * @author marcinrosol
- *
- * wszystkie zmienne jakie chcemy przetrzymywac globalnie to tutaj beda
- *
+ * 
  */
 public class AppCfg {
-
+	
+	
     public List<Pracownik> pracownicy;
 
-    //stanowisko
-  
+    
+    /**
+     * Zmienna przechowuje obiekt zallogowanego pracownika.
+     */
     public Pracownik user;
 
     public ObservableList<Zadanie> listaZadan;
