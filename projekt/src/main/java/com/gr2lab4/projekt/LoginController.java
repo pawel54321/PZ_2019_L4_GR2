@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- *
+ * Kontroller dla logowania
  * @author marcinrosol
  */
 public class LoginController {

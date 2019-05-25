@@ -29,7 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- *
+ * Kontroller dla pracownika
  * @author marcin
  */
 public class PracownikViewController {

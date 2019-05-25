@@ -33,8 +33,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-/**
- *
+/** 
+ * Kontroller dla managera
  * @author marcin
  */
 public class ManagerViewController {
