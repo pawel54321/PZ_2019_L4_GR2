@@ -57,6 +57,8 @@ public class MainApp extends Application {
 				
 				//manager
 				pracownikDAO.save(admin);
+				resultList = pracownikDAO.findAll();
+				appCfg.pracownicy = resultList;
 			} else {
 				appCfg.pracownicy = resultList;
 			}

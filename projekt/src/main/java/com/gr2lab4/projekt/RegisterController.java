@@ -6,12 +6,14 @@
 package com.gr2lab4.projekt;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import com.gr2lab4.projekt.Entities.Pracownik;
+import com.gr2lab4.projekt.Entities.Dao.PracownikDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -82,26 +84,11 @@ public class RegisterController {
 			}
 
 			if (istnieje == false) {
-
-				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pomidory");
-				EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-				Pracownik pracownik = new Pracownik();
-				pracownik.setHaslo(passwd);
-				pracownik.setImie(name);
-				pracownik.setNazwisko(surr);
-				pracownik.setLogin(login);
-				pracownik.setStanowisko("pracownik");
-
-				entityManager.getTransaction().begin();;
+				Pracownik entity = new Pracownik(name, surr, "pracownik",login,passwd);
 				
-				entityManager.persist(pracownik);
-				MainApp.instance.appCfg.pracownicy.add(pracownik);
-				
-				entityManager.getTransaction().commit();
-				
-				entityManager.close();
-				entityManagerFactory.close();
+				MainApp.instance.pracownikDAO.save(entity);
+				List<Pracownik> resultList = MainApp.instance.pracownikDAO.findAll();
+				MainApp.instance.appCfg.pracownicy = resultList;
 				
 				//System.out.println("dodany uzytkownik do bazy danych");
 				// wstawiamy do bazy danych
