@@ -24,7 +24,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 
-public class Raport {
+public class Raport3 {
 	 public static final PdfNumber LANDSCAPE = new PdfNumber(90);
 
 	    //private static final Logger LOG = LoggerFactory.getLogger(PdfGenerateTest.class);

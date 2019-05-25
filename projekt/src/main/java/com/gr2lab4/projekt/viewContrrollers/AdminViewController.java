@@ -302,16 +302,15 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac
+	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy wszystkich zadan w danym miesiacu)
 //TODO:
 		System.out.println("raport1");
-	
-		com.gr2lab4.projekt.viewContrrollers.Raport.generatePDF("results/Raport.pdf");
-
+		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport.pdf");	
+		
 	}
 
 	@FXML
-	private void generateRaport2(ActionEvent event) { // raport na pacownika
+	private void generateRaport2(ActionEvent event) { // raport na pracownika
 //TODO:
 		System.out.println("raport2");
 		if(!choiceBoxRaport.getSelectionModel().isEmpty()) {
@@ -322,9 +321,11 @@ public class AdminViewController {
 	}
 
 	@FXML
-	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu
+	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu (Raport dotyczacy zadan jakie zostaly ukonczone w danym miesiacu)
 //TODO:
 		System.out.println("raport3");
+		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport.pdf");
+
 
 	}
 	
