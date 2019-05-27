@@ -25,26 +25,26 @@ public class Zadanie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    protected int id;
 
     @Column(name="tytul")
-    private String tytul;
+    protected String tytul;
 
     @Column(name="tresc")
-    private String tresc;
+    protected String tresc;
 
     @Column(name="data_rozp")
-    private Date data_rozp;
+    protected Date data_rozp;
 
     @Column(name="data_ukon")
-    private Date data_ukon;
+    protected Date data_ukon;
 
     @Column(name="aktywne")
-    private int aktywne;
+    protected int aktywne;
 
     @ManyToOne
     @JoinColumn(name = "id_pracownika")
-    private Pracownik pracownik;
+    protected Pracownik pracownik;
 
     public Zadanie() {
 

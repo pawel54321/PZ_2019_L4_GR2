@@ -30,22 +30,22 @@ public class Pracownik{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
-    private int id_pracownika;
+    protected int id_pracownika;
     
     @Column(name="imie")
-    private String imie;
+    protected String imie;
     
     @Column(name="nazwisko")
-    private String nazwisko;
+    protected String nazwisko;
     
     @Column(name="stanowisko")
-    private String stanowisko;
+    protected String stanowisko;
     
     @Column(name="login")
-    private String login;
+    protected String login;
     
     @Column(name="haslo")
-    private String haslo;
+    protected String haslo;
     
 //    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
 //            CascadeType.DETACH, CascadeType.REFRESH}) // nie usuwamy zadan jesli usuniemy pracownka
@@ -55,7 +55,7 @@ public class Pracownik{
     		fetch = FetchType.EAGER,
     		cascade = CascadeType.ALL,
     		orphanRemoval = true)
-    private List<Zadanie> zadania;
+    protected List<Zadanie> zadania;
     
     public Pracownik(){
         
