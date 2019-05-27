@@ -56,5 +56,20 @@
             </AnchorPane>
          </content>
       </Tab>
+      <Tab text="Zmiana hasła">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="358.0" layoutY="324.0" mnemonicParsing="false" onAction="#onChangePasswd" text="Zmian hasło" />
+                  <Text layoutX="361.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powtórz hasło" />
+                  <Text layoutX="367.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowe hasło" />
+                  <PasswordField fx:id="stareHasllo" layoutX="314.0" layoutY="146.0" prefHeight="25.0" prefWidth="169.0" />
+                  <PasswordField fx:id="noweHaslo2" layoutX="314.0" layoutY="267.0" prefHeight="25.0" prefWidth="169.0" />
+                  <PasswordField fx:id="noweHaslo1" layoutX="314.0" layoutY="206.0" prefHeight="25.0" prefWidth="169.0" />
+                  <Text layoutX="369.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stare hasło" />
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
   </tabs>
 </TabPane>

@@ -28,13 +28,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-/** 
+/**
  * Kontroller dla managera
+ * 
  * @author marcin
  */
 public class ManagerViewController {
@@ -84,6 +86,16 @@ public class ManagerViewController {
 	@FXML
 	private ChoiceBox<Pracownik> choiceBoxRaport;
 	// --
+
+	@FXML
+	private PasswordField noweHaslo1;
+    
+	@FXML
+    private PasswordField noweHaslo2;
+	
+    @FXML
+    private PasswordField stareHasllo;
+	//--
 
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
@@ -159,6 +171,36 @@ public class ManagerViewController {
 
 		MainApp.instance.appCfg.setUser(null);
 
+	}
+	
+	/**
+	 * Metoda zmieniajaca hasło uzytkownika w bazie danych.
+	 * 
+	 * @param e
+	 */
+	@FXML
+	void onChangePasswd(ActionEvent e) {
+		
+		if(!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
+			if(stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())){
+				if(noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
+					MainApp.instance.appCfg.user.setHaslo(noweHaslo1.getText());
+					pracownikDAO.update(MainApp.instance.appCfg.user);
+					showAlertWithoutHeaderText("Hasło zaktualizowane!");
+					stareHasllo.setText("");
+					noweHaslo1.setText("");
+					noweHaslo2.setText("");
+				}else {
+					showAlertWithoutHeaderText("Hasła nie są zgodne");
+				}
+			}else {
+				showAlertWithoutHeaderText("Wpisane stare hasło nie jest poprawne!");
+			}
+		}else {
+			showAlertWithoutHeaderText("Nie wpisales zadnego hasla!");
+		}
+		
+		
 	}
 
 	/**
@@ -249,14 +291,11 @@ public class ManagerViewController {
 		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
 
 	}
-
 	
-	
-	/**
-	 * Metoda wyświetlająca nam komunikat.
-	 * 
-	 * @param text wartość wyświetlana w komunikacie.
-	 */
+    /**
+     * Metoda wyświetlająca nam komunikat.
+     * @param text wartość wyświetlana w komunikacie.
+     */
 	private void showAlertWithoutHeaderText(String text) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Alert");
@@ -267,4 +306,5 @@ public class ManagerViewController {
 
 		alert.showAndWait();
 	}
+
 }

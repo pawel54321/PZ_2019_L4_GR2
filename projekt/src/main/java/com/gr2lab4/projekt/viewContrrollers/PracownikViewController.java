@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javafx.scene.control.PasswordField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,14 +23,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Kontroller dla pracownika
+ * 
  * @author marcin
  */
 public class PracownikViewController {
@@ -50,19 +54,26 @@ public class PracownikViewController {
 
 	// tabela ukonczonych
 
-    @FXML
-    private TableView<Zadanie> tableUkonczoneView;
+	@FXML
+	private TableView<Zadanie> tableUkonczoneView;
+
+	@FXML
+	private TableColumn<Zadanie, String> TrescUkonczone;
+
+	@FXML
+	private TableColumn<Zadanie, String> TytulUkonczone;
+
+	@FXML
+	private TableColumn<Zadanie, Integer> IDUkonczone;
+
+	@FXML
+	private PasswordField noweHaslo1;
     
 	@FXML
-    private TableColumn<Zadanie, String> TrescUkonczone;
+    private PasswordField noweHaslo2;
 	
-
     @FXML
-    private TableColumn<Zadanie, String> TytulUkonczone;
-    
-    @FXML
-    private TableColumn<Zadanie, Integer> IDUkonczone;
-    
+    private PasswordField stareHasllo;
 	// -------
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
@@ -82,13 +93,14 @@ public class PracownikViewController {
 		}
 
 		// -------
-		//System.out.println(MainApp.instance.appCfg.user.toString());
+		// System.out.println(MainApp.instance.appCfg.user.toString());
 		refreshTable();
 
 	}
 
 	/**
 	 * Metoda zmieniajaca status obiektu Zadanie na ukonczone.
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -97,16 +109,16 @@ public class PracownikViewController {
 		zaznaczone.setAktywne(0);
 		zaznaczone.setData_ukon(new Date());
 		int id = zaznaczone.getId();
-		
+
 		zadanieDAO.update(zaznaczone);
-		
-		for(int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
-			if(MainApp.instance.appCfg.listaZadan.get(i).getId() == id) {
+
+		for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
+			if (MainApp.instance.appCfg.listaZadan.get(i).getId() == id) {
 				MainApp.instance.appCfg.listaZadan.get(i).setAktywne(0);
 				MainApp.instance.appCfg.listaZadan.get(i).setData_ukon(new Date());
 			}
 		}
-		
+
 		refreshTable();
 	}
 
@@ -123,20 +135,19 @@ public class PracownikViewController {
 			TrescUkonczone.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 			TytulUkonczone.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 
-
 			ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 			ObservableList<Zadanie> tempList2 = FXCollections.observableArrayList();
 
 			for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-				if (z.getAktywne() == 1 
+				if (z.getAktywne() == 1
 						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
-					//System.out.println(z.toString());
+					// System.out.println(z.toString());
 					tempList.add(z);
 				}
-				
-				if(z.getAktywne() == 0 
+
+				if (z.getAktywne() == 0
 						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
-					
+
 					tempList2.add(z);
 				}
 			}
@@ -145,12 +156,13 @@ public class PracownikViewController {
 			tableUkonczoneView.setItems((ObservableList<Zadanie>) tempList2);
 			// przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + " | Tabela jest pusta");
 		}
 	}
 
 	/**
 	 * Metoda wylogowywuje użytkownika.
+	 * 
 	 * @param e
 	 * @throws IOException
 	 */
@@ -172,4 +184,49 @@ public class PracownikViewController {
 
 	}
 
+	/**
+	 * Metoda zmieniajaca hasło uzytkownika w bazie danych.
+	 * 
+	 * @param e
+	 */
+	@FXML
+	void onChangePasswd(ActionEvent e) {
+		
+		if(!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
+			if(stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())){
+				if(noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
+					MainApp.instance.appCfg.user.setHaslo(noweHaslo1.getText());
+					pracownikDAO.update(MainApp.instance.appCfg.user);
+					showAlertWithoutHeaderText("Hasło zaktualizowane!");
+					stareHasllo.setText("");
+					noweHaslo1.setText("");
+					noweHaslo2.setText("");
+				}else {
+					showAlertWithoutHeaderText("Hasła nie są zgodne");
+				}
+			}else {
+				showAlertWithoutHeaderText("Wpisane stare hasło nie jest poprawne!");
+			}
+		}else {
+			showAlertWithoutHeaderText("Nie wpisales zadnego hasla!");
+		}
+		
+		
+	}
+
+	/**
+	 * Metoda wyświetlająca nam komunikat.
+	 * 
+	 * @param text wartość wyświetlana w komunikacie.
+	 */
+	private void showAlertWithoutHeaderText(String text) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Alert");
+
+		// Header Text: null
+		alert.setHeaderText(null);
+		alert.setContentText(text);
+
+		alert.showAndWait();
+	}
 }

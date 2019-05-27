@@ -42,12 +42,12 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Text layoutX="379.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Stare hasło" />
-                        <PasswordField layoutX="324.0" layoutY="197.0" prefHeight="25.0" prefWidth="169.0" />
-                        <PasswordField layoutX="324.0" layoutY="251.0" prefHeight="25.0" prefWidth="169.0" />
-                        <PasswordField layoutX="324.0" layoutY="139.0" prefHeight="25.0" prefWidth="169.0" />
+                        <PasswordField fx:id="noweHaslo1" layoutX="324.0" layoutY="197.0" prefHeight="25.0" prefWidth="169.0" />
+                        <PasswordField fx:id="noweHaslo2" layoutX="324.0" layoutY="251.0" prefHeight="25.0" prefWidth="169.0" />
+                        <PasswordField fx:id="stareHasllo" layoutX="324.0" layoutY="139.0" prefHeight="25.0" prefWidth="169.0" />
                         <Text layoutX="377.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nowe hasło" />
                         <Text layoutX="377.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Powtórz hasło" />
-                        <Button layoutX="368.0" layoutY="305.0" mnemonicParsing="false" text="Zmian hasło" />
+                        <Button layoutX="368.0" layoutY="305.0" mnemonicParsing="false" onAction="#onChangePasswd" text="Zmian hasło" />
                      </children>
                   </AnchorPane>
             </content>
