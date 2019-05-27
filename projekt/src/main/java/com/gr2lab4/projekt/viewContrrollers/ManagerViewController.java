@@ -213,19 +213,21 @@ public class ManagerViewController {
 
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
-		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
+		for (Zadanie z : zadanieDAO.findAll()) {
 			if (z.getAktywne() == 1 && z.getPracownik() == null) {
 				tempList.add(z);
 			}
 		}
 
 		tableView.setItems((ObservableList<Zadanie>) tempList);
+		
 	}
-
+	
 	/**
 	 * Metoda odswieza dane w tabeli wykonanych zadan.
 	 */
 	private void refreshTableWykonane() {
+		
 		columnIDWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		columnTrescWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		columnTytulWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
@@ -235,18 +237,21 @@ public class ManagerViewController {
 
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
-		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-			if (z.getAktywne() == 0 && z.getPracownik() != null) {
+		for (Zadanie z : zadanieDAO.findAll()) {
+			if (z.getPracownik() != null && z.getAktywne() == 0) {
 				tempList.add(z);
 			}
 		}
 
-		tableView.setItems((ObservableList<Zadanie>) tempList);
+		tableViewWykonane.setItems(tempList);
+		tempList.clear();
+		
 		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
 			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
 				choiceBoxRaport.getItems().add(p);
 			}
 		}
+		
 	}
 
 	/**

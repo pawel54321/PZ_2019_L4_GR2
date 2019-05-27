@@ -446,17 +446,19 @@ public class AdminViewController {
 
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
-		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
+		for (Zadanie z : zadanieDAO.findAll()) {
 			if (z.getAktywne() == 1 && z.getPracownik() == null) {
 				tempList.add(z);
 			}
 		}
-
+		
 		tableView.setItems((ObservableList<Zadanie>) tempList);
 		przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
 		editTableView.setItems((ObservableList<Zadanie>) tempList);
 
-		for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
+		tempList.clear();
+		
+		for (Zadanie z : zadanieDAO.findAll()) {
 			if (z.getPracownik() != null && z.getAktywne() == 0) {
 				tempList.add(z);
 			}
