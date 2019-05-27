@@ -37,8 +37,8 @@
                       <TableColumn fx:id="columnTytulWykonane" prefWidth="83.0" text="Tytul" />
                         <TableColumn fx:id="columnTrescWykonane" prefWidth="124.0" text="Tresc" />
                         <TableColumn fx:id="columnPracownikWykonane" prefWidth="92.0" text="Pracownik" />
-                        <TableColumn fx:id="columnDataUtWykonane" prefWidth="130.0" text="Data utworzenia" />
-                        <TableColumn fx:id="columnDataZakWykonane" prefWidth="135.0" text="Data Zakonczenia" />
+                        <TableColumn fx:id="columnDataUtWykonane" prefWidth="182.0" text="Data utworzenia" />
+                        <TableColumn fx:id="columnDataZakWykonane" prefWidth="165.0" text="Data Zakonczenia" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

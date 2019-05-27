@@ -120,7 +120,9 @@ public class ManagerViewController {
 		}
 		// wczytanie danych do tabelki
 		refreshTable();
+		
 		refreshTableWykonane();
+		System.out.println("wyk");
 	}
 
 	/**
@@ -235,16 +237,16 @@ public class ManagerViewController {
 		columnDataUtWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_rozp"));
 		columnDataZakWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_ukon"));
 
-		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
+		ObservableList<Zadanie> tempList2 = FXCollections.observableArrayList();
 
 		for (Zadanie z : zadanieDAO.findAll()) {
 			if (z.getPracownik() != null && z.getAktywne() == 0) {
-				tempList.add(z);
+				tempList2.add(z);
 			}
 		}
 
-		tableViewWykonane.setItems(tempList);
-		tempList.clear();
+		tableViewWykonane.setItems(tempList2);
+		
 		
 		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
 			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
