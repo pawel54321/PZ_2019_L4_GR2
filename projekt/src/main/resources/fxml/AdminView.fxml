@@ -14,17 +14,17 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Text layoutX="63.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
-                  <Button fx:id="usunButton" layoutX="453.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
-                  <Button fx:id="wylogujAdmin" layoutX="509.0" layoutY="275.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
-                  <TableView fx:id="tableView" layoutX="18.0" layoutY="34.0" prefHeight="362.0" prefWidth="411.0">
+                  <Text layoutX="10.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dostępne zadania" />
+                  <Button fx:id="usunButton" layoutX="538.0" layoutY="68.0" mnemonicParsing="false" onAction="#deleteZadanie" text="Usun zaznacozne zadanie" />
+                  <Button fx:id="wylogujAdmin" layoutX="586.0" layoutY="183.0" mnemonicParsing="false" onAction="#logoutAdmin" text="wyloguj" />
+                  <Button fx:id="odswiezButton" layoutX="584.0" layoutY="113.0" mnemonicParsing="false" onAction="#odswiezAction" text="Odswiez" />
+                  <TableView fx:id="tableDostepneZadania" layoutX="10.0" layoutY="23.0" prefHeight="375.0" prefWidth="480.0">
                     <columns>
-                      <TableColumn fx:id="tableColumnID" prefWidth="102.0" text="ID" />
-                      <TableColumn fx:id="tableColumnTytul" prefWidth="134.0" text="Tytul" />
-                        <TableColumn fx:id="TableColumnTresc" prefWidth="174.0" text="tresc" />
+                      <TableColumn fx:id="dostepneZadaniaID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="dostepneZadaniaTytul" prefWidth="105.0" text="Tytul zadania" />
+                        <TableColumn fx:id="dostepneZadaniaTresc" prefWidth="299.0" text="Tresc zadania" />
                     </columns>
                   </TableView>
-                  <Button fx:id="odswiezButton" layoutX="500.0" layoutY="143.0" mnemonicParsing="false" onAction="#odswiezAction" text="Odswiez" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -76,16 +76,33 @@
                   <Button fx:id="przypiszButton" layoutX="515.0" layoutY="111.0" mnemonicParsing="false" onAction="#przypiszAction" text="Przypisz zadanie" />
                   <ChoiceBox fx:id="przypiszChoiceBox" layoutX="501.0" layoutY="61.0" prefWidth="150.0" />
                   <Label layoutX="514.0" layoutY="24.0" text="Wybierz pracownika" />
-                  <TableView fx:id="przypiszTableView" layoutX="29.0" layoutY="24.0" prefHeight="364.0" prefWidth="442.0">
+                  <TableView fx:id="tableConnectPracownik" layoutX="14.0" layoutY="11.0" prefHeight="389.0" prefWidth="469.0">
                     <columns>
-                      <TableColumn fx:id="przypiszId" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="przypiszTableTytul" prefWidth="134.0" text="Tytul" />
-                        <TableColumn fx:id="PrzypiszTableTresc" prefWidth="232.0" text="Tresc" />
+                      <TableColumn fx:id="tableConnectID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tableConnectTytul" prefWidth="123.0" text="Tytul zadania" />
+                        <TableColumn fx:id="tableConcestTresc" prefWidth="270.0" text="Tresc zadania" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
          </content>
+      </Tab>
+      <Tab text="Lista rozpisanych zadan">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableRozpisaneZadania" layoutX="3.0" layoutY="7.0" prefHeight="404.0" prefWidth="738.0">
+                    <columns>
+                      <TableColumn fx:id="tableRozpisaneID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tableRozpisaneTytul" prefWidth="179.0" text="Tytul zadania" />
+                        <TableColumn fx:id="tableRozpisaneTresc" prefWidth="147.0" text="Tresc zadania" />
+                        <TableColumn fx:id="tableRozpisaneDataDod" prefWidth="135.0" text="Data dodania" />
+                        <TableColumn fx:id="tableDataDodaniaPracownik" prefWidth="201.0" text="Pracownik" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
       </Tab>
       <Tab text="wykonane zadania">
         <content>

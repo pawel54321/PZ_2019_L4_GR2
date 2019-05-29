@@ -46,7 +46,7 @@ public class MainApp extends Application {
 	public void start(Stage stage) throws Exception {
 		instance = this;
 		appCfg = new AppCfg();
-
+		
 		try {
 			List<Pracownik> resultList = pracownikDAO.findAll();
 
@@ -57,6 +57,7 @@ public class MainApp extends Application {
 				
 				//manager
 				pracownikDAO.save(admin);
+				pracownikDAO.save(manager);
 				resultList = pracownikDAO.findAll();
 				appCfg.pracownicy = resultList;
 			} else {

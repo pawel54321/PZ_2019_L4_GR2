@@ -68,12 +68,12 @@ public class PracownikViewController {
 
 	@FXML
 	private PasswordField noweHaslo1;
-    
+
 	@FXML
-    private PasswordField noweHaslo2;
-	
-    @FXML
-    private PasswordField stareHasllo;
+	private PasswordField noweHaslo2;
+
+	@FXML
+	private PasswordField stareHasllo;
 	// -------
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
@@ -106,18 +106,12 @@ public class PracownikViewController {
 	@FXML
 	void gotoweZadanie(ActionEvent event) {
 		Zadanie zaznaczone = tableVew.getSelectionModel().getSelectedItem();
-		zaznaczone.setAktywne(0);
+		zaznaczone.setStatus("ukonczone");
 		zaznaczone.setData_ukon(new Date());
 		int id = zaznaczone.getId();
 
 		zadanieDAO.update(zaznaczone);
-
-		for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
-			if (MainApp.instance.appCfg.listaZadan.get(i).getId() == id) {
-				MainApp.instance.appCfg.listaZadan.get(i).setAktywne(0);
-				MainApp.instance.appCfg.listaZadan.get(i).setData_ukon(new Date());
-			}
-		}
+		//MainApp.instance.appCfg.listaZadan = (ObservableList<Zadanie>) zadanieDAO.findAll();
 
 		refreshTable();
 	}
@@ -127,6 +121,9 @@ public class PracownikViewController {
 	 */
 	private void refreshTable() {
 		try {
+			tableVew.getItems().clear();
+			tableUkonczoneView.getItems().clear();
+			
 			columnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 			columnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 			columnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
@@ -138,23 +135,28 @@ public class PracownikViewController {
 			ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 			ObservableList<Zadanie> tempList2 = FXCollections.observableArrayList();
 
-			for (Zadanie z : MainApp.instance.appCfg.listaZadan) {
-				if (z.getAktywne() == 1
+			for (Zadanie z : zadanieDAO.findAll()) {
+				if (z.getStatus().equalsIgnoreCase("aktywne")
 						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
 					// System.out.println(z.toString());
 					tempList.add(z);
 				}
 
-				if (z.getAktywne() == 0
+				if (z.getStatus().equalsIgnoreCase("ukonczone")
 						&& z.getPracownik().toString().equalsIgnoreCase(MainApp.instance.appCfg.user.toString())) {
 
 					tempList2.add(z);
 				}
 			}
 
-			tableVew.setItems((ObservableList<Zadanie>) tempList);
-			tableUkonczoneView.setItems((ObservableList<Zadanie>) tempList2);
-			// przypiszTableView.setItems((ObservableList<Zadanie>) tempList);
+			tableVew.getItems().setAll(tempList);
+			tableUkonczoneView.getItems().setAll(tempList2);
+			tableVew.refresh();
+			tableUkonczoneView.refresh();
+			
+			tempList.clear();
+			tempList2.clear();
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + " | Tabela jest pusta");
 		}
@@ -191,27 +193,26 @@ public class PracownikViewController {
 	 */
 	@FXML
 	void onChangePasswd(ActionEvent e) {
-		
-		if(!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
-			if(stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())){
-				if(noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
+
+		if (!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
+			if (stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())) {
+				if (noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
 					MainApp.instance.appCfg.user.setHaslo(noweHaslo1.getText());
 					pracownikDAO.update(MainApp.instance.appCfg.user);
 					showAlertWithoutHeaderText("Hasło zaktualizowane!");
 					stareHasllo.setText("");
 					noweHaslo1.setText("");
 					noweHaslo2.setText("");
-				}else {
+				} else {
 					showAlertWithoutHeaderText("Hasła nie są zgodne");
 				}
-			}else {
+			} else {
 				showAlertWithoutHeaderText("Wpisane stare hasło nie jest poprawne!");
 			}
-		}else {
+		} else {
 			showAlertWithoutHeaderText("Nie wpisales zadnego hasla!");
 		}
-		
-		
+
 	}
 
 	/**

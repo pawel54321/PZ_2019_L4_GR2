@@ -42,18 +42,18 @@ import javafx.stage.Stage;
 public class ManagerViewController {
 
 	// ---- Kontroler dla tabeli zadanie przypisz
-	@FXML
-	private TableColumn<Zadanie, String> columnTresc;
 
 	@FXML
-	private TableColumn<Zadanie, Integer> columnID;
-
+	private TableView<Zadanie> tablePrzypiszZadania;
+	
 	@FXML
-	private TableColumn<Zadanie, String> columnTytul;
-
+	private TableColumn<Zadanie, Integer> tablePrzypiszID;
+	
 	@FXML
-	private TableView<Zadanie> tableView;
-
+	private TableColumn<Zadanie, String> tablePrzypiszTytul;
+	
+	@FXML
+	private TableColumn<Zadanie, String> tablePrzypiszTresc;
 	// ---
 
 	@FXML
@@ -96,7 +96,24 @@ public class ManagerViewController {
     @FXML
     private PasswordField stareHasllo;
 	//--
-
+	// TABELKA ROZPISANE ZADANIA
+	@FXML
+	private TableView<Zadanie> tableRozpisaneZadania;
+	
+	@FXML
+	private TableColumn<Zadanie, Integer> tableRozpisaneID;
+	
+	@FXML
+	private TableColumn<Zadanie, String> tableRozpisaneTytul; 
+	
+	@FXML
+	private TableColumn<Zadanie, String> tableRozpisaneTresc;
+	
+	@FXML
+	private TableColumn<Zadanie, Date> tableRozpisaneDataDod;
+	
+	@FXML
+	private TableColumn<Zadanie, String> tableDataDodaniaPracownik;
 	private PracownikDAO pracownikDAO = new PracownikDAO();
 	private ZadanieDAO zadanieDAO = new ZadanieDAO();
 
@@ -119,10 +136,10 @@ public class ManagerViewController {
 			}
 		}
 		// wczytanie danych do tabelki
-		refreshTable();
-		
+		refreshTablePrzypisz();
 		refreshTableWykonane();
-		System.out.println("wyk");
+		refreshPrzypisaneZadania();
+		
 	}
 
 	/**
@@ -135,21 +152,18 @@ public class ManagerViewController {
 	void przypiszZadanie(ActionEvent event) {
 		try {
 			Pracownik tempPrac = comboBox.getSelectionModel().getSelectedItem();
-			Zadanie tempZad = tableView.getSelectionModel().getSelectedItem();
+			Zadanie tempZad = tablePrzypiszZadania.getSelectionModel().getSelectedItem();
 
+			tempZad.setStatus("aktywne");
 			tempPrac.addZadania(tempZad);
 			pracownikDAO.update(tempPrac);
-
-			// Przypisujemy do obiektu w liscie pracownika
-			for (int i = 0; i < MainApp.instance.appCfg.listaZadan.size(); i++) {
-				if (MainApp.instance.appCfg.listaZadan.get(i).getId() == tempZad.getId()) {
-					MainApp.instance.appCfg.listaZadan.get(i).setPracownik(tempPrac);
-				}
-			}
+			
+			//MainApp.instance.appCfg.listaZadan = (ObservableList<Zadanie>) zadanieDAO.findAll();
 
 			showAlertWithoutHeaderText("Zadanie przypisane poprawnie.");
-			refreshTable();
-
+			refreshTablePrzypisz();
+			refreshPrzypisaneZadania();
+			
 		} catch (Exception e) {
 			showAlertWithoutHeaderText("Błąd podczas przypisania zadania.");
 			System.out.println(e.getMessage());
@@ -208,21 +222,23 @@ public class ManagerViewController {
 	/**
 	 * Metoda odswieza dane w panelach.
 	 */
-	private void refreshTable() {
-		columnID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
-		columnTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
-		columnTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+	private void refreshTablePrzypisz() {
+		tablePrzypiszZadania.getItems().clear();
+		tablePrzypiszID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+		tablePrzypiszTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+		tablePrzypiszTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 
 		ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
 
 		for (Zadanie z : zadanieDAO.findAll()) {
-			if (z.getAktywne() == 1 && z.getPracownik() == null) {
+			if (z.getStatus().equalsIgnoreCase("nowe")) {
 				tempList.add(z);
 			}
 		}
 
-		tableView.setItems((ObservableList<Zadanie>) tempList);
-		
+		tablePrzypiszZadania.getItems().setAll(tempList);
+		tablePrzypiszZadania.refresh();
+		tempList.clear();
 	}
 	
 	/**
@@ -230,6 +246,7 @@ public class ManagerViewController {
 	 */
 	private void refreshTableWykonane() {
 		
+		tableViewWykonane.getItems().clear();
 		columnIDWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		columnTrescWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
 		columnTytulWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
@@ -240,15 +257,17 @@ public class ManagerViewController {
 		ObservableList<Zadanie> tempList2 = FXCollections.observableArrayList();
 
 		for (Zadanie z : zadanieDAO.findAll()) {
-			if (z.getPracownik() != null && z.getAktywne() == 0) {
+			if (z.getStatus().equalsIgnoreCase("ukonczone")) {
 				tempList2.add(z);
 			}
 		}
 
-		tableViewWykonane.setItems(tempList2);
+		tableViewWykonane.getItems().setAll(tempList2);
+		tableViewWykonane.refresh();
+		tempList2.clear();
 		
 		
-		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
+		for (Pracownik p : pracownikDAO.findAll()) {
 			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
 				choiceBoxRaport.getItems().add(p);
 			}
@@ -256,6 +275,40 @@ public class ManagerViewController {
 		
 	}
 
+	/**
+	 *metoda przypisuje zadania przypisane do tabeli 
+	 */
+	private void refreshPrzypisaneZadania() {
+		try {
+			tableRozpisaneZadania.getItems().clear();
+			
+			tableRozpisaneID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
+			tableRozpisaneTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
+			tableRozpisaneTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
+			tableRozpisaneDataDod.setCellValueFactory(new PropertyValueFactory<Zadanie, Date>("data_rozp"));
+			tableDataDodaniaPracownik.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("pracownik"));
+
+			ObservableList<Zadanie> tempList = FXCollections.observableArrayList();
+
+			tempList.clear();
+
+			for (Zadanie z : zadanieDAO.findAll()) {
+				if (z.getStatus().equalsIgnoreCase("aktywne")) {
+					tempList.add(z);
+				}
+			}
+			
+			tableRozpisaneZadania.getItems().setAll(tempList);
+			tableRozpisaneZadania.refresh();
+			
+			tempList.clear();
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " error wstawiania danych do tabeli1");
+		}
+	}
+	
 	/**
 	 * Metoda generujaca raport dla wszystkich zadan w danym miesiacu
 	 * 

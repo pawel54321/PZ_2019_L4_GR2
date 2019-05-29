@@ -22,40 +22,68 @@ import javafx.beans.property.SimpleStringProperty;
 @Table(name = "Zadanie")
 public class Zadanie {
 
+    /**
+     * id zadania.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    protected int id;
+    private int id;
 
+    /**
+     * zmienna przechowuje tytuł zadania.
+     */
     @Column(name="tytul")
-    protected String tytul;
+    private String tytul;
 
+    /**
+     * zmienna przechowuje tresc zadania.
+     */
     @Column(name="tresc")
-    protected String tresc;
+    private String tresc;
 
+    /**
+     * zmienna przechowuje date dodania zadania.
+     */
     @Column(name="data_rozp")
-    protected Date data_rozp;
+    private Date data_rozp;
 
+    /**
+     * zmienna przechowuje date ukonczenia zadania.
+     */
     @Column(name="data_ukon")
-    protected Date data_ukon;
+    private Date data_ukon;
 
-    @Column(name="aktywne")
-    protected int aktywne;
+    /**
+     * zmienna przechowuje status zadania.
+     */
+    @Column(name="status")
+    private String status;
 
+    /**
+     * zmienna odwoluje sie do obiektu uzytkownika przypisanego do zadania.
+     */
     @ManyToOne
     @JoinColumn(name = "id_pracownika")
-    protected Pracownik pracownik;
+    private Pracownik pracownik;
 
     public Zadanie() {
 
     }
 
-    public Zadanie( String tytul, String tresc, Date data_rozp, Date data_ukon, int aktywne, Pracownik pracownicy) {
+    /**
+     * Konstruktor obiektu zadania
+     * @param tytul parametr przekazuje tresc tytulu do zmiennej
+     * @param tresc parametrz przekazuje tresc zadania do zmiennej
+     * @param data_rozp parametr przekazuje parametr dodania zadania
+     * @param status parametr przekazuje status zadania
+     * @param pracownicy parametr przekazuje obiekt pracownika
+     */
+    public Zadanie( String tytul, String tresc, Date data_rozp, String status, Pracownik pracownicy) {
         this.tytul = tytul;
         this.tresc = tresc;
         this.data_rozp = data_rozp;
-        this.data_ukon = data_ukon;
-        this.aktywne = aktywne;
+        this.status = status;
        
     }
 
@@ -70,8 +98,8 @@ public class Zadanie {
         return id;
     }
 
-    public int getAktywne() {
-        return aktywne;
+    public String getStatus() {
+        return status;
     }
 
     public Pracownik getPracownik() {
@@ -90,9 +118,6 @@ public class Zadanie {
         return data_ukon;
     }
 
-    public int isAktywne() {
-        return aktywne;
-    }
 
     public void setTytul(String tytul) {
         this.tytul = tytul;//new SimpleStringProperty(tytul);
@@ -125,14 +150,14 @@ public class Zadanie {
 
 
 
-    public void setAktywne(int aktywne) {
-        this.aktywne = aktywne;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 	@Override
 	public String toString() {
 		return "Zadanie [id=" + id + ", tytul=" + tytul + ", tresc=" + tresc + ", data_rozp=" + data_rozp
-				+ ", data_ukon=" + data_ukon + ", aktywne=" + aktywne + ", pracownicy=" + pracownik + "]";
+				+ ", data_ukon=" + data_ukon + ", status=" + status + ", pracownicy=" + pracownik + "]";
 	} 
 
 }

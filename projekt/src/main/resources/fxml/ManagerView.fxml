@@ -7,27 +7,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="796.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.viewContrrollers.ManagerViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="921.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.viewContrrollers.ManagerViewController">
   <tabs>
     <Tab text="Zadania">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="521.0" prefWidth="816.0">
                <children>
-                  <ChoiceBox fx:id="comboBox" layoutX="517.0" layoutY="64.0" prefHeight="25.0" prefWidth="235.0" />
-                  <Button layoutX="540.0" layoutY="103.0" mnemonicParsing="false" onAction="#przypiszZadanie" text="Przypisz zadanie pracownikowi" />
-                  <Text layoutX="583.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz pracownika" />
-                  <Button fx:id="wylogujManager" layoutX="612.0" layoutY="366.0" mnemonicParsing="false" onAction="#logoutManager" text="wyloguj" />
-                  <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="475.0" prefWidth="441.0">
+                  <ChoiceBox fx:id="comboBox" layoutX="585.0" layoutY="187.0" prefHeight="25.0" prefWidth="235.0" />
+                  <Button layoutX="613.0" layoutY="235.0" mnemonicParsing="false" onAction="#przypiszZadanie" text="Przypisz zadanie pracownikowi" />
+                  <Text layoutX="649.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz pracownika" />
+                  <Button fx:id="wylogujManager" layoutX="680.0" layoutY="371.0" mnemonicParsing="false" onAction="#logoutManager" text="wyloguj" />
+                  <TableView fx:id="tablePrzypiszZadania" layoutX="14.0" layoutY="16.0" prefHeight="484.0" prefWidth="547.0">
                     <columns>
-                      <TableColumn fx:id="columnID" prefWidth="57.0" text="ID" />
-                      <TableColumn fx:id="columnTytul" prefWidth="156.0" text="Tytul" />
-                        <TableColumn fx:id="columnTresc" prefWidth="227.0" text="Tresc" />
+                      <TableColumn fx:id="tablePrzypiszID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tablePrzypiszTytul" prefWidth="145.0" text="Tytul zadania" />
+                        <TableColumn fx:id="tablePrzypiszTresc" prefWidth="326.0" text="Tresc zadania" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Wykonane zadania">
+      <Tab text="Lista rozpisanych zadan">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tableRozpisaneZadania" layoutX="14.0" layoutY="14.0" prefHeight="504.0" prefWidth="896.0">
+                    <columns>
+                      <TableColumn fx:id="tableRozpisaneID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tableRozpisaneTytul" prefWidth="164.0" text="Tytul zadania" />
+                        <TableColumn fx:id="tableRozpisaneTresc" prefWidth="286.0" text="Tresc zadania" />
+                        <TableColumn fx:id="tableRozpisaneDataDod" prefWidth="153.0" text="Data dodania" />
+                        <TableColumn fx:id="tableDataDodaniaPracownik" prefWidth="217.0" text="Pracownik" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+    <Tab text="Lista wykonanych zadan">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
