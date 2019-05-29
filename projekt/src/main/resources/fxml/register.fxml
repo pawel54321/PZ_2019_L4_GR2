@@ -6,13 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="278.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.RegisterController">
+<AnchorPane id="AnchorPane" prefHeight="327.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gr2lab4.projekt.RegisterController">
    <children>
       <TextField fx:id="RegisterLoginName" layoutX="127.0" layoutY="31.0" promptText="Login" />
       <TextField fx:id="RegisterName" layoutX="128.0" layoutY="71.0" promptText="Imię" />
       <TextField fx:id="RegisterSurrName" layoutX="128.0" layoutY="106.0" promptText="Nazwisko" />
       <PasswordField fx:id="RegisterPasswd" layoutX="128.0" layoutY="145.0" promptText="Hasło" />
       <PasswordField fx:id="RegisterRePasswd" layoutX="127.0" layoutY="184.0" promptText="Powtórz hasło" />
-      <Button fx:id="registerButton" layoutX="179.0" layoutY="219.0" mnemonicParsing="false" onAction="#registerClick" text="Zarejestruj się" />
+      <Button fx:id="registerButton" layoutX="158.0" layoutY="228.0" mnemonicParsing="false" onAction="#registerClick" text="Zarejestruj się" />
+      <Button layoutX="138.0" layoutY="272.0" mnemonicParsing="false" onAction="#backToLogin" text="Powrot do logowania" />
    </children>
 </AnchorPane>

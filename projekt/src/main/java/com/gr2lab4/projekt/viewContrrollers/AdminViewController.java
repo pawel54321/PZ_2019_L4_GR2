@@ -277,6 +277,7 @@ public class AdminViewController {
 
 				refreshEdytujZadanie();
 				refreshTableDostepneZadania();
+				refreshPrzypiszZadanie();
 				
 			}
 		}

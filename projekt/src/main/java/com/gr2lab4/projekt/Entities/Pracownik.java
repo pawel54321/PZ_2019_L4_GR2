@@ -27,23 +27,41 @@ import javax.persistence.Table;
 @Table(name="Pracownik")
 public class Pracownik{
     
+    /**
+     * zmienna przechowuje id pracownika
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     protected int id_pracownika;
     
+    /**
+     * zmienna przechowuje imie
+     */
     @Column(name="imie")
     protected String imie;
     
+    /**
+     * zmienna przechowuje nazwisko
+     */
     @Column(name="nazwisko")
     protected String nazwisko;
     
+    /**
+     * zmienna przechowuje stanowsisko
+     */
     @Column(name="stanowisko")
     protected String stanowisko;
     
+    /**
+     * zmienna przechowuje login
+     */
     @Column(name="login")
     protected String login;
     
+    /**
+     * zmienna przechowuje haslo
+     */
     @Column(name="haslo")
     protected String haslo;
     
@@ -51,6 +69,9 @@ public class Pracownik{
 //            CascadeType.DETACH, CascadeType.REFRESH}) // nie usuwamy zadan jesli usuniemy pracownka
 //    @JoinColumn(name="zadanie_id") 
     
+    /**
+     * zmienna przechowuje zadania
+     */
     @OneToMany(mappedBy = "pracownik",
     		fetch = FetchType.EAGER,
     		cascade = CascadeType.ALL,
@@ -61,6 +82,14 @@ public class Pracownik{
         
     }
 
+    /**
+     * konstruktor klasy
+     * @param imie parametr imie
+     * @param nazwisko parametr nazwisko
+     * @param stanowisko parametr stanowsisko
+     * @param login parametr login 
+     * @param haslo parametr haslo
+     */
     public Pracownik(String imie, String nazwisko,
             String stanowisko, String login, String haslo) {
         this.imie = imie;

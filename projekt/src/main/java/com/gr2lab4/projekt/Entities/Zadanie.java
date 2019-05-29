@@ -28,44 +28,44 @@ public class Zadanie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    protected int id;
 
     /**
      * zmienna przechowuje tytuł zadania.
      */
     @Column(name="tytul")
-    private String tytul;
+    protected String tytul;
 
     /**
      * zmienna przechowuje tresc zadania.
      */
     @Column(name="tresc")
-    private String tresc;
+    protected String tresc;
 
     /**
      * zmienna przechowuje date dodania zadania.
      */
     @Column(name="data_rozp")
-    private Date data_rozp;
+    protected Date data_rozp;
 
     /**
      * zmienna przechowuje date ukonczenia zadania.
      */
     @Column(name="data_ukon")
-    private Date data_ukon;
+    protected Date data_ukon;
 
     /**
      * zmienna przechowuje status zadania.
      */
     @Column(name="status")
-    private String status;
+    protected String status;
 
     /**
      * zmienna odwoluje sie do obiektu uzytkownika przypisanego do zadania.
      */
     @ManyToOne
     @JoinColumn(name = "id_pracownika")
-    private Pracownik pracownik;
+    protected Pracownik pracownik;
 
     public Zadanie() {
 

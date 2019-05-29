@@ -108,6 +108,20 @@ public class RegisterController {
 	}
 	
     /**
+     * metoda otwiera nam okno logowania bez wprowadzania zadnych danych do bazy
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    void backToLogin(ActionEvent event) throws IOException {
+		Parent view2 = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+		Scene scene2 = new Scene(view2);
+		Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		window.setScene(scene2);
+		window.show();
+    }
+	
+    /**
      * Metoda wyświetlająca nam komunikat.
      * @param text wartość wyświetlana w komunikacie.
      */
