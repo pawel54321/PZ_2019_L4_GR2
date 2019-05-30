@@ -3,6 +3,7 @@ package com.gr2lab4.projekt.viewContrrollers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -65,9 +66,9 @@ public class Raport3 {
 		table3.addCell(new Cell().add("Miejsce wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
 		table3.addCell(new Cell().add("Warszawa"));
 		table3.addCell(new Cell().add("Data wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 		table3.addCell(new Cell().add("Data otrzymania").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 		table.addCell(getCell2(table3, TextAlignment.CENTER));
 		document.add(table);
 

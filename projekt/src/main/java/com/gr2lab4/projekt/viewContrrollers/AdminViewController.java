@@ -13,6 +13,8 @@ import com.gr2lab4.projekt.Entities.Dao.ZadanieDAO;
 import com.gr2lab4.projekt.cfgs.AppCfg;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.RadioButton;
@@ -42,6 +45,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
@@ -142,6 +146,23 @@ public class AdminViewController {
 
 	@FXML
 	private ChoiceBox<Pracownik> choiceBoxRaport;
+	
+	//@FXML
+	//private ChoiceBox<String> choiceBoxRaportdata;
+	
+	//@FXML
+	//private ChoiceBox<String> choiceBoxRaportdata2;
+	
+	@FXML
+	private DatePicker data1;
+	@FXML
+	private DatePicker data1drugi;
+	
+	
+	@FXML
+	private DatePicker data2;
+	@FXML
+	private DatePicker data2drugi;
 
 	
 	// ------ Tabelka dostepne zadania
@@ -195,8 +216,79 @@ public class AdminViewController {
 				choiceBoxRaport.getItems().add(p);
 			}
 		}
+		
+		
+//		choiceBoxRaportdata.getItems().add("Styczen");
+//		choiceBoxRaportdata.getItems().add("Luty");
+//		choiceBoxRaportdata.getItems().add("Marzec");
+//		choiceBoxRaportdata.getItems().add("Kwiecien");
+//		choiceBoxRaportdata.getItems().add("Maj");
+//		choiceBoxRaportdata.getItems().add("Czerwiec");
+//		choiceBoxRaportdata.getItems().add("Lipiec");
+//		choiceBoxRaportdata.getItems().add("Sierpien");
+//		choiceBoxRaportdata.getItems().add("Wrzesien");	
+//		choiceBoxRaportdata.getItems().add("Pazdziernik");
+//		choiceBoxRaportdata.getItems().add("Listopad");
+//		choiceBoxRaportdata.getItems().add("Grudzien");
+//		
+//		choiceBoxRaportdata2.getItems().add("Styczen");
+//		choiceBoxRaportdata2.getItems().add("Luty");
+//		choiceBoxRaportdata2.getItems().add("Marzec");
+//		choiceBoxRaportdata2.getItems().add("Kwiecien");
+//		choiceBoxRaportdata2.getItems().add("Maj");
+//		choiceBoxRaportdata2.getItems().add("Czerwiec");
+//		choiceBoxRaportdata2.getItems().add("Lipiec");
+//		choiceBoxRaportdata2.getItems().add("Sierpien");
+//		choiceBoxRaportdata2.getItems().add("Wrzesien");	
+//		choiceBoxRaportdata2.getItems().add("Pazdziernik");
+//		choiceBoxRaportdata2.getItems().add("Listopad");
+//		choiceBoxRaportdata2.getItems().add("Grudzien");
+//		
+/*
+		 data1.setConverter(
+			        new StringConverter<LocalDate>() {
+			          final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("YYYY-MM");
 
+			          @Override
+			          public String toString(LocalDate date) {
+			            return (date != null) ? dateFormatter.format(date) : "";
+			          }
+
+			          @Override
+			          public LocalDate fromString(String string) {
+			            return (string != null && !string.isEmpty())
+			                ? LocalDate.parse(string, dateFormatter)
+			                : null;
+			          }
+			        });
+		 
+		 
+		 
+		 
+		 data2.setConverter(
+			        new StringConverter<LocalDate>() {
+			          final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("YYYY-MM");
+
+			          @Override
+			          public String toString(LocalDate date) {
+			            return (date != null) ? dateFormatter.format(date) : "";
+			          }
+
+			          @Override
+			          public LocalDate fromString(String string) {
+			            return (string != null && !string.isEmpty())
+			                ? LocalDate.parse(string, dateFormatter)
+			                : null;
+			          }
+			        });
+	
+		 */
+		 
 	}
+	
+	
+	
+	
 
 	/**
 	 * Metoda wylogowywuje użytkownika.
@@ -586,6 +678,8 @@ public class AdminViewController {
 			tempList.clear();
 			
 			
+			
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + " error wstawiania danych do tabeli1");
 		}
@@ -606,9 +700,13 @@ public class AdminViewController {
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy
 																			// wszystkich zadan w danym miesiacu)
 //TODO:
-		// System.out.println("raport1");
-		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");
-
+		 System.out.println("raport1");
+		
+		if (data1.getValue() != null) {
+		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf", data1, data1drugi);
+		} else {
+			showAlertWithoutHeaderText("Zaznacz date");
+		}
 	}
 
 	/**
@@ -619,10 +717,11 @@ public class AdminViewController {
 	@FXML
 	private void generateRaport2(ActionEvent event) { // raport na pracownika
 //TODO:
-		// System.out.println("raport2");
+		 System.out.println("raport2");
+		 
 		if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
 
-			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf");
+			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
 
 		} else {
 			showAlertWithoutHeaderText("Zaznacz pracownika");
@@ -639,7 +738,12 @@ public class AdminViewController {
 														// jakie zostaly ukonczone w danym miesiacu)
 
 		System.out.println("raport3");
-		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
+		
+		if (data2.getValue() != null) {
+	//	com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", data2, data2drugi);
+	} else {
+		showAlertWithoutHeaderText("Zaznacz date");
+	}
 
 	}
 

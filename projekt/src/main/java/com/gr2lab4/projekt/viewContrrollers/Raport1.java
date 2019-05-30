@@ -1,10 +1,12 @@
 package com.gr2lab4.projekt.viewContrrollers;
 
+import javafx.scene.control.DatePicker;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -40,19 +42,19 @@ public class Raport1 {
 	// LoggerFactory.getLogger(PdfGenerateTest.class);
 	public static String RESULT;
 
-	public static void generatePDF(String filePathAndName) {
+	public static void generatePDF(String filePathAndName, DatePicker data1, DatePicker data1drugi) {
 		RESULT = filePathAndName;
 		File file = new File(RESULT);
 		file.getParentFile().mkdirs();
 		try {
-			createPdf(RESULT);
+			createPdf(RESULT, data1, data1drugi);
 			Desktop.getDesktop().open(file);
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 	}
 
-	public static void createPdf(String filename) throws IOException {
+	public static void createPdf(String filename, DatePicker data1, DatePicker data1drugi) throws IOException {
 		// Initialize PDF writer
 		PdfWriter writer = new PdfWriter(RESULT);
 
@@ -71,9 +73,9 @@ public class Raport1 {
 		table3.addCell(new Cell().add("Miejsce wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
 		table3.addCell(new Cell().add("Warszawa"));
 		table3.addCell(new Cell().add("Data wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 		table3.addCell(new Cell().add("Data otrzymania").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 
 		table.addCell(getCell2(table3, TextAlignment.CENTER));
 		document.add(table);
@@ -108,15 +110,18 @@ public class Raport1 {
 		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
 		for (int i = 0; i < resultList.size(); i++) {
 
-			table2.addCell(new Cell().add(i + 1 + ""));
-			table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
-			table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
-			table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
-
-			if (resultList.get(i).getData_ukon() != null) {
-				table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_ukon() + ""));
-			} else
-				table2.addCell(new Cell(1, 2).add("nie dotyczy"));
+			if(data1.getValue() == LocalDate.of(resultList.get(i).getData_rozp().getYear(), resultList.get(i).getData_rozp().getMonth(), resultList.get(i).getData_rozp().getDay()) )
+			{
+				table2.addCell(new Cell().add(i + 1 + ""));
+				table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
+				table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
+				table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
+	
+				if (resultList.get(i).getData_ukon() != null) {
+					table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_ukon() + ""));
+				} else
+					table2.addCell(new Cell(1, 2).add("nie dotyczy"));
+			}
 
 		}
 

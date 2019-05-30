@@ -3,9 +3,11 @@ package com.gr2lab4.projekt.viewContrrollers;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.gr2lab4.projekt.MainApp;
+import com.gr2lab4.projekt.Entities.Pracownik;
 import com.gr2lab4.projekt.Entities.Zadanie;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.events.Event;
@@ -25,24 +27,26 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 
+import javafx.scene.control.ChoiceBox;
+
 public class Raport2 {
 	public static final PdfNumber LANDSCAPE = new PdfNumber(90);
 
 	public static String RESULT;
 
-	public static void generatePDF(String filePathAndName) {
+	public static void generatePDF(String filePathAndName, ChoiceBox<Pracownik> choiceBoxRaport) {
 		RESULT = filePathAndName;
 		File file = new File(RESULT);
 		file.getParentFile().mkdirs();
 		try {
-			createPdf(RESULT);
+			createPdf(RESULT, choiceBoxRaport);
 			Desktop.getDesktop().open(file);
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 	}
 
-	public static void createPdf(String filename) throws IOException {
+	public static void createPdf(String filename, ChoiceBox<Pracownik> choiceBoxRaport  ) throws IOException {
 		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
 		// Initialize PDF writer
 		PdfWriter writer = new PdfWriter(RESULT);
@@ -62,15 +66,15 @@ public class Raport2 {
 		table3.addCell(new Cell().add("Miejsce wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
 		table3.addCell(new Cell().add("Warszawa"));
 		table3.addCell(new Cell().add("Data wystawienia").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 		table3.addCell(new Cell().add("Data otrzymania").setBackgroundColor(Color.LIGHT_GRAY).setHeight(23f));
-		table3.addCell(new Cell().add("11-06-2019"));
+		table3.addCell(new Cell().add(LocalDate.now()+""));
 		table.addCell(getCell2(table3, TextAlignment.CENTER));
 		document.add(table);
 
 		Text boldX = new Text(
-				"Raport dotyczacy wszystkich zadan dla pracownika:\n Imie:" + resultList.get(0).getPracownik().getImie()
-						+ "\n Nazwisko: " + resultList.get(0).getPracownik().getNazwisko()).setFontSize(44.0f)
+				"Raport dotyczacy wszystkich zadan dla pracownika:\n Imie:" + choiceBoxRaport.getSelectionModel().getSelectedItem().getImie()
+						+ "\n Nazwisko: " + choiceBoxRaport.getSelectionModel().getSelectedItem().getNazwisko()).setFontSize(44.0f)
 								.setTextAlignment(TextAlignment.CENTER);
 		Paragraph p = new Paragraph(boldX);
 		document.add(p);

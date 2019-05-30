@@ -318,7 +318,7 @@ public class ManagerViewController {
 	@FXML
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy
 		// System.out.println("raport1");
-		com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");
+		//com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");
 
 	}
 
@@ -332,7 +332,7 @@ public class ManagerViewController {
 		// System.out.println("raport2");
 		if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
 
-			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf");
+		//	com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
 
 		} else {
 			showAlertWithoutHeaderText("Zaznacz pracownika");
@@ -347,8 +347,8 @@ public class ManagerViewController {
 	@FXML
 	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu (Raport dotyczacy zadan
 														// jakie zostaly ukonczone w danym miesiacu)
-		System.out.println("raport3");
-		com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
+		//System.out.println("raport3");
+		//com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
 
 	}
 	
