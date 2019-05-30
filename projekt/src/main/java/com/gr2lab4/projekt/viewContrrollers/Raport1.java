@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.gr2lab4.projekt.MainApp;
 import com.gr2lab4.projekt.Entities.Pracownik;
@@ -43,6 +44,8 @@ public class Raport1 {
 	public static String RESULT;
 
 	public static void generatePDF(String filePathAndName, DatePicker data1, DatePicker data1drugi) {
+	
+		
 		RESULT = filePathAndName;
 		File file = new File(RESULT);
 		file.getParentFile().mkdirs();
@@ -80,8 +83,9 @@ public class Raport1 {
 		table.addCell(getCell2(table3, TextAlignment.CENTER));
 		document.add(table);
 
-		Text boldX = new Text("Raport dotyczacy wszystkich zadan w danym miesiacu").setFontSize(44.0f)
-				.setTextAlignment(TextAlignment.CENTER);
+		Text boldX = new Text("Raport dotyczacy wszystkich zadan w danym przedziale\n Od: " + data1.getValue()
+			+ "\n Do: " + data1drugi.getValue()).setFontSize(44.0f)
+		.setTextAlignment(TextAlignment.CENTER);
 		Paragraph p = new Paragraph(boldX);
 		document.add(p);
 
@@ -108,20 +112,34 @@ public class Raport1 {
 		table2.addCell(new Cell(1, 2).add("Data zakonczenia").setBackgroundColor(Color.LIGHT_GRAY));
 
 		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
-		for (int i = 0; i < resultList.size(); i++) {
+		
+		List<Zadanie> lista = resultList.stream().filter(a -> 
+		( convertToLocalDateViaSqlDate(a.getData_rozp()).isAfter(data1.getValue()) || 
+		convertToLocalDateViaSqlDate(a.getData_rozp()).isEqual(data1.getValue()) ) &&
+		
+		( convertToLocalDateViaSqlDate(a.getData_rozp()).isBefore(data1drugi.getValue()) ||  
+		convertToLocalDateViaSqlDate(a.getData_rozp()).isEqual(data1drugi.getValue()) )
+				).collect(Collectors.toList());
+		
+		
+		//print(LocalDate.of(a.getData_rozp().getYear(),a.getData_rozp().getMonth(),a.getData_rozp().getDay())+"");
+		
+		for (int i = 0; i < lista.size(); i++) {
 
-			if(data1.getValue() == LocalDate.of(resultList.get(i).getData_rozp().getYear(), resultList.get(i).getData_rozp().getMonth(), resultList.get(i).getData_rozp().getDay()) )
-			{
+			
+			
+			//if(data1.getValue() == LocalDate.of(resultList.get(i).getData_rozp().getYear(), resultList.get(i).getData_rozp().getMonth(), resultList.get(i).getData_rozp().getDay()) )
+			//{
 				table2.addCell(new Cell().add(i + 1 + ""));
-				table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
-				table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
-				table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
+				table2.addCell(new Cell(1, 2).add(lista.get(i).getTytul() + ""));
+				table2.addCell(new Cell(1, 3).add(lista.get(i).getTresc() + ""));
+				table2.addCell(new Cell(1, 2).add(lista.get(i).getData_rozp() + ""));
 	
 				if (resultList.get(i).getData_ukon() != null) {
-					table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_ukon() + ""));
+					table2.addCell(new Cell(1, 2).add(lista.get(i).getData_ukon() + ""));
 				} else
 					table2.addCell(new Cell(1, 2).add("nie dotyczy"));
-			}
+			//}
 
 		}
 
@@ -136,6 +154,10 @@ public class Raport1 {
 
 		// Close document
 		document.close();
+	}
+	
+	public static LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
+	    return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
 	}
 
 	public static Cell getCell(String text, TextAlignment alignment) {

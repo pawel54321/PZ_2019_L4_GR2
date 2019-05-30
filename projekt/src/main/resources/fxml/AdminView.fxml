@@ -80,7 +80,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="250.0" prefHeight="60.0" prefWidth="442.0" text="Raport dotyczacy zadań jakie zostały ukończone w danym przedziale:" textAlignment="CENTER">
+                  <Label layoutX="14.0" layoutY="250.0" prefHeight="60.0" prefWidth="646.0" text="Raport dotyczacy zadań jakie zostały ukończone w aktualnym miesiącu dla wyszukanych pracowników:" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -90,15 +90,15 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="84.0" layoutY="307.0" prefHeight="60.0" prefWidth="145.0" text="Wybierz przedział:" textAlignment="CENTER">
+                  <Label layoutX="24.0" layoutY="308.0" prefHeight="60.0" prefWidth="145.0" text="Wprowadź imię:" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <DatePicker fx:id="data1" layoutX="207.0" layoutY="77.0" prefHeight="31.0" prefWidth="134.0" />
-                  <DatePicker fx:id="data2" layoutX="207.0" layoutY="322.0" prefHeight="31.0" prefWidth="133.0" />
                   <DatePicker fx:id="data1drugi" layoutX="352.0" layoutY="78.0" prefHeight="31.0" prefWidth="149.0" />
-                  <DatePicker fx:id="data2drugi" layoutX="350.0" layoutY="322.0" prefHeight="31.0" prefWidth="152.0" />
+                  <Button layoutX="363.0" layoutY="322.0" mnemonicParsing="false" onAction="#wyszukajimiee" prefHeight="31.0" prefWidth="88.0" text="Wyszukaj" />
+                  <TextField fx:id="podajimiee" layoutX="164.0" layoutY="322.0" prefHeight="31.0" prefWidth="159.0" promptText="Imię" />
                </children>
             </AnchorPane>
          </content>

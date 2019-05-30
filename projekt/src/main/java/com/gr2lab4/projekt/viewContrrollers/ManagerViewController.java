@@ -330,13 +330,13 @@ public class ManagerViewController {
 	@FXML
 	private void generateRaport2(ActionEvent event) { // raport na pracownika
 		// System.out.println("raport2");
-		if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
+		//if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
 
 		//	com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
 
-		} else {
-			showAlertWithoutHeaderText("Zaznacz pracownika");
-		}
+		//} else {
+		//	showAlertWithoutHeaderText("Zaznacz pracownika");
+		//}
 	}
 
 	/**

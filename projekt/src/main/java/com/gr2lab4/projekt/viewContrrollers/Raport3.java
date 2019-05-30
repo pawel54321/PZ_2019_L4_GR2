@@ -72,7 +72,7 @@ public class Raport3 {
 		table.addCell(getCell2(table3, TextAlignment.CENTER));
 		document.add(table);
 
-		Text boldX = new Text("Raport dotyczacy zadan jakie zostaly ukonczone w danym miesiacu").setFontSize(44.0f)
+		Text boldX = new Text("Raport dotyczacy zadan jakie zostaly ukonczone w aktualnym miesiącu dla wyszukanych pracownikow").setFontSize(44.0f)
 				.setTextAlignment(TextAlignment.CENTER);
 		Paragraph p = new Paragraph(boldX);
 		document.add(p);
@@ -93,21 +93,25 @@ public class Raport3 {
 		Table table2 = new Table(10);
 		table2.setMarginBottom(30f);
 		table2.addCell(new Cell().add("Lp.").setBackgroundColor(Color.LIGHT_GRAY));
-		table2.addCell(new Cell(1, 2).add("Tytul").setBackgroundColor(Color.LIGHT_GRAY));
-		table2.addCell(new Cell(1, 3).add("Tresc").setBackgroundColor(Color.LIGHT_GRAY));
+		table2.addCell(new Cell(1, 1).add("Imie").setBackgroundColor(Color.LIGHT_GRAY));
+		table2.addCell(new Cell(1, 1).add("Nazwisko").setBackgroundColor(Color.LIGHT_GRAY));
+		table2.addCell(new Cell(1, 1).add("Tytul").setBackgroundColor(Color.LIGHT_GRAY));
+		table2.addCell(new Cell(1, 2).add("Tresc").setBackgroundColor(Color.LIGHT_GRAY));
 		table2.addCell(new Cell(1, 2).add("Data rozpoczecia").setBackgroundColor(Color.LIGHT_GRAY));
 		table2.addCell(new Cell(1, 2).add("Data zakonczenia").setBackgroundColor(Color.LIGHT_GRAY));
 
 		for (int i = 0; i < resultList.size(); i++) {
-			if (resultList.get(i).getData_ukon() != null) {
+			if (resultList.get(i).getData_ukon() != null && resultList.get(i).getPracownik() !=null && resultList.get(i).getPracownik() != null) {
 
 				System.out.print(resultList.get(i).getData_ukon().getMonth() + ","
 						+ Calendar.getInstance().get(Calendar.MONTH) + "\n");
 
 				if (resultList.get(i).getData_ukon().getMonth() == Calendar.getInstance().get(Calendar.MONTH)) {
 					table2.addCell(new Cell().add(i + 1 + ""));
-					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getTytul() + ""));
-					table2.addCell(new Cell(1, 3).add(MainApp.instance.appCfg.listaZadan.get(i).getTresc() + ""));
+					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getImie() + ""));
+					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getNazwisko() + ""));
+					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getTytul() + ""));
+					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getTresc() + ""));
 					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_rozp() + ""));
 					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_ukon() + ""));
 				}

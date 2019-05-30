@@ -73,7 +73,7 @@ public class Raport2 {
 		document.add(table);
 
 		Text boldX = new Text(
-				"Raport dotyczacy wszystkich zadan dla pracownika:\n Imie:" + choiceBoxRaport.getSelectionModel().getSelectedItem().getImie()
+				"Raport dotyczacy wszystkich zadan dla pracownika:\n Imie: " + choiceBoxRaport.getSelectionModel().getSelectedItem().getImie()
 						+ "\n Nazwisko: " + choiceBoxRaport.getSelectionModel().getSelectedItem().getNazwisko()).setFontSize(44.0f)
 								.setTextAlignment(TextAlignment.CENTER);
 		Paragraph p = new Paragraph(boldX);
@@ -100,18 +100,44 @@ public class Raport2 {
 		table2.addCell(new Cell(1, 2).add("Data rozpoczecia").setBackgroundColor(Color.LIGHT_GRAY));
 		table2.addCell(new Cell(1, 2).add("Data zakonczenia").setBackgroundColor(Color.LIGHT_GRAY));
 
+		int a = choiceBoxRaport.getSelectionModel().getSelectedItem().getId_pracownika();
+		//int b = 1;
 		for (int i = 0; i < resultList.size(); i++) {
 
-			table2.addCell(new Cell().add(i + 1 + ""));
-			table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
-			table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
-			table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
-
-			if (resultList.get(i).getData_ukon() != null) {
-				table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_ukon() + ""));
-			} else
-				table2.addCell(new Cell(1, 2).add("nie dotyczy"));
+		//	System.err.println(choiceBoxRaport.getSelectionModel().getSelectedItem().getId_pracownika() +","+ resultList.get(i).getPracownik().getId_pracownika());
+		
+		//	int a = choiceBoxRaport.getSelectionModel().getSelectedItem().getId_pracownika();
+			if(resultList.get(i).getPracownik()!=null)
+			{			
+				int b = resultList.get(i).getPracownik().getId_pracownika();
+			//System.out.println(a+","+b);
+		//	if(a == b)
+		//	{
+				if(a==b)
+				{
+				//	try {
+					table2.addCell(new Cell().add(i + 1 + ""));
+					table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
+					table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
+					table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
+		
+					if (resultList.get(i).getData_ukon() != null) 
+					{
+						table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_ukon() + ""));
+					} 
+					else
+					{					
+						table2.addCell(new Cell(1, 2).add("nie dotyczy"));
+					}
+				//	}
+				//	catch(Exception ms)
+				//	{
+					//	System.out.println(ms.getMessage());
+				//	}
+				}
+			}
 		}
+		
 
 		document.add(table2);
 
