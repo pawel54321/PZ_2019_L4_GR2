@@ -767,7 +767,7 @@ public class AdminViewController {
 			
 			if(flaga==true)
 			{
-				com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
+				com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", imiee);
 			}
 			else 
 			{

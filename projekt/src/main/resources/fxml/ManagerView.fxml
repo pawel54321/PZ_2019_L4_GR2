@@ -65,10 +65,44 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="76.0" layoutY="327.0" mnemonicParsing="false" onAction="#generateRaport1" text="Generuj raport dlla danego miesiaca" />
-                  <Button layoutX="298.0" layoutY="327.0" mnemonicParsing="false" onAction="#generateRaport2" text="Generuj raport dla danego pracownika" />
-                  <Button layoutX="546.0" layoutY="327.0" mnemonicParsing="false" onAction="#generateRaport3" text="Generuj raport dla ukonczonych zadan" />
-                  <ChoiceBox fx:id="choiceBoxRaport" layoutX="323.0" layoutY="261.0" prefWidth="150.0" />
+                  <Button fx:id="generujRaportButton" layoutX="520.0" layoutY="77.0" mnemonicParsing="false" onAction="#generateRaport1" prefHeight="27.0" prefWidth="219.0" text="Generuj raport" />
+                  <ChoiceBox fx:id="choiceBoxRaport1" layoutX="243.0" layoutY="204.0" prefHeight="31.0" prefWidth="228.0" />
+                  <Button layoutX="518.0" layoutY="205.0" mnemonicParsing="false" onAction="#generateRaport2" prefHeight="31.0" prefWidth="223.0" text="Generuj raport " />
+                  <Button layoutX="518.0" layoutY="322.0" mnemonicParsing="false" onAction="#generateRaport3" prefHeight="31.0" prefWidth="222.0" text="Generuj raport" />
+                  <Label layoutX="14.0" prefHeight="60.0" prefWidth="349.0" text="Raport dotyczacy wszystkich zadań w danym przedziale:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="130.0" prefHeight="60.0" prefWidth="349.0" text="Raport dotyczacy wszystkich zadań dla pracownika:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="84.0" layoutY="190.0" prefHeight="60.0" prefWidth="145.0" text="Wybierz pracownika:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="250.0" prefHeight="60.0" prefWidth="646.0" text="Raport dotyczacy zadań jakie zostały ukończone w aktualnym miesiącu dla wyszukanych pracowników:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="84.0" layoutY="63.0" prefHeight="60.0" prefWidth="145.0" text="Wybierz przedział:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="308.0" prefHeight="60.0" prefWidth="145.0" text="Wprowadź imię:" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="data1" layoutX="207.0" layoutY="77.0" prefHeight="31.0" prefWidth="134.0" />
+                  <DatePicker fx:id="data1drugi" layoutX="352.0" layoutY="78.0" prefHeight="31.0" prefWidth="149.0" />
+                  <Button layoutX="363.0" layoutY="322.0" mnemonicParsing="false" onAction="#wyszukajimiee" prefHeight="31.0" prefWidth="88.0" text="Wyszukaj" />
+                  <TextField fx:id="podajimiee" layoutX="164.0" layoutY="322.0" prefHeight="31.0" prefWidth="159.0" promptText="Imię" />
                </children>
             </AnchorPane>
          </content>

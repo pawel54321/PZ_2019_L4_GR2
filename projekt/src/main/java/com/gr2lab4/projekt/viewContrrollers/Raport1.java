@@ -123,14 +123,14 @@ public class Raport1 {
 		
 		
 		//print(LocalDate.of(a.getData_rozp().getYear(),a.getData_rozp().getMonth(),a.getData_rozp().getDay())+"");
-		
+		int mojid = 1;
 		for (int i = 0; i < lista.size(); i++) {
 
 			
 			
 			//if(data1.getValue() == LocalDate.of(resultList.get(i).getData_rozp().getYear(), resultList.get(i).getData_rozp().getMonth(), resultList.get(i).getData_rozp().getDay()) )
 			//{
-				table2.addCell(new Cell().add(i + 1 + ""));
+				table2.addCell(new Cell().add(mojid + ""));
 				table2.addCell(new Cell(1, 2).add(lista.get(i).getTytul() + ""));
 				table2.addCell(new Cell(1, 3).add(lista.get(i).getTresc() + ""));
 				table2.addCell(new Cell(1, 2).add(lista.get(i).getData_rozp() + ""));
@@ -140,7 +140,7 @@ public class Raport1 {
 				} else
 					table2.addCell(new Cell(1, 2).add("nie dotyczy"));
 			//}
-
+				mojid++;
 		}
 
 		document.add(table2);

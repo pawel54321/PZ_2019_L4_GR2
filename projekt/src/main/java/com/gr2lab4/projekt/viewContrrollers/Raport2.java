@@ -102,6 +102,7 @@ public class Raport2 {
 
 		int a = choiceBoxRaport.getSelectionModel().getSelectedItem().getId_pracownika();
 		//int b = 1;
+		int mojid = 1;
 		for (int i = 0; i < resultList.size(); i++) {
 
 		//	System.err.println(choiceBoxRaport.getSelectionModel().getSelectedItem().getId_pracownika() +","+ resultList.get(i).getPracownik().getId_pracownika());
@@ -116,7 +117,7 @@ public class Raport2 {
 				if(a==b)
 				{
 				//	try {
-					table2.addCell(new Cell().add(i + 1 + ""));
+					table2.addCell(new Cell().add(mojid + ""));
 					table2.addCell(new Cell(1, 2).add(resultList.get(i).getTytul() + ""));
 					table2.addCell(new Cell(1, 3).add(resultList.get(i).getTresc() + ""));
 					table2.addCell(new Cell(1, 2).add(resultList.get(i).getData_rozp() + ""));
@@ -129,6 +130,7 @@ public class Raport2 {
 					{					
 						table2.addCell(new Cell(1, 2).add("nie dotyczy"));
 					}
+					mojid++;
 				//	}
 				//	catch(Exception ms)
 				//	{

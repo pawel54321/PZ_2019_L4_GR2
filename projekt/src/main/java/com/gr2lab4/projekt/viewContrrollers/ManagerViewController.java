@@ -28,9 +28,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -60,6 +62,11 @@ public class ManagerViewController {
 	private ChoiceBox<Pracownik> comboBox;
 
 	// --- tabela zadan wykonanych
+	
+	
+	@FXML
+	private TextField podajimiee;
+	
 
 	@FXML
 	private TableView<Zadanie> tableViewWykonane;
@@ -87,6 +94,12 @@ public class ManagerViewController {
 	private ChoiceBox<Pracownik> choiceBoxRaport;
 	// --
 
+	@FXML
+	private DatePicker data1;
+	@FXML
+	private DatePicker data1drugi;
+	
+	
 	@FXML
 	private PasswordField noweHaslo1;
     
@@ -317,9 +330,24 @@ public class ManagerViewController {
 	 */
 	@FXML
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy
-		// System.out.println("raport1");
-		//com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf");
+																			// wszystkich zadan w danym miesiacu)
+//TODO:
+		 System.out.println("raport1");
+		
+		if (data1.getValue() != null && data1drugi.getValue() != null ) {
 
+			if(data1.getValue().isAfter(data1drugi.getValue()))// || data1drugi.getValue().isBefore(data1.getValue()) )
+			{
+				showAlertWithoutHeaderText("Niepoprawny przedział!");
+			}
+
+			else
+			{
+				com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf", data1, data1drugi);
+			}
+		} else {
+			showAlertWithoutHeaderText("Zaznacz date");
+		}
 	}
 
 	/**
@@ -329,14 +357,16 @@ public class ManagerViewController {
 	 */
 	@FXML
 	private void generateRaport2(ActionEvent event) { // raport na pracownika
-		// System.out.println("raport2");
-		//if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
+//TODO:
+		 System.out.println("raport2");
+		 
+		if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
 
-		//	com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
+			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
 
-		//} else {
-		//	showAlertWithoutHeaderText("Zaznacz pracownika");
-		//}
+		} else {
+			showAlertWithoutHeaderText("Zaznacz pracownika");
+		}
 	}
 
 	/**
@@ -347,9 +377,78 @@ public class ManagerViewController {
 	@FXML
 	private void generateRaport3(ActionEvent event) { // raport ukonczonych zadan w tym miesiacu (Raport dotyczacy zadan
 														// jakie zostaly ukonczone w danym miesiacu)
-		//System.out.println("raport3");
-		//com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf");
 
+		System.out.println("raport3");
+		String imiee = podajimiee.getText().toString();
+		
+		if (!imiee.isEmpty()) 
+		{
+			boolean flaga = false;
+			
+			for (Zadanie z : zadanieDAO.findAll()) {
+				if(z.getPracownik()!=null)
+				{				
+					if (z.getPracownik().getImie().equals(imiee)) {
+					flaga = true;
+					}
+				}
+			}
+			
+			if(flaga==true)
+			{
+				com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", imiee);
+			}
+			else 
+			{
+			showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
+			}
+		}
+		else
+		{
+			showAlertWithoutHeaderText("Nie podano imienia");
+		}
+		
+		//if (input.getValue() != null) {
+	//	com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", data2, data2drugi);
+	//} else {
+	//	showAlertWithoutHeaderText("Zaznacz date");
+	//}
+
+	}
+	@FXML
+	private void wyszukajimiee(ActionEvent event) {
+		
+		System.out.println("wyszukaj");
+		
+		String imiee = podajimiee.getText().toString();
+		
+		if (!imiee.isEmpty()) 
+		{
+			boolean flaga = false;
+			
+			for (Zadanie z : zadanieDAO.findAll()) {
+				if(z.getPracownik()!=null)
+				{				
+					if (z.getPracownik().getImie().equals(imiee)) {
+					flaga = true;
+					}
+				}
+			}
+			
+			if(flaga==true)
+			{
+			showAlertWithoutHeaderText("Znaleziono!");
+			}
+			else 
+			{
+			showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
+			}
+		}
+		else
+		{
+			showAlertWithoutHeaderText("Nie podano imienia");
+		}
+		
 	}
 	
     /**

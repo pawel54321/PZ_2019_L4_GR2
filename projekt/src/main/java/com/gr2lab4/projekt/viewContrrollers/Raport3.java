@@ -34,19 +34,19 @@ public class Raport3 {
 	// LoggerFactory.getLogger(PdfGenerateTest.class);
 	public static String RESULT;
 
-	public static void generatePDF(String filePathAndName) {
+	public static void generatePDF(String filePathAndName, String imiee) {
 		RESULT = filePathAndName;
 		File file = new File(RESULT);
 		file.getParentFile().mkdirs();
 		try {
-			createPdf(RESULT);
+			createPdf(RESULT, imiee);
 			Desktop.getDesktop().open(file);
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 	}
 
-	public static void createPdf(String filename) throws IOException {
+	public static void createPdf(String filename, String imiee) throws IOException {
 		List<Zadanie> resultList = MainApp.instance.zadanieDAO.findAll();
 		// Initialize PDF writer
 		PdfWriter writer = new PdfWriter(RESULT);
@@ -100,21 +100,43 @@ public class Raport3 {
 		table2.addCell(new Cell(1, 2).add("Data rozpoczecia").setBackgroundColor(Color.LIGHT_GRAY));
 		table2.addCell(new Cell(1, 2).add("Data zakonczenia").setBackgroundColor(Color.LIGHT_GRAY));
 
+		int mojid = 1;
 		for (int i = 0; i < resultList.size(); i++) {
 			if (resultList.get(i).getData_ukon() != null && resultList.get(i).getPracownik() !=null && resultList.get(i).getPracownik() != null) {
 
-				System.out.print(resultList.get(i).getData_ukon().getMonth() + ","
-						+ Calendar.getInstance().get(Calendar.MONTH) + "\n");
-
-				if (resultList.get(i).getData_ukon().getMonth() == Calendar.getInstance().get(Calendar.MONTH)) {
-					table2.addCell(new Cell().add(i + 1 + ""));
-					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getImie() + ""));
-					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getNazwisko() + ""));
-					table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getTytul() + ""));
-					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getTresc() + ""));
-					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_rozp() + ""));
-					table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_ukon() + ""));
-				}
+			//	System.out.print(resultList.get(i).getData_ukon().getMonth() + ","
+			//			+ Calendar.getInstance().get(Calendar.MONTH) + "\n");
+				
+				
+			//	for (Zadanie z : resultList) {
+				//	if(z.getPracownik()!=null)
+				//	{				
+						if (resultList.get(i).getPracownik().getImie().equals(imiee)) {
+						
+						//}
+					//}
+				//}	
+				
+							System.out.print(resultList.get(i).getData_ukon().getMonth() + ","
+									+ Calendar.getInstance().get(Calendar.MONTH) + "\n");
+				
+				
+				
+				//if(resultList.get(i).getPracownik().getImie())
+							if (resultList.get(i).getData_ukon().getMonth() == Calendar.getInstance().get(Calendar.MONTH)) {
+								table2.addCell(new Cell().add(mojid + ""));
+								table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getImie() + ""));
+								table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getPracownik().getNazwisko() + ""));
+								table2.addCell(new Cell(1, 1).add(MainApp.instance.appCfg.listaZadan.get(i).getTytul() + ""));
+								table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getTresc() + ""));
+								table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_rozp() + ""));
+								table2.addCell(new Cell(1, 2).add(MainApp.instance.appCfg.listaZadan.get(i).getData_ukon() + ""));
+								mojid++;
+							}
+				
+						}
+				//}
+			
 			}
 		}
 
