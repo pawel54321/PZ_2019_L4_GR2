@@ -47,13 +47,13 @@ public class ManagerViewController {
 
 	@FXML
 	private TableView<Zadanie> tablePrzypiszZadania;
-	
+
 	@FXML
 	private TableColumn<Zadanie, Integer> tablePrzypiszID;
-	
+
 	@FXML
 	private TableColumn<Zadanie, String> tablePrzypiszTytul;
-	
+
 	@FXML
 	private TableColumn<Zadanie, String> tablePrzypiszTresc;
 	// ---
@@ -62,11 +62,9 @@ public class ManagerViewController {
 	private ChoiceBox<Pracownik> comboBox;
 
 	// --- tabela zadan wykonanych
-	
-	
+
 	@FXML
 	private TextField podajimiee;
-	
 
 	@FXML
 	private TableView<Zadanie> tableViewWykonane;
@@ -91,40 +89,39 @@ public class ManagerViewController {
 
 	// ---
 	@FXML
-	private ChoiceBox<Pracownik> choiceBoxRaport;
+	private ChoiceBox<Pracownik> choiceBoxRaport1;
 	// --
 
 	@FXML
 	private DatePicker data1;
 	@FXML
 	private DatePicker data1drugi;
-	
-	
+
 	@FXML
 	private PasswordField noweHaslo1;
-    
+
 	@FXML
-    private PasswordField noweHaslo2;
-	
-    @FXML
-    private PasswordField stareHasllo;
-	//--
+	private PasswordField noweHaslo2;
+
+	@FXML
+	private PasswordField stareHasllo;
+	// --
 	// TABELKA ROZPISANE ZADANIA
 	@FXML
 	private TableView<Zadanie> tableRozpisaneZadania;
-	
+
 	@FXML
 	private TableColumn<Zadanie, Integer> tableRozpisaneID;
-	
+
 	@FXML
-	private TableColumn<Zadanie, String> tableRozpisaneTytul; 
-	
+	private TableColumn<Zadanie, String> tableRozpisaneTytul;
+
 	@FXML
 	private TableColumn<Zadanie, String> tableRozpisaneTresc;
-	
+
 	@FXML
 	private TableColumn<Zadanie, Date> tableRozpisaneDataDod;
-	
+
 	@FXML
 	private TableColumn<Zadanie, String> tableDataDodaniaPracownik;
 	private PracownikDAO pracownikDAO = new PracownikDAO();
@@ -143,16 +140,23 @@ public class ManagerViewController {
 
 		}
 		// pobranie pracownikow do combo boxa
-		for (Pracownik p : MainApp.instance.appCfg.pracownicy) {
-			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
-				comboBox.getItems().add(p);
+		try {
+			for (Pracownik p : MainApp.instance.pracownikDAO.findAll()) {
+				if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
+					comboBox.getItems().add(p);
+					choiceBoxRaport1.getItems().add(p);
+
+				}
 			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " choiceBoxRaport1");
 		}
+
 		// wczytanie danych do tabelki
 		refreshTablePrzypisz();
 		refreshTableWykonane();
 		refreshPrzypisaneZadania();
-		
+
 	}
 
 	/**
@@ -170,13 +174,14 @@ public class ManagerViewController {
 			tempZad.setStatus("aktywne");
 			tempPrac.addZadania(tempZad);
 			pracownikDAO.update(tempPrac);
-			
-			//MainApp.instance.appCfg.listaZadan = (ObservableList<Zadanie>) zadanieDAO.findAll();
+
+			// MainApp.instance.appCfg.listaZadan = (ObservableList<Zadanie>)
+			// zadanieDAO.findAll();
 
 			showAlertWithoutHeaderText("Zadanie przypisane poprawnie.");
 			refreshTablePrzypisz();
 			refreshPrzypisaneZadania();
-			
+
 		} catch (Exception e) {
 			showAlertWithoutHeaderText("Błąd podczas przypisania zadania.");
 			System.out.println(e.getMessage());
@@ -201,7 +206,7 @@ public class ManagerViewController {
 		MainApp.instance.appCfg.setUser(null);
 
 	}
-	
+
 	/**
 	 * Metoda zmieniajaca hasło uzytkownika w bazie danych.
 	 * 
@@ -209,27 +214,26 @@ public class ManagerViewController {
 	 */
 	@FXML
 	void onChangePasswd(ActionEvent e) {
-		
-		if(!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
-			if(stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())){
-				if(noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
+
+		if (!(stareHasllo.getText().isEmpty() && noweHaslo1.getText().isEmpty() && noweHaslo2.getText().isEmpty())) {
+			if (stareHasllo.getText().toString().equals(MainApp.instance.appCfg.user.getHaslo())) {
+				if (noweHaslo1.getText().toString().equals(noweHaslo2.getText().toString())) {
 					MainApp.instance.appCfg.user.setHaslo(noweHaslo1.getText());
 					pracownikDAO.update(MainApp.instance.appCfg.user);
 					showAlertWithoutHeaderText("Hasło zaktualizowane!");
 					stareHasllo.setText("");
 					noweHaslo1.setText("");
 					noweHaslo2.setText("");
-				}else {
+				} else {
 					showAlertWithoutHeaderText("Hasła nie są zgodne");
 				}
-			}else {
+			} else {
 				showAlertWithoutHeaderText("Wpisane stare hasło nie jest poprawne!");
 			}
-		}else {
+		} else {
 			showAlertWithoutHeaderText("Nie wpisales zadnego hasla!");
 		}
-		
-		
+
 	}
 
 	/**
@@ -253,12 +257,12 @@ public class ManagerViewController {
 		tablePrzypiszZadania.refresh();
 		tempList.clear();
 	}
-	
+
 	/**
 	 * Metoda odswieza dane w tabeli wykonanych zadan.
 	 */
 	private void refreshTableWykonane() {
-		
+
 		tableViewWykonane.getItems().clear();
 		columnIDWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 		columnTrescWykonane.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
@@ -278,23 +282,16 @@ public class ManagerViewController {
 		tableViewWykonane.getItems().setAll(tempList2);
 		tableViewWykonane.refresh();
 		tempList2.clear();
-		
-		
-		for (Pracownik p : pracownikDAO.findAll()) {
-			if (p.getStanowisko().equalsIgnoreCase("pracownik")) {
-				choiceBoxRaport.getItems().add(p);
-			}
-		}
-		
+
 	}
 
 	/**
-	 *metoda przypisuje zadania przypisane do tabeli 
+	 * metoda przypisuje zadania przypisane do tabeli
 	 */
 	private void refreshPrzypisaneZadania() {
 		try {
 			tableRozpisaneZadania.getItems().clear();
-			
+
 			tableRozpisaneID.setCellValueFactory(new PropertyValueFactory<Zadanie, Integer>("id"));
 			tableRozpisaneTytul.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tytul"));
 			tableRozpisaneTresc.setCellValueFactory(new PropertyValueFactory<Zadanie, String>("tresc"));
@@ -310,18 +307,17 @@ public class ManagerViewController {
 					tempList.add(z);
 				}
 			}
-			
+
 			tableRozpisaneZadania.getItems().setAll(tempList);
 			tableRozpisaneZadania.refresh();
-			
+
 			tempList.clear();
-			
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage() + " error wstawiania danych do tabeli1");
 		}
 	}
-	
+
 	/**
 	 * Metoda generujaca raport dla wszystkich zadan w danym miesiacu
 	 * 
@@ -332,17 +328,16 @@ public class ManagerViewController {
 	private void generateRaport1(ActionEvent event) throws IOException { // raport za miesiac (Raport dotyczacy
 																			// wszystkich zadan w danym miesiacu)
 //TODO:
-		 System.out.println("raport1");
-		
-		if (data1.getValue() != null && data1drugi.getValue() != null ) {
+		System.out.println("raport1");
 
-			if(data1.getValue().isAfter(data1drugi.getValue()))// || data1drugi.getValue().isBefore(data1.getValue()) )
+		if (data1.getValue() != null && data1drugi.getValue() != null) {
+
+			if (data1.getValue().isAfter(data1drugi.getValue()))// || data1drugi.getValue().isBefore(data1.getValue()) )
 			{
 				showAlertWithoutHeaderText("Niepoprawny przedział!");
 			}
 
-			else
-			{
+			else {
 				com.gr2lab4.projekt.viewContrrollers.Raport1.generatePDF("results/Raport1.pdf", data1, data1drugi);
 			}
 		} else {
@@ -358,11 +353,11 @@ public class ManagerViewController {
 	@FXML
 	private void generateRaport2(ActionEvent event) { // raport na pracownika
 //TODO:
-		 System.out.println("raport2");
-		 
-		if (!choiceBoxRaport.getSelectionModel().isEmpty()) {
+		System.out.println("raport2");
 
-			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf",choiceBoxRaport);
+		if (!choiceBoxRaport1.getSelectionModel().isEmpty()) {
+
+			com.gr2lab4.projekt.viewContrrollers.Raport2.generatePDF("results/Raport2.pdf", choiceBoxRaport1);
 
 		} else {
 			showAlertWithoutHeaderText("Zaznacz pracownika");
@@ -380,81 +375,70 @@ public class ManagerViewController {
 
 		System.out.println("raport3");
 		String imiee = podajimiee.getText().toString();
-		
-		if (!imiee.isEmpty()) 
-		{
+
+		if (!imiee.isEmpty()) {
 			boolean flaga = false;
-			
+
 			for (Zadanie z : zadanieDAO.findAll()) {
-				if(z.getPracownik()!=null)
-				{				
+				if (z.getPracownik() != null) {
 					if (z.getPracownik().getImie().equals(imiee)) {
-					flaga = true;
+						flaga = true;
 					}
 				}
 			}
-			
-			if(flaga==true)
-			{
+
+			if (flaga == true) {
 				com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", imiee);
+			} else {
+				showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
 			}
-			else 
-			{
-			showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
-			}
-		}
-		else
-		{
+		} else {
 			showAlertWithoutHeaderText("Nie podano imienia");
 		}
-		
-		//if (input.getValue() != null) {
-	//	com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf", data2, data2drugi);
-	//} else {
-	//	showAlertWithoutHeaderText("Zaznacz date");
-	//}
+
+		// if (input.getValue() != null) {
+		// com.gr2lab4.projekt.viewContrrollers.Raport3.generatePDF("results/Raport3.pdf",
+		// data2, data2drugi);
+		// } else {
+		// showAlertWithoutHeaderText("Zaznacz date");
+		// }
 
 	}
+
 	@FXML
 	private void wyszukajimiee(ActionEvent event) {
-		
+
 		System.out.println("wyszukaj");
-		
+
 		String imiee = podajimiee.getText().toString();
-		
-		if (!imiee.isEmpty()) 
-		{
+
+		if (!imiee.isEmpty()) {
 			boolean flaga = false;
-			
+
 			for (Zadanie z : zadanieDAO.findAll()) {
-				if(z.getPracownik()!=null)
-				{				
+				if (z.getPracownik() != null) {
 					if (z.getPracownik().getImie().equals(imiee)) {
-					flaga = true;
+						flaga = true;
 					}
 				}
 			}
-			
-			if(flaga==true)
-			{
-			showAlertWithoutHeaderText("Znaleziono!");
+
+			if (flaga == true) {
+				showAlertWithoutHeaderText("Znaleziono!");
+			} else {
+				showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
 			}
-			else 
-			{
-			showAlertWithoutHeaderText("Nie znaleziono żadnego pracownika");
-			}
-		}
-		else
-		{
+		} else {
 			showAlertWithoutHeaderText("Nie podano imienia");
 		}
-		
+
 	}
-	
-    /**
-     * Metoda wyświetlająca nam komunikat.
-     * @param text wartość wyświetlana w komunikacie.
-     */
+
+	/**
+	 * Metoda wyświetlająca nam komunikat.
+	 * 
+	 * @param text wartość wyświetlana w komunikacie.
+	 */
 	private void showAlertWithoutHeaderText(String text) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Alert");
